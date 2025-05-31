@@ -1,6 +1,5 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import translate from "../../locale/translate";
-
-// images
 import mainLogo from "../../assets/images/logo/main-logo.png"
 import SearchBox from "../search/SearchBox";
 import Button from "../button/Button";
@@ -8,6 +7,15 @@ import Banner from "./Banner";
 import Navbar from "./Navbar";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const openAuth = () => {
+    const params = new URLSearchParams(location.search);
+    params.set("auth", "true");
+    navigate({ search: params.toString() });
+  };
+
   return (
     <div className="flex flex-col mt-4 w-full px-4 bg-white rounded-[20px]">
       {/* desktop */}
@@ -25,7 +33,7 @@ export default function Header() {
         </div>
 
         <div>
-          <Button size="small" color="blue">
+          <Button size="small" color="blue" onClick={openAuth}>
             {translate.loginOrSignup}
           </Button>
         </div>
@@ -43,14 +51,12 @@ export default function Header() {
           </div>
 
           <div>
-            <Button size="small" color="blue">
+            <Button size="small" color="blue" onClick={openAuth}>
               {translate.loginOrSignup}
             </Button>
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }

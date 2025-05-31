@@ -10,6 +10,7 @@ export default function Input({
     onBlur,
     error,
     containerClassName = "",
+    inputClassName = "",
     borderColor = "border border-black",
     icon,
     ...rest
@@ -38,12 +39,12 @@ export default function Input({
                     placeholder={placeholder}
                     {...rest}
                     className={`w-full placeholder-[#575757 text-[20px] font leading-[1.2] py-[15px] pl-[45px] pr-[15px] rounded-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500
-                    ${error ? 'border-red-500 border' : borderColor}`}
+                    ${error ? 'border-red-500 border' : borderColor} ${inputClassName}`}
                 />
             </div>
 
             {error && (
-                <p className="font-medium text-[#EA4235] text-[15px] leading-[1.2] flex">
+                <p className="font-medium text-[#EA4235] text-[12px] leading-[1.2] flex">
                     <HiExclamationCircle className="ml-1" />
                     {error}
                 </p>

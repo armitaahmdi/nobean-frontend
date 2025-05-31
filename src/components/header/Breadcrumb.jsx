@@ -7,7 +7,7 @@ export default function Breadcrumb() {
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
-    <nav className="text-sm text-gray-600 my-4 px-4">
+    <nav className="text-xs text-gray-600 my-4 px-4">
       <ol className="list-reset flex flex-wrap items-center gap-1">
         <li>
           <Link to="/" className="text-blue-600 hover:underline">صفحه اصلی</Link>
