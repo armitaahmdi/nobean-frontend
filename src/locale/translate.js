@@ -47,7 +47,15 @@ const translate = {
     otp: "کد تایید را وارد کنید.",
     editNumber: "ویرایش شماره",
     sendagainotp: "دریافت مجدد کد از طریق پیامک",
-    returntomainpage: "بازگشت به صفحه اصلی"
+    returntomainpage: "بازگشت به صفحه اصلی",
+    participants: "شرکت کننده",
+    question: "سوال",
+    startfree: "شروع رایگان",
+    previous: "قبلی",
+    next: "بعدی",
+    filter: "فیلتر",
+    confirmAndClose: "تأیید و بستن",
+    deletefilters: "حذف همه فیلترها",
 }
 
 export default translate
