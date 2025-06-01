@@ -9,42 +9,26 @@ export default function IntroCard({ title, description, image, category, tests }
     return (
         <>
             <div className="flex flex-col md:flex-row gap-4 items-start w-full">
-                {/* <div className="bg-white flex w-full rounded-[20px] py-3 px-5 gap-x-5">
-                    <div className="w-[170px] h-[150px] bg-[#134797] rounded-[20px] flex justify-center items-center">
-                        <img src={mainLogo} alt={translate.altdescription} />
-                    </div>
-
-                    <div className="flex flex-col gap-y-6">
-                        <div className="flex items-center gap-x-2">
-                            <img src={image} alt={title} className="w-16 h-16 rounded-full" />
-                            <h2 className="text-xl font-bold">{title}</h2>
-                        </div>
-
-                        <p className="text-sm mr-6">{description}</p>
-
-                        <p className="text-sm text-[#8A8A8A] mr-6">{category}</p>
-                    </div>
-                </div> */}
-                <div className="flex flex-col md:flex-row gap-4 items-start w-full">
-                    <div className="bg-white flex flex-col sm:flex-row w-full rounded-[20px] py-3 px-5 gap-4 sm:gap-x-5">
-                        {/* لوگو */}
-                        <div className="w-full sm:w-[170px] h-[150px] bg-[#134797] rounded-[20px] flex justify-center items-center shrink-0">
+                <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
+                    <div className="bg-white flex flex-col lg:flex-row w-full rounded-[24px] p-6 sm:p-8 gap-6">
+                        <div className="w-full lg:w-[170px] h-[150px] bg-[#134797] rounded-[20px] flex justify-center items-center shrink-0">
                             <img src={mainLogo} alt={translate.altdescription} className="w-[90px] h-auto" />
                         </div>
 
-                        {/* متن و تصویر پروفایل */}
-                        <div className="flex flex-col gap-y-4 sm:gap-y-6">
-                            <div className="flex items-center gap-x-2 mt-2 sm:mt-0">
-                                <img src={image} alt={title} className="w-16 h-16 rounded-full" />
-                                <h2 className="text-xl font-bold">{title}</h2>
+                        <div className="flex flex-col gap-y-5 sm:gap-y-6 flex-1">
+                            <div className="flex items-center gap-x-3">
+                                <img src={image} alt={title} className="w-16 h-16 rounded-full object-cover" />
+                                <h2 className="text-xl font-bold text-[#1a1a1a]">{title}</h2>
                             </div>
 
-                            <p className="text-sm mr-0 sm:mr-6">{description}</p>
-                            <p className="text-sm text-[#8A8A8A] mr-0 sm:mr-6">{category}</p>
+                            <p className="text-sm text-gray-700 leading-relaxed text-justify max-w-3xl">
+                                {description}
+                            </p>
+
+                            <p className="text-sm text-gray-500">{category}</p>
                         </div>
                     </div>
                 </div>
-
 
                 <div className="bg-transparent p-2 flex flex-col gap-2 items-center w-full md:items-start md:w-fit">
                     <Button size="xlarge" color="blue">

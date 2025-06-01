@@ -67,7 +67,7 @@ export default function DetailsRowCards({ tests }) {
             {/* Start Button */}
             <div className="bg-white rounded-[20px] p-4 flex flex-col items-center justify-center min-w-[180px]">
                 <h2 className="text-gray-900 text-xl font-bold mb-4">{tests.title}</h2>
-                
+
                 <Button size="xlarge" color="blue"> {translate.startfree}</Button>
                 <button className="font-bold  text-darkYellow underline hover:text-blue-800 cursor-pointer mt-4">
                     ثبت نظر
@@ -76,6 +76,3 @@ export default function DetailsRowCards({ tests }) {
         </div>
     );
 }
-
-
-
