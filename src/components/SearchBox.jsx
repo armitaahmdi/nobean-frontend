@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Input from "../input/Input";
+import Input from "./Input";
 import { HiSearch } from "react-icons/hi";
 
 export default function SearchBox({

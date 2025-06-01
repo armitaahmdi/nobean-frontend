@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import translate from "../../locale/translate";
 import mainLogo from "../../assets/images/logo/main-logo.png"
-import SearchBox from "../search/SearchBox";
-import Button from "../button/Button";
+import SearchBox from "../SearchBox";
+import Button from "../Button";
 import Banner from "./Banner";
 import Navbar from "./Navbar";
 

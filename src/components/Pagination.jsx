@@ -1,4 +1,4 @@
-import translate from "../../locale/translate";
+import translate from "../locale/translate";
 
 export default function Pagination({ currentPage, totalPages, onPageChange }) {
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);

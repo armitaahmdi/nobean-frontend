@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "../../components/input/Input";
-import Button from "../../components/button/Button";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 import mainLogo from "../../assets/images/logo/main-logo.png";
 import translate from "../../locale/translate";
 

@@ -5,7 +5,7 @@ import HelmetSeo from "../helper/helmet";
 import translate from "../locale/translate"
 import FiltersPanel from "../features/tests/FiltersPanel";
 import usePagination from "../hooks/usePagination";
-import Pagination from "../components/pagination/Pagination";
+import Pagination from "../components/Pagination";
 import { applyFilters } from "../helper/applyFilters";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTests } from "../features/tests/testsSlice";

@@ -1,6 +1,6 @@
 import mainLogo from "../../assets/images/logo/main-logo.png";
 import translate from "../../locale/translate";
-import Button from "../button/Button";
+import Button from "../Button";
 import { HiVideoCamera } from "react-icons/hi2";
 import { HiDocumentDuplicate } from "react-icons/hi2";
 import DetailsRowCards from "./DetailsRowCards";

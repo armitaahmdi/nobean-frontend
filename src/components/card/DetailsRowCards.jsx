@@ -4,7 +4,7 @@ import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
 import { HiMiniSparkles } from "react-icons/hi2";
 import { HiOutlineListBullet } from "react-icons/hi2";
 import translate from "../../locale/translate";
-import Button from "../button/Button";
+import Button from "../Button";
 
 export default function DetailsRowCards({ tests }) {
     return (

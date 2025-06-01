@@ -2,7 +2,7 @@ import { HiClock } from "react-icons/hi2";
 import { HiOutlineHashtag } from "react-icons/hi";
 import { HiOutlineListBullet } from "react-icons/hi2";
 import translate from "../../locale/translate";
-import Button from "../../components/button/Button"
+import Button from "../../components/Button"
 import { Link } from "react-router-dom";
 
 const badgeColors = {
