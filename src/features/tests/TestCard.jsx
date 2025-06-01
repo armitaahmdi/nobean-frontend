@@ -3,6 +3,7 @@ import { HiOutlineHashtag } from "react-icons/hi";
 import { HiOutlineListBullet } from "react-icons/hi2";
 import translate from "../../locale/translate";
 import Button from "../../components/button/Button"
+import { Link } from "react-router-dom";
 
 const badgeColors = {
     "ویژه والدین و فرزندان": "#FDC730",
@@ -32,9 +33,11 @@ export default function TestCard({ test }) {
                     <span className="flex items-center gap-1"> <HiOutlineListBullet className="text-lightYellow w-5 h-5" /> {test.questionsCount} {translate.question} </span>
                 </div>
 
-                <Button color="blue" size="small">
-                    {translate.startfree}
-                </Button>
+                <Link to={`/tests/${test.id}`}>
+                    <Button color="blue" size="small">
+                        {translate.startfree}
+                    </Button>
+                </Link>
             </div>
         </div>
 

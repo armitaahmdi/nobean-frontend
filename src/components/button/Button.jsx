@@ -2,6 +2,7 @@ const SIZES = {
   small: 'w-[110px] h-[48px] rounded-[10px] py-[12px] text-[16px] leading-[1.2] tracking-[-0.02em] text-center align-middle font-bold',
   medium: 'w-[130px] h-[48px] rounded-[10px] py-[12px] text-[18px] leading-[1.2] tracking-[-0.02em] text-center align-middle font-bold',
   large: 'w-[250px] h-[48px] rounded-[10px] py-[12px] text-[18px] gap-[10px] leading-[1.2] tracking-[-0.02em] text-center align-middle font-bold',
+  xlarge: 'w-[200px] h-[60px] rounded-[10px] py-[12px] text-[18px] gap-[10px] leading-[1.2] tracking-[-0.02em] text-center align-middle font-bold',
 };
 
 const COLORS = {

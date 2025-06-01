@@ -56,6 +56,14 @@ const translate = {
     filter: "فیلتر",
     confirmAndClose: "تأیید و بستن",
     deletefilters: "حذف همه فیلترها",
+    resumeSample: "نمونه کارنامه",
+    courseSample: "نمونه دوره مهارت",
+    suitablefor: "مناسب برای",
+    numberofdone: "تعداد انجام",
+    rating: "امتیاز",
+    comments: "نظرات",
+    duration: "زمان انجام ",
+    numberofquestion: "تعداد سوالات"
 }
 
 export default translate
