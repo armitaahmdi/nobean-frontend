@@ -63,7 +63,10 @@ const translate = {
     rating: "امتیاز",
     comments: "نظرات",
     duration: "زمان انجام ",
-    numberofquestion: "تعداد سوالات"
+    numberofquestion: "تعداد سوالات",
+    nocontent: "محتوایی برای این بخش ثبت نشده است.",
+    unsupportedvideo: "مرورگر شما از ویدیو پشتیبانی نمی‌کند.",
+    testexplnation: "توضیحات آزمون"
 }
 
 export default translate

@@ -5,7 +5,7 @@ import { HiVideoCamera } from "react-icons/hi2";
 import { HiDocumentDuplicate } from "react-icons/hi2";
 import DetailsRowCards from "./DetailsRowCards";
 
-export default function IntroCard({ title, description, image, category, tests }) {
+export default function IntroCard({ title, description, image, category, tests, onGoToReviews }) {
     return (
         <>
             <div className="flex flex-col md:flex-row gap-4 items-start w-full">
@@ -42,7 +42,7 @@ export default function IntroCard({ title, description, image, category, tests }
                 </div>
             </div>
 
-            <DetailsRowCards tests={tests} />
+            <DetailsRowCards tests={tests} onGoToReviews={onGoToReviews} />
         </>
     );
 }
