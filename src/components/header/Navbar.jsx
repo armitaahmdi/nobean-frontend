@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { menuItems } from "../../constants/menuItems";
+// import { menuItems } from "../../constants/menuItems";
 import NavDropdown from "./NavDropdown";
 import MobileDropdown from "./MobileDropdown";
 import { HiMenu, HiX } from "react-icons/hi";
 import mainLogo from "../../assets/images/logo/main-logo.png";
 import translate from "../../locale/translate";
+import { useMenuItems } from "../../hooks/useMenuItems";
 
 export default function Navbar() {
+    const menuItems = useMenuItems();
     const [mobileOpen, setMobileOpen] = useState(false);
 
     function handleKeyDown(e) {
@@ -92,8 +94,6 @@ export default function Navbar() {
                     ))}
                 </ul>
             </div>
-
-
         </nav>
     );
 }

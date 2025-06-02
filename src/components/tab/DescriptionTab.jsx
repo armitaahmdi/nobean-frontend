@@ -10,13 +10,15 @@ export default function DescriptionTab({ description, video }) {
                 </p>
             </div>
 
-            <div className="w-full md:w-auto md:max-w-xs">
-                <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
-                    <video controls className="w-full h-auto" src={video}>
-                        {translate.unsupportedvideo}
-                    </video>
+            {video && (
+                <div className="w-full md:w-auto md:max-w-xs">
+                    <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
+                        <video controls className="w-full h-auto" src={video}>
+                            {translate.unsupportedvideo}
+                        </video>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
 
     );
