@@ -4,6 +4,7 @@ import { HiOutlineListBullet } from "react-icons/hi2";
 import translate from "../../locale/translate";
 import Button from "../../components/Button"
 import { Link } from "react-router-dom";
+import { getShortenText } from "../../helper/helperFunction";
 
 const badgeColors = {
     "ویژه والدین و فرزندان": "#FDC730",
@@ -15,7 +16,7 @@ export default function TestCard({ test }) {
     const badgeBgColor = badgeColors[test.badge] || "gray";
 
     return (
-        <div className="relative w-full h-auto flex flex-col justify-center items-center bg-[#ECF3FE] rounded-[20px] shadow-md overflow-hidden">
+        <div className="relative w-full py-6 h-auto flex flex-col justify-center items-center bg-[#ECF3FE] rounded-[20px] shadow-md overflow-hidden">
             <div style={{ backgroundColor: badgeBgColor }}
                 className="absolute top-3 left-7 rounded-[10px] text-xs py-2 px-3">
                 {test.badge}
@@ -25,7 +26,7 @@ export default function TestCard({ test }) {
 
             <div className="p-4 flex flex-col justify-center items-center gap-2 text-center">
                 <h3 className="text-[18px] font-bold">{test.title}</h3>
-                <p className="text-[15px]">{test.description}</p>
+                <p className="text-[15px]">{getShortenText(test.description)}</p>
 
                 <div className="flex flex-wrap justify-center text-xs my-4 gap-4 sm:gap-6">
                     <span className="flex items-center gap-1"> <HiClock className="text-lightYellow w-5 h-5" />'{test.time}</span>

@@ -1,11 +1,10 @@
-import commonFilters from "../../constants/filterConfigs";
 import FilterGroup from "../../components/filter/FilterGroup";
 
 export default function FiltersPanel({
+  config,
   selectedFilters,
   setSelectedFilters,
 }) {
-  const config = commonFilters;
 
   return (
     <FilterGroup

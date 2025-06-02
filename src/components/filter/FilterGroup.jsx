@@ -1,19 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import FilterBox from "./FilterBox";
-import FilterModalMobile from "./FilterModalMobile"; // ایمپورت کامپوننت جدید
+import FilterModalMobile from "./FilterModalMobile";
 import translate from "../../locale/translate";
 import { IoFilter } from "react-icons/io5";
 
 export default function FilterGroup({ config, selectedFilters, setSelectedFilters }) {
     const [activeFilterKey, setActiveFilterKey] = useState(null);
-
-    const getTitle = (key) => {
-        if (key === "badges") return "نوع آزمون";
-        if (key === "sortOptions") return "مرتب‌سازی بر اساس";
-        if (key === "categories") return "دسته‌بندی آزمون";
-        return key;
-    };
 
     const hasActiveFilters = Object.values(selectedFilters).some((val) => {
         if (Array.isArray(val)) return val.length > 0;
@@ -29,6 +21,7 @@ export default function FilterGroup({ config, selectedFilters, setSelectedFilter
         setActiveFilterKey(null);
     };
 
+
     return (
         <>
             {/* mobile */}
@@ -43,13 +36,13 @@ export default function FilterGroup({ config, selectedFilters, setSelectedFilter
                     {hasActiveFilters ? "حذف فیلتر" : translate.filter}
                 </span>
 
-                {Object.entries(config).map(([key, options]) => (
+                {Object.entries(config).map(([key, { title }]) => (
                     <button
                         key={key}
                         onClick={() => setActiveFilterKey(key)}
                         className="text-right bg-white p-4 rounded-[20px] border shrink-0 whitespace-nowrap"
                     >
-                        {getTitle(key)}
+                        {title}
                     </button>
                 ))}
             </div>
@@ -57,10 +50,10 @@ export default function FilterGroup({ config, selectedFilters, setSelectedFilter
             {/* modal*/}
             {activeFilterKey && (
                 <FilterModalMobile
-                    title={getTitle(activeFilterKey)}
-                    options={config[activeFilterKey]}
+                    title={config[activeFilterKey].title}
+                    options={config[activeFilterKey].options}
                     selected={selectedFilters[activeFilterKey]}
-                    isMultiSelect={Array.isArray(selectedFilters[activeFilterKey])}
+                    isMultiSelect={config[activeFilterKey].multiple}
                     onChange={(newVal) =>
                         setSelectedFilters((prev) => ({
                             ...prev,
@@ -83,11 +76,12 @@ export default function FilterGroup({ config, selectedFilters, setSelectedFilter
                         </button>
                     </div>
                 )}
-                {Object.entries(config).map(([key, options]) => (
+                {Object.entries(config).map(([key, { title, options, multiple }]) => (
                     <div className="mb-4" key={key}>
                         <FilterBox
-                            title={getTitle(key)}
+                            title={title}
                             options={options}
+                            multiple={multiple}
                             selectedOption={selectedFilters[key]}
                             onSelect={(val) =>
                                 setSelectedFilters((prev) => ({

@@ -8,8 +8,20 @@ import Podcasts from "./pages/Podcasts";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import TestDetails from "./pages/TestDetails";
+import CourseDetails from "./pages/CourseDetails";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchTests } from "./features/tests/testsSlice";
+import { fetchCourses } from "./features/courses/coursesSlice";
 
 export default function App() {
+  // dispatch tests for navbar
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTests());
+    dispatch(fetchCourses())
+  }, [dispatch]);
+
   return (
     <Layout>
       <Routes>
@@ -17,6 +29,7 @@ export default function App() {
         <Route path="/tests" element={<Tests />} />
         <Route path="/tests/:id" element={<TestDetails />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/articles" element={<Article />} />
         <Route path="/podcasts" element={<Podcasts />} />
         <Route path="/services" element={<Services />} />

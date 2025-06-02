@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
-import { useMemo } from "react";
+// import { useMemo } from "react";
 
 export const useMenuItems = () => {
     const { tests = [] } = useSelector((store) => store.tests);
+    const { courses = [] } = useSelector((store) => store.courses)
 
     const buildSubmenu = (items = [], baseLink) =>
         items.map(item => ({
@@ -10,7 +11,7 @@ export const useMenuItems = () => {
             link: `${baseLink}/${item.id}`,
         }));
 
-    const menuItems = useMemo(() => [
+    const menuItems = [
         { name: "صفحه اصلی", link: "/" },
         {
             name: "آزمون‌ها",
@@ -20,7 +21,7 @@ export const useMenuItems = () => {
         {
             name: "دوره‌های توسعه فردی",
             link: "/courses",
-            // submenu: buildSubmenu(courses, "/courses"),
+            submenu: buildSubmenu(courses, "/courses"),
         },
         {
             name: "مقالات",
@@ -37,7 +38,7 @@ export const useMenuItems = () => {
             link: "/services",
         },
         { name: "ارتباط با ما", link: "/contact" },
-    ], [tests]);
+    ];
 
     return menuItems;
 };

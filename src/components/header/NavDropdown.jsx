@@ -48,10 +48,6 @@ function NavDropdown({ label, link, submenu }) {
                         `font-bold px-3 py-2 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isActive ? "text-blue-600" : ""
                         }`
                     }
-                    onClick={(e) => {
-                        e.preventDefault()
-                        setOpen(!open);
-                    }}
                     onKeyDown={handleKeyDown}
                 >
                     {label}
@@ -63,9 +59,12 @@ function NavDropdown({ label, link, submenu }) {
                     aria-haspopup="true"
                     aria-expanded={open}
                     className="focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    aria-label={open ? "Close submenu" : "Open submenu"}
+                    aria-label={open ? "بستن زیرمنو" : "باز کردن زیرمنو"}
                 >
-                    <HiChevronDown className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+                    <HiChevronDown
+                        className={`transition-transform duration-300 ${open ? "rotate-180" : ""
+                            }`}
+                    />
                 </button>
             </div>
 
@@ -84,8 +83,8 @@ function NavDropdown({ label, link, submenu }) {
                             tabIndex={open ? 0 : -1}
                             onClick={() => setOpen(false)}
                             className={({ isActive }) =>
-                                `block px-4 py-2 rounded hover:bg-gray-100 focus:outline-none focus:bg-gray-200
-                                ${isActive ? "font-bold text-blue-600" : "text-gray-800"}`
+                                `block px-4 py-2 rounded hover:bg-gray-100 focus:outline-none focus:bg-gray-200 ${isActive ? "font-bold text-blue-600" : "text-gray-800"
+                                }`
                             }
                         >
                             {item.name}

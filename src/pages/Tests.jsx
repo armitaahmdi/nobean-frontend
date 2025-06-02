@@ -9,6 +9,8 @@ import Pagination from "../components/Pagination";
 import { applyFilters } from "../helper/applyFilters";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTests } from "../features/tests/testsSlice";
+import { testsFilterConfig } from "../components/filter/filterConfig";
+import { getInitialSelectedFilters } from "../helper/helperFunction";
 
 export default function Tests() {
   const dispatch = useDispatch();
@@ -19,11 +21,9 @@ export default function Tests() {
     dispatch(fetchTests())
   }, [])
 
-  const [selectedFilters, setSelectedFilters] = useState({
-    badges: "",
-    categories: "",
-    sortOptions: "",
-  });
+  const [selectedFilters, setSelectedFilters] = useState(
+    getInitialSelectedFilters(testsFilterConfig)
+  );
 
   const filteredExams = applyFilters(tests, selectedFilters);
 
@@ -40,6 +40,7 @@ export default function Tests() {
       <div className="flex flex-col lg:flex-row gap-6 p-4">
         <div className="lg:w-1/4 w-full">
           <FiltersPanel
+            config={testsFilterConfig}
             selectedFilters={selectedFilters}
             setSelectedFilters={setSelectedFilters}
           />
