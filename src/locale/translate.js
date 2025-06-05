@@ -66,7 +66,8 @@ const translate = {
     numberofquestion: "تعداد سوالات",
     nocontent: "محتوایی برای این بخش ثبت نشده است.",
     unsupportedvideo: "مرورگر شما از ویدیو پشتیبانی نمی‌کند.",
-    testexplnation: "توضیحات آزمون"
+    testexplnation: "توضیحات آزمون",
+    minutes: "دقیقه"
 }
 
 export default translate

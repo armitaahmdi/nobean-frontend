@@ -13,13 +13,16 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchTests } from "./features/tests/testsSlice";
 import { fetchCourses } from "./features/courses/coursesSlice";
+import { fetchArticles } from "./features/articles/articlesSlice";
+import ArticleDetail from "./pages/ArticleDetail";
 
 export default function App() {
   // dispatch tests for navbar
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTests());
-    dispatch(fetchCourses())
+    dispatch(fetchCourses());
+    dispatch(fetchArticles())
   }, [dispatch]);
 
   return (
@@ -31,6 +34,7 @@ export default function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/articles" element={<Article />} />
+        <Route path="/articles/:id" element={<ArticleDetail />} />
         <Route path="/podcasts" element={<Podcasts />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />

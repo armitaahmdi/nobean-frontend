@@ -27,3 +27,14 @@ export const coursesFilterConfig = {
         options: ["خانواده", "سبک زندگی", "شخصیت شتاسی", "اضطراب", "اختلالات رفتاری"],
     },
 };
+
+export const articlesFilterConfig = {
+    badges: {
+        title: "نوع مقاله",
+        options: ["ویژه والدین و فرزندان", "ویژه فرزندان", "ویژه والدین"],
+    },
+    categories: {
+        title: "دسته‌بندی مقاله",
+        options: ["تحصیل", "هوش", "مهارت", "تربیت", "روانشناسی"],
+    },
+}

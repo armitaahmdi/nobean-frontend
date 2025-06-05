@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-// import { useMemo } from "react";
 
 export const useMenuItems = () => {
     const { tests = [] } = useSelector((store) => store.tests);
-    const { courses = [] } = useSelector((store) => store.courses)
+    const { courses = [] } = useSelector((store) => store.courses);
+    const { articles = [] } = useSelector((store) => store.articles)
 
     const buildSubmenu = (items = [], baseLink) =>
         items.map(item => ({
@@ -26,7 +26,7 @@ export const useMenuItems = () => {
         {
             name: "مقالات",
             link: "/articles",
-            // submenu: buildSubmenu(articles, "/articles"),
+            submenu: buildSubmenu(articles, "/articles"),
         },
         {
             name: "پادکست",
