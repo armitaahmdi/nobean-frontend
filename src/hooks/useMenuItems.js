@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 export const useMenuItems = () => {
     const { tests = [] } = useSelector((store) => store.tests);
     const { courses = [] } = useSelector((store) => store.courses);
-    const { articles = [] } = useSelector((store) => store.articles)
+    const { articles = [] } = useSelector((store) => store.articles);
+    const { podcasts = [] } = useSelector((store) => store.podcasts)
 
     const buildSubmenu = (items = [], baseLink) =>
         items.map(item => ({
@@ -31,7 +32,7 @@ export const useMenuItems = () => {
         {
             name: "پادکست",
             link: "/podcasts",
-            // submenu: buildSubmenu(podcasts, "/podcasts"),
+            submenu: buildSubmenu(podcasts, "/podcasts"),
         },
         {
             name: "خدمات‌سازمانی",

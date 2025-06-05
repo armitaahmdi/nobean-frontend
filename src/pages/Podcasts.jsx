@@ -1,13 +1,33 @@
-import HelmetSeo from "../helper/helmet";
+import { useDispatch, useSelector } from "react-redux";
+import FilterablePaginatedList from "../components/FilterablePaginatedList";
 import translate from "../locale/translate";
+import { fetchPodcasts } from "../features/podcasts/podcastsSlice";
+import { podcastsFilterConfig } from "../components/filter/filterConfig";
+import PodcastsList from "../features/podcasts/PodcastsList";
 
 export default function Podcasts() {
-  const { title, description, keywords } = translate.podcasts;
+  const dispatch = useDispatch();
+  const { podcasts, loading, error } = useSelector((store) => store.podcasts);
 
   return (
     <>
-      <HelmetSeo title={title} description={description} keywords={keywords} />
-      <div>پادکست</div>
+      <FilterablePaginatedList
+        fetchAction={fetchPodcasts}
+        items={podcasts}
+        loading={loading}
+        error={error}
+        config={podcastsFilterConfig}
+        ListComponent={({ data, selectedFilters }) => (
+          <PodcastsList
+            podcasts={data}
+            selectedSort={selectedFilters.sortOptions}
+            selectedCategory={selectedFilters.categories}
+            selectedBadge={selectedFilters.badge}
+          />
+        )}
+        seo={translate.podcasts}
+        filtersProps={{ dispatch }} u
+      />
     </>
   )
 }

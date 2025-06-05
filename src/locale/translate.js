@@ -67,7 +67,9 @@ const translate = {
     nocontent: "محتوایی برای این بخش ثبت نشده است.",
     unsupportedvideo: "مرورگر شما از ویدیو پشتیبانی نمی‌کند.",
     testexplnation: "توضیحات آزمون",
-    minutes: "دقیقه"
+    minutes: "دقیقه",
+    guest: "مهمان",
+    listen: "گوش دادن",
 }
 
 export default translate

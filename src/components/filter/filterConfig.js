@@ -38,3 +38,14 @@ export const articlesFilterConfig = {
         options: ["تحصیل", "هوش", "مهارت", "تربیت", "روانشناسی"],
     },
 }
+
+export const podcastsFilterConfig = {
+     badges: {
+        title: "نوع پادکست",
+        options: ["ویژه والدین و فرزندان", "ویژه فرزندان", "ویژه والدین"],
+    },
+    categories: {
+        title: "دسته‌بندی پادکست",
+        options: ["تحصیل", "هوش", "مهارت", "تربیت", "روانشناسی"],
+    },
+}

@@ -15,6 +15,7 @@ import { fetchTests } from "./features/tests/testsSlice";
 import { fetchCourses } from "./features/courses/coursesSlice";
 import { fetchArticles } from "./features/articles/articlesSlice";
 import ArticleDetail from "./pages/ArticleDetail";
+import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
 
 export default function App() {
   // dispatch tests for navbar
@@ -22,7 +23,8 @@ export default function App() {
   useEffect(() => {
     dispatch(fetchTests());
     dispatch(fetchCourses());
-    dispatch(fetchArticles())
+    dispatch(fetchArticles());
+    dispatch(fetchPodcasts());
   }, [dispatch]);
 
   return (
