@@ -1,28 +1,23 @@
 import { HiPlay } from "react-icons/hi";
 import { HiPause } from "react-icons/hi";
-import { useRef, useState } from "react";
 import translate from "../../locale/translate";
+import PodcastPlayer from "./PodcastPlayer";
 
-export default function PodcastCard({ podcast }) {
-    const audioRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+export default function PodcastCard({ podcast, activePodcast, isPlaying, setActivePodcast, setIsPlaying, }) {
 
-    const toggleAudio = () => {
-        const audio = audioRef.current;
-        if (audio) {
-            if (audio.paused) {
-                audio.play();
-                setIsPlaying(true);
-            } else {
-                audio.pause();
-                setIsPlaying(false);
-            }
+    const isCurrentPodcastPlaying = activePodcast?.id === podcast.id && isPlaying;
+
+    const handleTogglePlayer = () => {
+        if (activePodcast?.id === podcast.id) {
+            setIsPlaying(!isPlaying);
+        } else {
+            setActivePodcast(podcast);
+            setIsPlaying(true);
         }
     };
 
     return (
         <div className="border border-[#D7D7D7] p-4 rounded-[20px]">
-            {/* بخش بالا: عکس + متن */}
             <div className="flex flex-col lg:flex-row gap-4">
                 <img
                     className="rounded-[20px] w-full lg:w-[200px] h-auto object-cover"
@@ -38,7 +33,6 @@ export default function PodcastCard({ podcast }) {
                 </div>
             </div>
 
-            {/* بخش پایین: تگ‌ها + دکمه + مهمان */}
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mt-4">
                 <div className="flex flex-wrap gap-2">
                     {podcast.tags.map((tag, index) => (
@@ -53,24 +47,29 @@ export default function PodcastCard({ podcast }) {
 
                 <div className="flex items-center gap-3">
                     <button
-                        onClick={toggleAudio}
+                        onClick={handleTogglePlayer}
                         className="flex items-center gap-2 text-[#285295] font-semibold text-[18px]"
                     >
-                        {isPlaying ? (
-                            <HiPause className="text-[30px]" />
+                        {isCurrentPodcastPlaying ? (
+                            <HiPause className="text-[26px]" />
                         ) : (
-                            <HiPlay className="text-[30px]" />
+                            <HiPlay className="text-[26px]" />
                         )}
                         {translate.listen}
                     </button>
+
+                    {isCurrentPodcastPlaying && (
+                        <PodcastPlayer
+                            podcast={podcast}
+                            onClose={() => setActivePodcast(null)}
+                        />
+                    )}
                 </div>
 
                 <span className="text-sm text-gray-600">
                     {translate.guest} : {podcast.guests?.join("، ")}
                 </span>
             </div>
-
-            <audio ref={audioRef} src={podcast.audioUrl} />
         </div>
     );
 }
