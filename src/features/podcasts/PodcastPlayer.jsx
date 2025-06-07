@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { HiPlay, HiPause } from "react-icons/hi";
+import { RiReplay15Fill, RiForward15Fill } from "react-icons/ri";
 import { useRef, useState, useEffect } from "react";
 
 export default function PodcastPlayer({ podcast, isPlaying, setIsPlaying, onClose }) {
@@ -16,6 +17,18 @@ export default function PodcastPlayer({ podcast, isPlaying, setIsPlaying, onClos
             audio.pause();
             setIsPlaying(false);
         }
+    };
+
+    const seekForward = () => {
+        const audio = audioRef.current;
+        audio.currentTime = Math.min(audio.currentTime + 15, duration);
+        setCurrentTime(audio.currentTime);
+    };
+
+    const seekBackward = () => {
+        const audio = audioRef.current;
+        audio.currentTime = Math.max(audio.currentTime - 15, 0);
+        setCurrentTime(audio.currentTime);
     };
 
     const handleSeek = (e) => {
@@ -58,9 +71,13 @@ export default function PodcastPlayer({ podcast, isPlaying, setIsPlaying, onClos
                 {podcast.title}
             </span>
 
+            <button onClick={seekBackward} className="text-xl text-[#285295] hover:text-[#1e3a8a] mr-3">
+                <RiForward15Fill />
+            </button>
+
             <button
                 onClick={toggleAudio}
-                className="flex items-center justify-center w-12 h-12 rounded-full bg-[#285295] hover:bg-[#1e3a8a] transition-shadow shadow-md hover:shadow-lg text-white mr-5"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-[#285295] hover:bg-[#1e3a8a] transition-shadow shadow-md hover:shadow-lg text-white mr-3"
                 aria-label={isPlaying ? "Pause" : "Play"}
             >
                 {isPlaying ? (
@@ -68,6 +85,10 @@ export default function PodcastPlayer({ podcast, isPlaying, setIsPlaying, onClos
                 ) : (
                     <HiPlay className="text-2xl ml-[2px]" />
                 )}
+            </button>
+
+            <button onClick={seekForward} className="text-xl text-[#285295] hover:text-[#1e3a8a] mr-5">
+                <RiReplay15Fill />
             </button>
 
             <input
@@ -79,8 +100,8 @@ export default function PodcastPlayer({ podcast, isPlaying, setIsPlaying, onClos
                 className="flex-grow h-2 rounded-lg cursor-pointer accent-[#285295] mr-5"
             />
 
-            <span className="text-sm w-[65px] text-right text-gray-600 tabular-nums select-none">
-                {formatTime(currentTime)} / {formatTime(duration)}
+            <span className="text-sm mx-2 w-[100px] text-right text-gray-600 tabular-nums select-none">
+                {formatTime(duration)} / {formatTime(currentTime)}
             </span>
 
             {onClose && (

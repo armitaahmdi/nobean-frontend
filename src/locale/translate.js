@@ -70,6 +70,9 @@ const translate = {
     minutes: "دقیقه",
     guest: "مهمان",
     listen: "گوش دادن",
+    download: "دانلود",
+    relatedpodcasts: "پادکست های پیشنهادی",
+    clickforlisten: "برای گوش دادن کلیک کنید"
 }
 
 export default translate

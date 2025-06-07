@@ -16,6 +16,8 @@ import { fetchCourses } from "./features/courses/coursesSlice";
 import { fetchArticles } from "./features/articles/articlesSlice";
 import ArticleDetail from "./pages/ArticleDetail";
 import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
+import PodcastDetail from "./pages/PodcastDetail";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   // dispatch tests for navbar
@@ -29,6 +31,7 @@ export default function App() {
 
   return (
     <Layout>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tests" element={<Tests />} />
@@ -38,6 +41,7 @@ export default function App() {
         <Route path="/articles" element={<Article />} />
         <Route path="/articles/:id" element={<ArticleDetail />} />
         <Route path="/podcasts" element={<Podcasts />} />
+        <Route path="/podcasts/:id" element={<PodcastDetail />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Navigate to="/" replace />} />

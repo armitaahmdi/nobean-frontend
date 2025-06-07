@@ -11,9 +11,9 @@ function getInitialSelectedFilters(config) {
     }, {});
 }
 
-function getExcerpt(text, length = 250) {
+function getExcerpt(text, length = 200) {
     return text.length > length ? text.slice(0, length) + "..." : text;
-  }
-  
+}
+
 
 export { getShortenText, getInitialSelectedFilters, getExcerpt };
