@@ -18,6 +18,7 @@ import ArticleDetail from "./pages/ArticleDetail";
 import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
 import PodcastDetail from "./pages/PodcastDetail";
 import ScrollToTop from "./components/ScrollToTop";
+import Consultants from "./pages/Consultants";
 
 export default function App() {
   // dispatch tests for navbar
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/podcasts/:id" element={<PodcastDetail />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/consultants" element={<Consultants />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>

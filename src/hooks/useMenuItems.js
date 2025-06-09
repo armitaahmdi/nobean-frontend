@@ -35,6 +35,11 @@ export const useMenuItems = () => {
             submenu: buildSubmenu(podcasts, "/podcasts"),
         },
         {
+            name: "مشاورین",
+            link: "/consultants",
+            // submenu:
+        },
+        {
             name: "خدمات‌سازمانی",
             link: "/services",
         },

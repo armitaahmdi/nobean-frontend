@@ -40,7 +40,7 @@ export const articlesFilterConfig = {
 }
 
 export const podcastsFilterConfig = {
-     badges: {
+    badges: {
         title: "نوع پادکست",
         options: ["ویژه والدین و فرزندان", "ویژه فرزندان", "ویژه والدین"],
     },
@@ -48,4 +48,19 @@ export const podcastsFilterConfig = {
         title: "دسته‌بندی پادکست",
         options: ["تحصیل", "هوش", "مهارت", "تربیت", "روانشناسی"],
     },
+}
+
+export const consultatsFilterConfig = {
+    gender: {
+        title: "جنسیت پزشک",
+        options: ["خانم", "آقا"]
+    },
+    service: {
+        title: "نوع خدمت",
+        options: ["آنلاین", "حضوری"]
+    },
+    scientificDegree: {
+        title: "درجه علمی",
+        options: ["کارشناس", "کارشناسی ارشد", "دکتری"]
+    }
 }

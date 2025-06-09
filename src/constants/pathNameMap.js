@@ -3,6 +3,7 @@ const pathNameMap = {
     courses: "دوره های توسعه فردی",
     articles: "مقالات",
     podcasts: "پادکست‌ها",
+    consultants: "مشاورین",
     services: "خدمات سازمانی",
     contact: "تماس با ما",
   };
