@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */ /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import FiltersPanel from "../features/tests/FiltersPanel";
 import usePagination from "../hooks/usePagination";
@@ -6,6 +6,8 @@ import Pagination from "../components/Pagination";
 import { applyFilters } from "../helper/applyFilters";
 import { getInitialSelectedFilters } from "../helper/helperFunction";
 import HelmetSeo from "../helper/helmet";
+import LoadingState from "./ui/LoadingState";
+import ErrorState from "./ui/ErrorState";
 
 export default function FilterablePaginatedList({
     fetchAction,
@@ -24,10 +26,12 @@ export default function FilterablePaginatedList({
     );
 
     const dispatch = filtersProps.dispatch;
-
     useEffect(() => {
-        dispatch(fetchAction());
-    }, []);
+        if (dispatch && fetchAction) {
+            dispatch(fetchAction());
+        }
+    }, [dispatch, fetchAction]);
+
 
     const filteredItems = applyFilters(items, selectedFilters);
 
@@ -51,8 +55,8 @@ export default function FilterablePaginatedList({
                 </div>
 
                 <div className="lg:w-3/4 w-full">
-                    {loading && <p>در حال بارگذاری...</p>}
-                    {error && <p>خطا: {error}</p>}
+                    {loading && <LoadingState />}
+                    {error && <ErrorState />}
                     {!loading && !error && (
                         <>
                             <ListComponent

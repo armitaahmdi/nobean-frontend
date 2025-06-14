@@ -3,6 +3,8 @@ import { HiStar } from "react-icons/hi2";
 import { BsCalendarDate } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import Button from "../../components/Button";
+import { Link } from "react-router-dom";
 
 export default function ConsultantCard({ consultant }) {
     return (
@@ -18,16 +20,16 @@ export default function ConsultantCard({ consultant }) {
             </div>
             {consultant.service && (
                 <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-                <FaLocationDot className="text-sm text-blue-500" />
-                <span className="font-medium">{consultant.service.type}</span>
-                {consultant.service.location !== "-" && (
-                    <>
-                        <span className="mx-1 text-gray-400">|</span>
-                        <span className="text-gray-600">{consultant.service.location}</span>
-                    </>
-                )}
-            </p>
-            
+                    <FaLocationDot className="text-sm text-blue-500" />
+                    <span className="font-medium">{consultant.service.type}</span>
+                    {consultant.service.location !== "-" && (
+                        <>
+                            <span className="mx-1 text-gray-400">|</span>
+                            <span className="text-gray-600">{consultant.service.location}</span>
+                        </>
+                    )}
+                </p>
+
             )}
 
             <p className="text-sm text-gray-600 leading-6">{consultant.bio}</p>
@@ -49,9 +51,14 @@ export default function ConsultantCard({ consultant }) {
             <div className="text-green-600 font-semibold">
                 {consultant.price.toLocaleString()} {translate.toman}
             </div>
-            <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-[10px] text-sm hover:bg-blue-700 transition">
+            {/* <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-[10px] text-sm hover:bg-blue-700 transition">
                 {translate.reserveConsultants}
-            </button>
+            </button> */}
+            <Link to={`/consultants/${consultant.id}`}>
+                <Button size="small" color="blue">
+                    {translate.reserveConsultants}
+                </Button>
+            </Link>
         </div>
     );
 }

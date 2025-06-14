@@ -1,28 +1,31 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import Tests from "./pages/Tests";
+import TestDetails from "./pages/TestDetails";
 import Courses from "./pages/Courses";
+import CourseDetails from "./pages/CourseDetails";
 import Article from "./pages/Articles";
+import ArticleDetail from "./pages/ArticleDetail";
 import Podcasts from "./pages/Podcasts";
+import PodcastDetail from "./pages/PodcastDetail";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import TestDetails from "./pages/TestDetails";
-import CourseDetails from "./pages/CourseDetails";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import Consultants from "./pages/Consultants";
+import ConsultantDetail from "./pages/ConsultantDetail";
+import TestQuestions from "./pages/TestQuestion";
+
 import { fetchTests } from "./features/tests/testsSlice";
 import { fetchCourses } from "./features/courses/coursesSlice";
 import { fetchArticles } from "./features/articles/articlesSlice";
-import ArticleDetail from "./pages/ArticleDetail";
 import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
-import PodcastDetail from "./pages/PodcastDetail";
-import ScrollToTop from "./components/ScrollToTop";
-import Consultants from "./pages/Consultants";
 
 export default function App() {
-  // dispatch tests for navbar
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchTests());
     dispatch(fetchCourses());
@@ -31,23 +34,38 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Layout>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tests" element={<Tests />} />
-        <Route path="/tests/:id" element={<TestDetails />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/:id" element={<CourseDetails />} />
-        <Route path="/articles" element={<Article />} />
-        <Route path="/articles/:id" element={<ArticleDetail />} />
-        <Route path="/podcasts" element={<Podcasts />} />
-        <Route path="/podcasts/:id" element={<PodcastDetail />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/consultants" element={<Consultants />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Layout>
-  )
+    <Routes>
+      <Route path="/exam/:testId" element={<TestQuestions />} />
+
+      <Route
+        path="/*"
+        element={
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/tests" element={<Tests />} />
+              <Route path="/tests/:id" element={<TestDetails />} />
+
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/courses/:id" element={<CourseDetails />} />
+
+              <Route path="/articles" element={<Article />} />
+              <Route path="/articles/:id" element={<ArticleDetail />} />
+
+              <Route path="/podcasts" element={<Podcasts />} />
+              <Route path="/podcasts/:id" element={<PodcastDetail />} />
+
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
+
+              <Route path="/consultants" element={<Consultants />} />
+              <Route path="/consultants/:id" element={<ConsultantDetail />} />
+
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Layout>
+        }
+      />
+    </Routes>
+  );
 }

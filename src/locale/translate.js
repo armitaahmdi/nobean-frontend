@@ -82,7 +82,15 @@ const translate = {
     relatedArticles: "مقاله‌های پیشنهادی",
     session: "جلسه",
     toman: "تومان",
-    reserveConsultants: "رزرو مشاوره"
+    reserveConsultants: "رزرو مشاوره",
+    progress: "پیشرفت",
+    submitComments: "ثبت نظر",
+    nextQuestion: "سوال بعدی",
+    previousQuestion: "سوال قبلی",
+    congratsfinishtest: "🎉 تبریک! آزمون شما به پایان رسید.",
+    moretests: "مشاهده آزمون‌های دیگر",
+    tryagain: "تلاش مجدد",
+    returnhome: "بازگشت به صفحه اصلی"
 }
 
 export default translate

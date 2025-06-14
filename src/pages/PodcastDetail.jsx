@@ -5,11 +5,13 @@ import { useEffect } from "react";
 import { fetchPodcasts } from "../features/podcasts/podcastsSlice";
 import RelatedPodcasts from "../features/podcasts/RelatedPodcasts";
 import RelatedArticles from "../features/articles/RelatedArticles";
+import LoadingState from "../components/ui/LoadingState";
+import ErrorState from "../components/ui/ErrorState";
 
 export default function PodcastDetail() {
   const { id } = useParams()
   const dispatch = useDispatch();
-  const { podcasts } = useSelector((store) => store.podcasts);
+  const { podcasts, loading, error } = useSelector((store) => store.podcasts);
   const { articles } = useSelector((store) => store.articles);
 
   const podcast = podcasts.find((i) => i.id === +id);
@@ -23,6 +25,9 @@ export default function PodcastDetail() {
   if (!podcast) {
     return <div className="text-center py-10">در حال بارگذاری پادکست...</div>;
   }
+
+  if (loading) return <LoadingState />;
+  if (error) return <ErrorState />;
 
   return (
     <div>

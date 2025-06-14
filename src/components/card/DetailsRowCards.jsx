@@ -5,8 +5,14 @@ import { HiMiniSparkles } from "react-icons/hi2";
 import { HiOutlineListBullet } from "react-icons/hi2";
 import translate from "../../locale/translate";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom";
 
 export default function DetailsRowCards({ tests, onGoToReviews }) {
+    const navigate = useNavigate();
+
+    const handleStartClick = () => {
+        navigate(`/exam/${tests.id}`);
+    };
 
     return (
         <div className="flex flex-wrap gap-6 justify-between mt-6">
@@ -69,11 +75,11 @@ export default function DetailsRowCards({ tests, onGoToReviews }) {
             <div className="bg-white rounded-[20px] p-4 flex flex-col items-center justify-center min-w-[180px]">
                 <h2 className="text-gray-900 text-xl font-bold mb-4">{tests.title}</h2>
 
-                <Button size="xlarge" color="blue"> {translate.startfree}</Button>
+                <Button size="xlarge" color="blue" onClick={handleStartClick}> {translate.startfree}</Button>
                 <button
                     onClick={onGoToReviews}
                     className="font-bold  text-darkYellow underline hover:text-blue-800 cursor-pointer mt-4">
-                    ثبت نظر
+                    {translate.submitComments}
                 </button>
             </div>
         </div>
