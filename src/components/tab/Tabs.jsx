@@ -1,77 +1,99 @@
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import DescriptionTab from "./DescriptionTab";
+import AboutTab from "./consultantTabs/AboutTab";
+import LocationTab from "./consultantTabs/LocationTab";
+import ScheduleTab from "./consultantTabs/ScheduleTab";
 import ReviewsTab from "./ReviewsTab";
-import FaqTab from "./FaqTab";
-import TestValidityTab from "./TestValidityTab";
+import DescriptionTab from "./testTabs/DescriptionTab";
+import FaqTab from "./testTabs/FaqTab";
+import TestValidityTab from "./testTabs/TestValidityTab"
 import translate from "../../locale/translate";
-import SubmitComment from "../card/SubmitComment";
 
 export default function Tabs({ tabs, data }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTabKey = searchParams.get("tab") || tabs[0].key;
   const activeTabObj = tabs.find((tab) => tab.key === activeTabKey);
 
+  const scheduleRef = useRef(null);
+
+  useEffect(() => {
+    if (activeTabKey === "schedule" && scheduleRef.current) {
+      scheduleRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [activeTabKey]);
+
   const handleTabClick = (tabKey) => {
     setSearchParams({ tab: tabKey });
   };
 
   const renderActiveTab = () => {
-    if (!activeTabObj) return null;
+    if (!activeTabObj || !data) return null;
 
     switch (activeTabObj.key) {
       case "description":
-        return <DescriptionTab description={data.description} video={data.video} />;
-      case "reviews":
-        return <ReviewsTab reviews={data.reviews} />;
+        return <DescriptionTab description={data.description} video={data.video} />
       case "faq":
-        return <FaqTab faq={data.faq} />;
-      case "testValidity":
-        return <TestValidityTab validity={data.validity} />;
-      default:
+        return <FaqTab faq={data.faq} />
+      // case "validity":
+      //   return <TestValidityTab validity={data} />
+      case "about":
+        return <AboutTab consultant={data} />;
+      case "location":
+        return <LocationTab service={data} />;
+      case "schedule":
         return (
-          <p className="text-gray-600 leading-relaxed">
-            {translate.nocontent}
-          </p>
+          <div ref={scheduleRef}>
+            <ScheduleTab schedule={data.schedule} />
+          </div>
         );
+      case "reviews":
+        return <ReviewsTab reviews={data.reviews || []} />;
+      default:
+        return <p>{translate.nocontent}</p>;
     }
   };
 
   return (
     <>
-      <div className="bg-white rounded-[20px] lg:w-[85%] p-4 md:p-6">
-        {/* Tab Headers */}
-        <div
+      <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] rounded-[20px] mb-8 py-6 lg:p-6 shadow-lg">
+        <nav
           className="
-          flex justify-start md:justify-around gap-4 border-b border-gray-200 pb-2 mb-4 overflow-x-auto scrollbar-hide           
-        "
+            flex justify-start md:justify-center border-b border-gray-300 pb-3 mb-6 overflow-x-auto scrollbar-hide
+          "
+          role="tablist"
+          aria-label="Tabs"
         >
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabClick(tab.key)}
-              className={`
-              pb-2 whitespace-nowrap text-sm sm:text-base transition-colors duration-200
-              ${activeTabKey === tab.key
-                  ? "text-darkBlue font-bold"
-                  : "hover:text-darkBlue"
-                }
-            `}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+          {tabs.map((tab) => {
+            const isActive = activeTabKey === tab.key;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab.key)}
+                role="tab"
+                aria-selected={isActive}
+                tabIndex={isActive ? 0 : -1}
+                className={`
+                  relative px-4 py-2 text-sm md:text-base font-medium
+                  transition-colors duration-300
+                  ${isActive
+                    ? "text-darkBlue after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-1 after:bg-darkBlue"
+                    : "text-gray-600 hover:text-darkBlue"
+                  }
+                  whitespace-nowrap
+                `}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </nav>
 
-        {/* Tab Content */}
-        <div className="space-y-4">{renderActiveTab()}</div>
+        <div className="space-y-6">{renderActiveTab()}</div>
       </div>
 
-      {activeTabKey === "reviews" && (
-        <div className="mt-10">
-          <SubmitComment />
-        </div>
-      )}
-
+      <div id={tabsEndRefId} className="h-1" />
     </>
   );
 }
+
+export const tabsEndRefId = "tabs-end-marker";

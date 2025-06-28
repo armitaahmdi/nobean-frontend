@@ -2,7 +2,7 @@
 export default function ConfirmModal({ message, onConfirm, onCancel }) {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white rounded-lg shadow-lg max-w-sm w-full p-6 text-right font-sans">
+            <div className="bg-white opacity-100 rounded-lg shadow-lg max-w-sm w-full p-6 text-right font-sans">
                 <p className="mb-6 text-gray-800 text-lg">{message}</p>
                 <div className="flex justify-end gap-4">
                     <button

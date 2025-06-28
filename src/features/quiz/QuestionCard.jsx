@@ -7,9 +7,9 @@ export default function QuestionCard({ question, selectedAnswer, onSelectAnswer 
                     <button
                         key={idx}
                         onClick={() => onSelectAnswer(option)}
-                        className={`p-3 rounded-md border transition-colors duration-200 ${selectedAnswer === option
+                        className={`p-3 rounded-md border transition-colors duration-200 font-semibold ${selectedAnswer === option
                                 ? "bg-lightBlue text-white"
-                                : "bg-gray-100 hover:bg-gray-200"
+                                : "bg-gray-200 hover:bg-gray-200"
                             }`}
                     >
                         {option}

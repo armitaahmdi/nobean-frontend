@@ -1,94 +1,135 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterBox from "./FilterBox";
 import FilterModalMobile from "./FilterModalMobile";
+import { useSearchParams } from "react-router-dom";
 import translate from "../../locale/translate";
-import { IoFilter } from "react-icons/io5";
+import SearchBox from "../SearchBox";
 
 export default function FilterGroup({ config, selectedFilters, setSelectedFilters }) {
     const [activeFilterKey, setActiveFilterKey] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const hasActiveFilters = Object.values(selectedFilters).some((val) => {
-        if (Array.isArray(val)) return val.length > 0;
-        return val !== null && val !== "" && val !== undefined;
-    });
+    const parseParamValue = (value, multiple) => multiple ? value.split(",").filter(Boolean) : value;
 
-    const clearAllFilters = () => {
-        const emptyFilters = Object.keys(selectedFilters).reduce((acc, key) => {
-            acc[key] = Array.isArray(selectedFilters[key]) ? [] : "";
-            return acc;
-        }, {});
-        setSelectedFilters(emptyFilters);
-        setActiveFilterKey(null);
+    useEffect(() => {
+        const initialFilters = {};
+        for (const [key, { multiple }] of Object.entries(config)) {
+            const urlValue = searchParams.get(key);
+            if (urlValue) {
+                initialFilters[key] = parseParamValue(urlValue, multiple);
+            } else {
+                initialFilters[key] = multiple ? [] : "";
+            }
+        }
+        setSelectedFilters(initialFilters);
+    }, [config, searchParams, setSelectedFilters]);
+
+    const handleFilterChange = (key, value) => {
+        setSelectedFilters((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
+
+        const newParams = new URLSearchParams(searchParams);
+        if (!value || (Array.isArray(value) && value.length === 0)) {
+            newParams.delete(key);
+        } else {
+            newParams.set(key, Array.isArray(value) ? value.join(",") : value);
+        }
+        setSearchParams(newParams);
     };
-
 
     return (
         <>
-            {/* mobile */}
-            <div className="lg:hidden flex items-center gap-3 overflow-x-auto whitespace-nowrap">
-                <span
-                    onClick={hasActiveFilters ? clearAllFilters : undefined}
-                    className={`flex items-center gap-1 shrink-0 cursor-pointer ${hasActiveFilters ? "text-red-500" : ""
-                        }`}
-                    title={hasActiveFilters ? "حذف همه فیلترها" : ""}
-                >
-                    <IoFilter />
-                    {hasActiveFilters ? "حذف فیلتر" : translate.filter}
-                </span>
+            {/* موبایل */}
+            <div className="lg:hidden flex flex-col gap-4">
+                <div className="mb-2">
+                    <SearchBox />
+                </div>
+                {config.categories && (
+                    <>
+                        <h4 className="text-gray-700 font-bold mb-2 text-md select-none">{translate.categories}</h4>
 
-                {Object.entries(config).map(([key, { title }]) => (
-                    <button
-                        key={key}
-                        onClick={() => setActiveFilterKey(key)}
-                        className="text-right bg-white p-4 rounded-[20px] border shrink-0 whitespace-nowrap"
-                    >
-                        {title}
-                    </button>
-                ))}
+                        <div className="overflow-x-auto scrollbar-none scroll-smooth snap-x">
+                            <div className="flex sm:justify-center gap-3 pb-2 pr-4">
+                                {config.categories.options.map((option) => {
+                                    const isSelected = selectedFilters.categories === option.name;
+                                    return (
+                                        <button
+                                            key={option.name}
+                                            onClick={() => {
+                                                const newValue = isSelected ? "" : option.name;
+                                                handleFilterChange("categories", newValue);
+                                            }}
+                                            className={`
+                                            flex flex-col items-center justify-center min-w-[80px] max-w-[80px]
+                                            p-2 cursor-pointer border rounded-xl shrink-0 transition-all
+                                            shadow-sm hover:shadow-md
+                                            ${isSelected ? "border-emerald-500 bg-emerald-50" : "border-gray-200 bg-white hover:bg-gray-50"}
+                                          `}
+
+                                        >
+                                            <img
+                                                src={option.image}
+                                                alt={option.name}
+                                                className="w-14 h-14 rounded-full object-cover"
+                                            />
+                                            <span className="text-md font-bold text-center mt-2 text-gray-700 leading-tight">{option.name}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </>
+                )}
+
+                {/* سایر فیلترها */}
+                <div className="flex items-center gap-3 whitespace-nowrap ">
+                    {Object.entries(config).map(([key, { title, icon: Icon }]) => (
+                        key !== "categories" && (
+                            <button
+                                key={key}
+                                onClick={() => setActiveFilterKey(key)}
+                                className="flex items-center gap-2 text-right bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] p-4 rounded-[20px] border shrink-0 whitespace-nowrap"
+                            >
+                                {Icon && <Icon className="w-5 h-5 text-gray-500" />}
+                                {title}
+                            </button>
+                        )
+                    ))}
+                </div>
             </div>
 
-            {/* modal*/}
+            {/* Mobile Modal*/}
             {activeFilterKey && (
                 <FilterModalMobile
                     title={config[activeFilterKey].title}
                     options={config[activeFilterKey].options}
+                    icon={config[activeFilterKey].icon}
                     selected={selectedFilters[activeFilterKey]}
                     isMultiSelect={config[activeFilterKey].multiple}
-                    onChange={(newVal) =>
-                        setSelectedFilters((prev) => ({
-                            ...prev,
-                            [activeFilterKey]: newVal,
-                        }))
-                    }
+                    onChange={(newVal) => handleFilterChange(activeFilterKey, newVal)}
                     onClose={() => setActiveFilterKey(null)}
+                    isCategory={false}
                 />
             )}
 
             {/* desktop */}
             <div className="hidden lg:block">
-                {hasActiveFilters && (
-                    <div className="flex justify-start mb-4">
-                        <button
-                            onClick={clearAllFilters}
-                            className="text-sm text-red-500 underline hover:text-red-700"
-                        >
-                            {translate.deletefilters}
-                        </button>
-                    </div>
-                )}
-                {Object.entries(config).map(([key, { title, options, multiple }]) => (
+                <div className="mb-6 w-[380px] bg-sky-50 p-6 rounded-2xl shadow-xl border border-sky-100">
+                    <SearchBox />
+                </div>
+
+                {Object.entries(config).map(([key, { title, options, multiple, icon }]) => (
                     <div className="mb-4" key={key}>
                         <FilterBox
                             title={title}
                             options={options}
+                            icon={icon}
                             multiple={multiple}
                             selectedOption={selectedFilters[key]}
-                            onSelect={(val) =>
-                                setSelectedFilters((prev) => ({
-                                    ...prev,
-                                    [key]: val,
-                                }))
-                            }
+                            onSelect={(val) => handleFilterChange(key, val)}
+                            isCategory={key === "categories"}
                         />
                     </div>
                 ))}

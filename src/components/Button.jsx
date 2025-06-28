@@ -19,12 +19,13 @@ export default function Button({
   children,
   onClick,
   disabled = false,
+  buttonClassName,
   ...rest
 }) {
 
   return (
     <button
-      className={`${SIZES[size]} ${COLORS[color]} transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-[10px]`}
+      className={`${SIZES[size]} ${COLORS[color]} ${buttonClassName} transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-[10px]`}
       onClick={onClick}
       disabled={disabled}
       {...rest}

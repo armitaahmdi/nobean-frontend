@@ -5,7 +5,7 @@ import { HiOutlineEye } from "react-icons/hi";
 
 export default function ArticleCard({ article }) {
     return (
-        <div className="border border-[#D7D7D7] p-3 rounded-[20px]">
+        <div className="bg-white shadow-lg border border-[#D7D7D7] p-3 rounded-[20px]">
             <img className="rounded-[20px] w-full object-cove" src={article.image} alt={article.title} />
             <div className="p-4 flex flex-col gap-3 ">
                 <h3 className="font-bold text-[18px]">{article.title}</h3>

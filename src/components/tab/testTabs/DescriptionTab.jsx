@@ -1,8 +1,12 @@
-import translate from "../../locale/translate";
+import translate from "../../../locale/translate";
 
 export default function DescriptionTab({ description, video }) {
+    if (!description && !video) {
+        return <p className="text-center text-gray-400 italic mt-10">داده‌ای موجود نیست.</p>;
+    }
+
     return (
-        <div className="flex items-start flex-col md:justify-end md:flex-row-reverse gap-10 bg-white rounded-[20px] p-6 shadow-md">
+        <div className="flex items-start flex-col md:justify-end md:flex-row-reverse gap-10 bg-white rounded-[20px] p-6">
             <div className="md:w-1/2 space-y-4">
                 <h3 className="text-lg font-bold text-darkBlue">{translate.testexplnation}</h3>
                 <p className="text-gray-700 leading-loose text-sm text-justify">

@@ -6,7 +6,7 @@ export default function PodcastsDetailsCard({ podcast }) {
     const url = getShareUrl(podcast.id);
 
     return (
-        <div className="bg-white flex flex-col rounded-[20px] shadow-md py-6 px-4 sm:px-8 md:max-w-7xl mx-auto mb-4 overflow-hidden">
+        <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] flex flex-col rounded-[20px] shadow-md py-6 px-4 sm:px-8 md:max-w-7xl mx-auto mb-4 overflow-hidden">
 
             <div className="flex flex-col md:flex-row gap-x-8 items-start">
                 <img

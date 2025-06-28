@@ -17,7 +17,7 @@ export default function RelatedArticles({ articles }) {
                     <Link
                         key={article.id}
                         to={`/articles/${article.id}`}
-                        className="bg-white flex flex-col sm:flex-row rounded-[16px] overflow-hidden shadow-sm hover:shadow-md transition-all duration-200"
+                        className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] flex flex-col sm:flex-row rounded-[16px] overflow-hidden shadow-sm hover:shadow-md transition-all duration-200"
                     >
                         <img
                             src={article.image}

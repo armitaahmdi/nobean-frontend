@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "../../components/Input";
 import Button from "../../components/Button";
 import translate from "../../locale/translate";
 import mainLogo from "../../assets/images/logo/main-logo.png";
+import { FiPhone } from "react-icons/fi";
+import { RiCheckboxCircleFill } from "react-icons/ri";
+import { HiExclamationCircle } from "react-icons/hi";
+import { useState } from "react";
 
 const schema = yup.object({
     mobile: yup
@@ -14,42 +17,74 @@ const schema = yup.object({
 });
 
 export default function LoginForm({ onSubmit }) {
+    const [isFocused, setIsFocused] = useState(false);
+
     const {
         register,
         handleSubmit,
         formState: { errors },
+        watch,
     } = useForm({
         resolver: yupResolver(schema),
         mode: "onBlur",
     });
 
-    return (
-        <div className="w-[500px] flex flex-col items-center gap-6 p-8 rounded-2xl border border-[#6c6e70] bg-[#F1F5F9] shadow-sm">
+    const mobileValue = watch("mobile") || "";
+    const digitsCount = mobileValue.replace(/\D/g, "").length;
+    const isComplete = digitsCount === 11;
 
-            <div className="text-right">
-                <img
-                    src={mainLogo}
-                    alt={translate.altdescription}
-                    className="w-[250px] mx-auto"
-                />
-                <div className="mt-10">
-                    <h2 className="text-2xl py-3 font-bold">{translate.loginOrSignup}</h2>
-                    <h4 className="text-lg py-3 px-3">{translate.hello}</h4>
-                    <h4 className="text-lg py-3 px-3">{translate.enteryournumberoremail}</h4>
-                </div>
+    return (
+        <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl px-8 py-10 flex flex-col items-center gap-8 border border-white/30">
+
+            <img src={mainLogo} alt={translate.altdescription} className="w-48 mb-4" />
+
+            <div className="text-center space-y-3">
+                <h2 className="text-xl text-right font-bold text-gray-800">{translate.loginOrSignup}</h2>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                    لطفاً جهت ورود یا ثبت‌نام در نوبین، شماره همراه خود را وارد نمایید. <br />
+                    ثبت‌نام شما به منزله‌ی تأیید{" "}
+                    <span className="text-blue-600 underline cursor-pointer hover:text-blue-800 transition">
+                        قوانین و مقررات
+                    </span>{" "}
+                    کاربران می‌باشد.
+                </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
-                <Input
-                    inputClassName="bg-[#F1F5F9]"
-                    type="tel"
-                    placeholder="09123456789"
-                    {...register("mobile")}
-                    error={errors.mobile?.message}
-                />
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6 relative">
 
-                <div className="pt-5 flex justify-center text-center">
-                    <Button type="submit" color="blue" size="large">
+                {/* آیکون داخل input */}
+                <div className="relative">
+                    <input
+                        type="tel"
+                        placeholder="0912  ___ ___"
+                        {...register("mobile")}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        className={`w-full text-center placeholder-gray-400 text-[18px] tracking-widest py-3 pl-12 pr-4 placeholder:text-center
+                        bg-white/70 backdrop-blur-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-[20px]
+                        border ${errors.mobile ? "border-red-500" : "border-gray-300"}`}
+                        dir="ltr"
+                    />
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                        {isComplete ? (
+                            <RiCheckboxCircleFill className="text-darkBlue text-[25px]" />
+                        ) : (
+                            <FiPhone className={`text-xl transition-colors duration-200 ${
+                                isFocused ? "text-darkBlue" : "text-gray-400"
+                              }`} />
+                        )}
+                    </div>
+                </div>
+
+                {errors.mobile && (
+                    <p className="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <HiExclamationCircle />
+                        {errors.mobile.message}
+                    </p>
+                )}
+
+                <div className="pt-4 flex justify-center">
+                    <Button type="submit" color="blue" size="large" buttonClassName="w-full rounded-[20px]">
                         {translate.login}
                     </Button>
                 </div>

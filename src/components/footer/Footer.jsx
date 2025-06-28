@@ -5,7 +5,7 @@ import enamadLogo from "../../assets/images/logo/enamadLogo.png"
 
 export default function Footer() {
     return (
-        <footer style={{ background: "linear-gradient(180deg, #F7F7F7 -0.01%, #629BF7 201.2%)" }}
+        <footer id="footer" style={{ background: "linear-gradient(180deg, #F7F7F7 -0.01%, #629BF7 201.2%)" }}
             className="bg-gray-100 text-gray-700 py-6 px-4">
             <div className="px-12 mx-auto flex flex-col gap-5">
 

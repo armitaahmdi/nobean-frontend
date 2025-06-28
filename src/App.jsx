@@ -22,6 +22,7 @@ import { fetchTests } from "./features/tests/testsSlice";
 import { fetchCourses } from "./features/courses/coursesSlice";
 import { fetchArticles } from "./features/articles/articlesSlice";
 import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
+import AuthContainer from "./features/authentication/AuthContainer";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/exam/:testId" element={<TestQuestions />} />
+      <Route path="/login" element={<AuthContainer />} />
 
       <Route
         path="/*"
@@ -43,6 +45,7 @@ export default function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
+
               <Route path="/tests" element={<Tests />} />
               <Route path="/tests/:id" element={<TestDetails />} />
 

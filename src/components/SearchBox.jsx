@@ -1,35 +1,15 @@
-import { useEffect, useState } from "react"
-import Input from "./Input";
-import { HiSearch } from "react-icons/hi";
+import { HiOutlineSearch } from "react-icons/hi";
 
-export default function SearchBox({
-  placeholder = "جست و جو",
-  onSearch,
-  error,
-  ...rest
-}) {
-  const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      onSearch && onSearch(query);
-    }, 300);
-
-    return () => clearTimeout(handler);
-  }, [query, onSearch]);
-
+export default function SearchBox() {
   return (
-    <Input
-      type="search"
-      placeholder={placeholder}
-      containerClassName="w-full h-[48px] md:h-[56px]"
-      borderColor="border-[#BFBFBF] border-2"
-      value={query}
-      onChange={e => setQuery(e.target.value)}
-      error={error}
-      icon={<HiSearch size={20} />}
-      {...rest}
-    />
-
-  )
+    <div className="flex items-center gap-3 bg-white shadow-lg rounded-xl px-4 py-2 w-full 
+    focus-within:ring-2 focus-within:ring-blue-500 transition-all duration-200 hover:shadow-[0_0_0_5px_rgba(3,105,161,0.3)]">
+      <HiOutlineSearch className="text-gray-400 text-xl" />
+      <input
+        type="text"
+        placeholder="جستجو ..."
+        className="flex-1 bg-transparent border-none text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+      />
+    </div>
+  );
 }

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
+import { PiLinkDuotone } from "react-icons/pi";
 
 function NavDropdown({ label, link, submenu }) {
     const [open, setOpen] = useState(false);
@@ -45,9 +46,11 @@ function NavDropdown({ label, link, submenu }) {
                 <NavLink
                     to={link}
                     className={({ isActive }) =>
-                        `font-bold px-3 py-2 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isActive ? "text-blue-600" : ""
-                        }`
+                        `block font-bold  px-3 py-2 rounded-xl transition-all duration-200 
+                        hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-sky-200 
+                        ${isActive ? "font-semibold text-sky-600" : "text-gray-700"}`
                     }
+
                     onKeyDown={handleKeyDown}
                 >
                     {label}
@@ -67,11 +70,11 @@ function NavDropdown({ label, link, submenu }) {
                     />
                 </button>
             </div>
-
             <ul
-                className={`absolute top-full w-max lg:left-1/2 lg:-translate-x-1/2 mt-2 bg-white border rounded shadow-lg z-20
-                    origin-top transform transition-transform duration-300 ease-in-out
-                    grid grid-cols-3 gap-4 px-4 py-3
+                className={`absolute top-full w-[500px] lg:left-1/2 lg:-translate-x-1/2 mt-4 
+                    bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 
+                    origin-top transform transition-transform duration-300 ease-out 
+                    grid grid-cols-2 gap-3 p-4 
                     ${open ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"}`}
                 role="menu"
             >
@@ -83,14 +86,18 @@ function NavDropdown({ label, link, submenu }) {
                             tabIndex={open ? 0 : -1}
                             onClick={() => setOpen(false)}
                             className={({ isActive }) =>
-                                `block px-4 py-2 rounded hover:bg-gray-100 focus:outline-none focus:bg-gray-200 ${isActive ? "font-bold text-blue-600" : "text-gray-800"
-                                }`
+                                `flex items-center gap-3 px-4 py-3 text-sm rounded-xl transition-all duration-200
+                                hover:bg-sky-100 focus:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-sky-200
+                                shadow-sm hover:shadow-md
+                                ${isActive ? "bg-sky-50 text-sky-600 font-semibold" : "text-gray-700"}`
                             }
                         >
+                            <PiLinkDuotone className="text-lg text-sky-500" />
                             {item.name}
                         </NavLink>
                     </li>
                 ))}
+
             </ul>
         </div>
     );

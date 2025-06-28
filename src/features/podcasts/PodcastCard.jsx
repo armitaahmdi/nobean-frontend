@@ -18,7 +18,7 @@ export default function PodcastCard({ podcast, activePodcast, isPlaying, setActi
     };
 
     return (
-        <div className="border shadow-lg border-[#D7D7D7] p-4 rounded-[20px]">
+        <div className="border bg-white shadow-lg border-[#D7D7D7] p-4 rounded-[20px]">
             <div>
                 <Link className="flex flex-col lg:flex-row gap-4" to={`/podcasts/${podcast.id}`}>
                     <img

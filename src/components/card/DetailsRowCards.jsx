@@ -1,23 +1,17 @@
+/* eslint-disable no-unused-vars */
 import { HiClock } from "react-icons/hi2";
 import { HiOutlineHashtag } from "react-icons/hi";
 import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
 import { HiMiniSparkles } from "react-icons/hi2";
 import { HiOutlineListBullet } from "react-icons/hi2";
 import translate from "../../locale/translate";
-import Button from "../Button";
-import { useNavigate } from "react-router-dom";
+import { forwardRef } from "react";
 
-export default function DetailsRowCards({ tests, onGoToReviews }) {
-    const navigate = useNavigate();
-
-    const handleStartClick = () => {
-        navigate(`/exam/${tests.id}`);
-    };
-
+const DetailsRowCards = forwardRef(({ tests }, ref) => {
     return (
         <div className="flex flex-wrap gap-6 justify-between mt-6">
             {/* Suitable For */}
-            <div className="bg-white rounded-[20px] p-4 min-w-[220px] flex-1">
+            <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] rounded-[20px] p-4 min-w-[220px] flex-1">
                 <h2 className="text-lightYellow font-bold text-xl mb-3">{translate.suitablefor}</h2>
                 <ul className="list-disc list-inside text-gray-700 text-sm space-y-1">
                     {tests.suitableFor && tests.suitableFor.map((item, index) => (
@@ -27,7 +21,7 @@ export default function DetailsRowCards({ tests, onGoToReviews }) {
             </div>
 
             {/* Number of done */}
-            <div className="bg-white rounded-[20px] p-4 min-w-[140px] flex flex-col items-center justify-center flex-1">
+            <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] rounded-[20px] p-4 min-w-[140px] flex flex-col items-center justify-center flex-1">
                 <h2 className="flex items-center font-semibold mb-1 text-xl">
                     <HiOutlineHashtag size={20} className="ml-1 text-lightYellow" />
                     {translate.numberofdone}
@@ -37,14 +31,14 @@ export default function DetailsRowCards({ tests, onGoToReviews }) {
 
             {/* Rating and Comments */}
             <div className="flex flex-col gap-6 flex-1 min-w-[140px]">
-                <div className="bg-white rounded-[20px] p-4 flex flex-col items-center justify-center">
+                <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] rounded-[20px] p-4 flex flex-col items-center justify-center">
                     <h2 className="flex items-center font-semibold mb-1 text-xl">
                         <HiMiniSparkles size={20} className="ml-1 text-lightYellow" />
                         {translate.rating}
                     </h2>
                     <p className="text-lg font-bold">{tests.rating}</p>
                 </div>
-                <div className="bg-white rounded-[20px] p-4 flex flex-col items-center justify-center">
+                <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] rounded-[20px] p-4 flex flex-col items-center justify-center">
                     <h2 className="flex items-center font-semibold mb-1 text-xl">
                         <HiChatBubbleBottomCenterText size={20} className="ml-1 text-lightYellow" />
                         {translate.comments}
@@ -55,14 +49,14 @@ export default function DetailsRowCards({ tests, onGoToReviews }) {
 
             {/* Duration and Number of Questions */}
             <div className="flex flex-col gap-6 flex-1 min-w-[140px]">
-                <div className="bg-white rounded-[20px] p-4 flex flex-col items-center justify-center">
+                <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)]  rounded-[20px] p-4 flex flex-col items-center justify-center">
                     <h2 className="flex items-center font-semibold mb-1 text-xl">
                         <HiClock size={20} className="ml-1 text-lightYellow" />
                         {translate.duration}
                     </h2>
                     <p className="text-lg font-bold">{tests.time}</p>
                 </div>
-                <div className="bg-white rounded-[20px] p-4 flex flex-col items-center justify-center">
+                <div className="bg-white [box-shadow:0_20px_25px_-5px_rgba(0,0,0,0.1),0_-20px_25px_-5px_rgba(0,0,0,0.1)] rounded-[20px] p-4 flex flex-col items-center justify-center">
                     <h2 className="flex items-center font-semibold mb-1 text-xl">
                         <HiOutlineListBullet size={20} className="ml-1 text-lightYellow" />
                         {translate.numberofquestion}
@@ -70,18 +64,8 @@ export default function DetailsRowCards({ tests, onGoToReviews }) {
                     <p className="text-lg font-bold">{tests.questionsCount}</p>
                 </div>
             </div>
-
-            {/* Start Button */}
-            <div className="bg-white rounded-[20px] p-4 flex flex-col items-center justify-center min-w-[180px]">
-                <h2 className="text-gray-900 text-xl font-bold mb-4">{tests.title}</h2>
-
-                <Button size="xlarge" color="blue" onClick={handleStartClick}> {translate.startfree}</Button>
-                <button
-                    onClick={onGoToReviews}
-                    className="font-bold  text-darkYellow underline hover:text-blue-800 cursor-pointer mt-4">
-                    {translate.submitComments}
-                </button>
-            </div>
         </div>
     );
-}
+});
+
+export default DetailsRowCards;
