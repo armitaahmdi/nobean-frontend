@@ -11,8 +11,8 @@ export default function StickyActionsColumn({ test, onGoToReviews, detailsRowRef
 
     const [offsetBottom, setOffsetBottom] = useState(0);
     const [isSticky, setIsSticky] = useState(true);
-    const fixedRight = "calc(100% - 520px)";
-    const [dynamicTop, setDynamicTop] = useState(480); 
+    // const fixedRight = "calc(100% - 520px)";
+    const [dynamicTop, setDynamicTop] = useState(520);
 
     const handleStartClick = () => {
         navigate(`/exam/${test.id}`);
@@ -76,7 +76,7 @@ export default function StickyActionsColumn({ test, onGoToReviews, detailsRowRef
                 </Button>
             </div>
 
-            <div
+            {/* <div
                 ref={containerRef}
                 className="hidden lg:flex flex-col gap-4 items-center"
                 style={{
@@ -90,7 +90,22 @@ export default function StickyActionsColumn({ test, onGoToReviews, detailsRowRef
                     boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                     padding: "1rem",
                 }}
+            > */}
+            <div
+                ref={containerRef}
+                className={`hidden lg:flex flex-col gap-4 items-center ${isSticky ? "fixed" : "absolute"
+                    } `}
+                style={{
+                    top: isSticky ? `${dynamicTop}px` : `${offsetBottom}px`,
+                    width: "300px",
+                    zIndex: 50,
+                    backgroundColor: "white",
+                    borderRadius: "1rem",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                    padding: "1rem",
+                }}
             >
+
                 <h2 className="text-gray-900 text-xl font-bold mb-4 text-center">{test.title}</h2>
                 <Button size="xlarge" color="blue" onClick={handleStartClick}>
                     {translate.startfree}
@@ -151,3 +166,4 @@ export default function StickyActionsColumn({ test, onGoToReviews, detailsRowRef
         </div>
     );
 }
+
