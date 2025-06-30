@@ -151,14 +151,14 @@ export default function ConsultantDetail() {
 
       </div>
 
-      <RelatedConsultantsSlider
+      {/* <RelatedConsultantsSlider
         consultants={
           consultants
             .filter((c) => c.id !== consultant.id)
             .sort(() => 0.5 - Math.random())
             .slice(0, 8)
         }
-      />
+      /> */}
     </>
   );
 
