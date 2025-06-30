@@ -65,13 +65,26 @@ export default function TestDetails() {
     ];
 
     return (
-        <div className="px-4 md:px-12 flex flex-col lg:flex-row-reverse gap-6">
-            <div className="hidden lg:block w-full lg:w-1/4">
-                <StickyActionsColumn test={test} onGoToReviews={handleGoToReviews}
-                    detailsRowRef={detailsRowRef}
-                />
-            </div>
+        // <div className="px-4 md:px-12 flex flex-col lg:flex-row gap-6">
+        //     <div className="w-full lg:w-3/4 flex flex-col gap-6">
+        //         <IntroCard
+        //             title={test.title}
+        //             description={test.description}
+        //             image={test.image}
+        //             category={test.category}
+        //             tags={test.tags}
+        //         />
 
+        // <div className=" w-full lg:w-1/4">
+        //     <StickyActionsColumn test={test} onGoToReviews={handleGoToReviews} />
+        // </div>
+
+        //         <DetailsRowCards ref={detailsRowRef} tests={{ ...test, hideStart: true }} />
+        //         <Tabs tabs={tabs} data={test} />
+        //     </div>
+        // </div>
+        <div className="px-4 md:px-12 flex flex-col lg:flex-row gap-6 items-start">
+            {/* ستون سمت راست (محتوای اصلی) */}
             <div className="w-full lg:w-3/4 flex flex-col gap-6">
                 <IntroCard
                     title={test.title}
@@ -80,12 +93,18 @@ export default function TestDetails() {
                     category={test.category}
                     tags={test.tags}
                 />
-                <div className="block lg:hidden w-full lg:w-1/4">
+                <div className="lg:hidden block w-full lg:w-1/4">
                     <StickyActionsColumn test={test} onGoToReviews={handleGoToReviews} />
                 </div>
                 <DetailsRowCards ref={detailsRowRef} tests={{ ...test, hideStart: true }} />
                 <Tabs tabs={tabs} data={test} />
             </div>
+
+            {/* ستون سمت چپ (استیکی اکشن‌ها) */}
+            <div className="w-full hidden lg:block lg:w-1/4">
+                <StickyActionsColumn test={test} onGoToReviews={handleGoToReviews} />
+            </div>
         </div>
+
     )
 }

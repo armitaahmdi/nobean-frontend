@@ -106,7 +106,10 @@ const translate = {
     previousweek: "هفته قبل",
     nextweek: "هفته بعد",
     servicetype: "نوع خدمت",
-    categories: "دسته‌بندی‌ها"
+    categories: "دسته‌بندی‌ها",
+    consultantDesc: "درباره مشاور",
+    schaduleTimming: "نوبت دهی",
+    ratingandcomment: "امتیاز و نظرات کاربران"
 }
 
 export default translate
