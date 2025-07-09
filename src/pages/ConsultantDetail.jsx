@@ -5,18 +5,18 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { fetchConsultants } from "../features/consultants/consultantsSlice";
 import LoadingState from "../components/ui/LoadingState";
 import ErrorState from "../components/ui/ErrorState";
-import ConsultantProfile from "../features/consultants/ConsultantProfile";
-import QuickReserveCard from "../features/consultants/QuickReserveCard";
-import RelatedConsultantsSlider from "../features/consultants/RelatedConsultantsSlider";
-import AnchorTabs from "../components/tab/AnchorTabs";
-import AboutTab from "../components/tab/consultantTabs/AboutTab";
-import ScheduleTab from "../components/tab/consultantTabs/ScheduleTab";
-import LocationTab from "../components/tab/consultantTabs/LocationTab";
-import ReviewsCard from "../components/card/ReviewsCard";
-import consultantImage from "../assets/images/consultant.png"
-import locationImage from "../assets/images/location.png";
-import calenderImage from "../assets/images/schedule.png"
-import commentImage from "../assets/images/social-media.png"
+import ConsultantProfile from "../features/consultants/pages/ConsultantProfile";
+import QuickReserveCard from "../features/consultants/components/QuickReserveCard";
+import RelatedConsultantsSlider from "../features/consultants/components/RelatedConsultantsSlider";
+import AnchorTabs from "../components/tab/shared/AnchorTabs";
+import AboutTab from "../components/tab/consultant/AboutTab";
+import ScheduleTab from "../components/tab/consultant/ScheduleTab";
+import LocationTab from "../components/tab/consultant/LocationTab";
+import ReviewsCard from "../components/reviews/ReviewsCard";
+import consultantImage from "../assets/images/icons/consultant.png"
+import locationImage from "../assets/images/icons/location.png";
+import calenderImage from "../assets/images/icons/schedule.png"
+import commentImage from "../assets/images/icons/social-media.png"
 import translate from "../locale/translate";
 
 export default function ConsultantDetail() {
@@ -73,8 +73,7 @@ export default function ConsultantDetail() {
     
           lg:grid-rows-1
           lg:grid-cols-[1fr_260px] /* دسکتاپ: ستون چپ کوییک رزرو 220px و ستون راست پروفایل+تب */
-        "
-      >
+        " >
         {/* QuickReserveCard */}
         <div
           className="
@@ -119,7 +118,7 @@ export default function ConsultantDetail() {
           <section id="about" className="py-8 scroll-mt-24">
             <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
               <img src={consultantImage} alt={translate.altdescription} className="w-7 h-7 object-cover" />
-               {translate.consultantDesc}
+              {translate.consultantDesc}
             </h2>
             <AboutTab consultant={consultant} />
           </section>
@@ -148,17 +147,19 @@ export default function ConsultantDetail() {
             <ReviewsCard reviews={consultant.reviews || []} />
           </section>
         </div>
-
       </div>
 
-      {/* <RelatedConsultantsSlider
-        consultants={
-          consultants
-            .filter((c) => c.id !== consultant.id)
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 8)
-        }
-      /> */}
+      <div>
+        <RelatedConsultantsSlider
+          consultants={
+            consultants
+              .filter((c) => c.id !== consultant.id)
+              .sort(() => 0.5 - Math.random())
+              .slice(0, 8)
+          }
+        />
+      </div>
+    
     </>
   );
 

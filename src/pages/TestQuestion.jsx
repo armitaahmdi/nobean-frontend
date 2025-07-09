@@ -4,14 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchExamDetails } from "../features/quiz/examDetailsSlice";
 import { HiHome } from "react-icons/hi";
 
-import ProgressBar from "../features/quiz/ProgressPercent";
-import FinishExam from "../features/quiz/FinishExam";
-import ExamQuestionsList from "../features/quiz/ExamQuestionsList";
-import TreeProgress from "../components/TreeProgress";
+import ProgressBar from "../features/quiz/components/ProgressPercent";
+import FinishExam from "../features/quiz/pages/FinishExam";
+import ExamQuestionsList from "../features/quiz/pages/ExamQuestionsList";
+import TreeProgress from "../components/test/TreeProgress";
 import translate from "../locale/translate";
 import LoadingState from "../components/ui/LoadingState";
 import ErrorState from "../components/ui/ErrorState";
-import ConfirmModal from "../components/ConfirmModal";
+import ConfirmModal from "../components/shared/ConfirmModal";
 
 export default function TestQuestions() {
     const { testId } = useParams();

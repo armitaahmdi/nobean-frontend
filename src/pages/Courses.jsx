@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import CoursesList from "../features/courses/CoursesList";
+import CoursesList from "../features/courses/pages/CoursesList";
 import translate from "../locale/translate";
 import { fetchCourses } from "../features/courses/coursesSlice";
 import { coursesFilterConfig } from "../components/filter/filterConfig";
-import FilterablePaginatedList from "../components/FilterablePaginatedList";
+import FilterablePaginatedList from "../components/filter/FilterablePaginatedList";
 
 export default function Courses() {
   const dispatch = useDispatch();

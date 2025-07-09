@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import translate from "../locale/translate";
 import { fetchArticles } from "../features/articles/articlesSlice";
 import { articlesFilterConfig } from "../components/filter/filterConfig";
-import ArticlesList from "../features/articles/ArticlesList";
-import FilterablePaginatedList from "../components/FilterablePaginatedList";
+import ArticlesList from "../features/articles/pages/ArticlesList";
+import FilterablePaginatedList from "../components/filter/FilterablePaginatedList";
 
 export default function Articles() {
   const dispatch = useDispatch()

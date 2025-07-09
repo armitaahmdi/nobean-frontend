@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import PodcastsDetailsCard from "../features/podcasts/PodcastsDetailsCard";
+import PodcastsDetailsCard from "../features/podcasts/components/PodcastsDetailsCard";
 import { useEffect } from "react";
 import { fetchPodcasts } from "../features/podcasts/podcastsSlice";
-import RelatedPodcasts from "../features/podcasts/RelatedPodcasts";
-import RelatedArticles from "../features/articles/RelatedArticles";
+import RelatedPodcasts from "../features/podcasts/components/RelatedPodcasts";
+import RelatedArticles from "../features/articles/components/RelatedArticles";
 import LoadingState from "../components/ui/LoadingState";
 import ErrorState from "../components/ui/ErrorState";
 

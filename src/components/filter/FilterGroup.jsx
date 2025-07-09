@@ -3,7 +3,7 @@ import FilterBox from "./FilterBox";
 import FilterModalMobile from "./FilterModalMobile";
 import { useSearchParams } from "react-router-dom";
 import translate from "../../locale/translate";
-import SearchBox from "../SearchBox";
+import SearchBox from "../shared/SearchBox";
 
 export default function FilterGroup({ config, selectedFilters, setSelectedFilters }) {
     const [activeFilterKey, setActiveFilterKey] = useState(null);

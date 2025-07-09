@@ -1,9 +1,9 @@
-import TestsList from "../features/tests/TestsList";
+import TestsList from "../features/tests/pages/TestsList";
 import translate from "../locale/translate"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTests } from "../features/tests/testsSlice";
 import { testsFilterConfig } from "../components/filter/filterConfig";
-import FilterablePaginatedList from "../components/FilterablePaginatedList";
+import FilterablePaginatedList from "../components/filter/FilterablePaginatedList";
 
 export default function Tests() {
   const dispatch = useDispatch();

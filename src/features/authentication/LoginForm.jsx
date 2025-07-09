@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Button from "../../components/Button";
+import Button from "../../components/shared/Button";
 import translate from "../../locale/translate";
 import mainLogo from "../../assets/images/logo/main-logo.png";
 import { FiPhone } from "react-icons/fi";

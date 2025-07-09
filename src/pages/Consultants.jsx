@@ -1,8 +1,8 @@
 import { fetchConsultants } from "../features/consultants/consultantsSlice"
 import { useDispatch, useSelector } from 'react-redux'
-import FilterablePaginatedList from '../components/FilterablePaginatedList';
+import FilterablePaginatedList from '../components/filter/FilterablePaginatedList';
 import { consultatsFilterConfig } from "../components/filter/filterConfig";
-import ConsultantsList from "../features/consultants/ConsultantsList";
+import ConsultantsList from "../features/consultants/pages/ConsultantsList";
 import translate from "../locale/translate";
 
 export default function Consultants() {
