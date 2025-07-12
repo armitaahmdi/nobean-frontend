@@ -5,6 +5,9 @@ import articlesReducer from "../features/articles/articlesSlice";
 import podcastsReducer from "../features/podcasts/podcastsSlice";
 import consultantsReducer from "../features/consultants/consultantsSlice";
 import examDetailsReducer from "../features/quiz/examDetailsSlice";
+// admin reducers 
+import userStatsReducer from "../admin/store/slices/userStateSlice"
+import examAttemptsReducer from "../admin/store/slices/examAttemptsSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +17,10 @@ const store = configureStore({
     articles: articlesReducer,
     podcasts: podcastsReducer,
     consultants: consultantsReducer,
+
+    // admin reducers
+    userStats: userStatsReducer,
+    examAttempts: examAttemptsReducer,
   },
 });
 

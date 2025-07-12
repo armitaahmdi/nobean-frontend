@@ -23,6 +23,7 @@ import { fetchCourses } from "./features/courses/coursesSlice";
 import { fetchArticles } from "./features/articles/articlesSlice";
 import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
 import AuthContainer from "./features/authentication/AuthContainer";
+import AdminRoutes from "./admin/routes/AdminRoutes";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -38,7 +39,8 @@ export default function App() {
     <Routes>
       <Route path="/exam/:testId" element={<TestQuestions />} />
       <Route path="/login" element={<AuthContainer />} />
-
+      {/* <Route path="/admin/*" element={<AdminRoutes />} /> */}
+      {AdminRoutes()}
       <Route
         path="/*"
         element={
