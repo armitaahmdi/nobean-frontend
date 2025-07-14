@@ -3,7 +3,7 @@ import underconstruction from "../assets/images/UnderConstruction.json";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+    <div className="flex flex-col items-center justify-center m-10 p-6">
       <div className="w-80 md:w-96 shadow-md">
         <Lottie animationData={underconstruction} loop={true} />
       </div>

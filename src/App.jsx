@@ -24,6 +24,7 @@ import { fetchArticles } from "./features/articles/articlesSlice";
 import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
 import AuthContainer from "./features/authentication/AuthContainer";
 import AdminRoutes from "./admin/routes/AdminRoutes";
+import ScrollToTop from "./components/shared/ScrollToTop";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -36,41 +37,44 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/exam/:testId" element={<TestQuestions />} />
-      <Route path="/login" element={<AuthContainer />} />
-      {/* <Route path="/admin/*" element={<AdminRoutes />} /> */}
-      {AdminRoutes()}
-      <Route
-        path="/*"
-        element={
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/exam/:testId" element={<TestQuestions />} />
+        <Route path="/login" element={<AuthContainer />} />
+        {/* <Route path="/admin/*" element={<AdminRoutes />} /> */}
+        {AdminRoutes()}
+        <Route
+          path="/*"
+          element={
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
 
-              <Route path="/tests" element={<Tests />} />
-              <Route path="/tests/:id" element={<TestDetails />} />
+                <Route path="/tests" element={<Tests />} />
+                <Route path="/tests/:id" element={<TestDetails />} />
 
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/courses/:id" element={<CourseDetails />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/courses/:id" element={<CourseDetails />} />
 
-              <Route path="/articles" element={<Article />} />
-              <Route path="/articles/:id" element={<ArticleDetail />} />
+                <Route path="/articles" element={<Article />} />
+                <Route path="/articles/:id" element={<ArticleDetail />} />
 
-              <Route path="/podcasts" element={<Podcasts />} />
-              <Route path="/podcasts/:id" element={<PodcastDetail />} />
+                <Route path="/podcasts" element={<Podcasts />} />
+                <Route path="/podcasts/:id" element={<PodcastDetail />} />
 
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/contact" element={<Contact />} />
 
-              <Route path="/consultants" element={<Consultants />} />
-              <Route path="/consultants/:id" element={<ConsultantDetail />} />
+                <Route path="/consultants" element={<Consultants />} />
+                <Route path="/consultants/:id" element={<ConsultantDetail />} />
 
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </Layout>
-        }
-      />
-    </Routes>
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Layout>
+          }
+        />
+      </Routes>
+    </>
   );
 }

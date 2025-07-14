@@ -9,15 +9,6 @@ import ConsultantProfile from "../features/consultants/pages/ConsultantProfile";
 import QuickReserveCard from "../features/consultants/components/QuickReserveCard";
 import RelatedConsultantsSlider from "../features/consultants/components/RelatedConsultantsSlider";
 import AnchorTabs from "../components/tab/shared/AnchorTabs";
-import AboutTab from "../components/tab/consultant/AboutTab";
-import ScheduleTab from "../components/tab/consultant/ScheduleTab";
-import LocationTab from "../components/tab/consultant/LocationTab";
-import ReviewsCard from "../components/reviews/ReviewsCard";
-import consultantImage from "../assets/images/icons/consultant.png"
-import locationImage from "../assets/images/icons/location.png";
-import calenderImage from "../assets/images/icons/schedule.png"
-import commentImage from "../assets/images/icons/social-media.png"
-import translate from "../locale/translate";
 
 export default function ConsultantDetail() {
   const { id } = useParams();
@@ -38,6 +29,14 @@ export default function ConsultantDetail() {
   const handleOpenScheduleTab = (slot) => {
     setReservedSlot(slot);
     setSearchParams({ tab: "schedule" });
+
+    // تاخیر کوتاه برای اطمینان از اینکه تب زمان‌بندی رندر شده
+    setTimeout(() => {
+      const element = document.getElementById("schedule-tab") || document.getElementById("schedule");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
   };
 
   useEffect(() => {
@@ -64,7 +63,7 @@ export default function ConsultantDetail() {
     <>
       <div
         className="
-          max-w-screen-xl mx-auto p-4
+          max-w-screen-xl mx-auto
           grid gap-8
           grid-rows-[auto_auto_auto]
     
@@ -101,51 +100,13 @@ export default function ConsultantDetail() {
         </div>
 
         {/* Anchor-style tabs */}
-        <div className="
+        <div
+          className="
          row-start-3 col-start-1 col-end-4
             md:col-start-1 md:col-end-4 md:row-start-2 md:row-end-3
             lg:col-start-1 lg:col-end-3 lg:row-end-2 
         ">
-          <AnchorTabs />
-        </div>
-
-        <div className="bg-white/80 px-4 rounded-b-[20px]
-        flex flex-col
-         row-start-3 col-start-1 col-end-4
-          md:col-start-1 md:col-end-4 md:row-start-2 md:row-end-3
-          lg:col-start-1 lg:col-end-3 lg:row-end-2 mt-14
-        ">
-          <section id="about" className="py-8 scroll-mt-24">
-            <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
-              <img src={consultantImage} alt={translate.altdescription} className="w-7 h-7 object-cover" />
-              {translate.consultantDesc}
-            </h2>
-            <AboutTab consultant={consultant} />
-          </section>
-
-          <section id="schedule" className="scroll-mt-28 border-t border-gray-200 py-12">
-            <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
-              <img src={calenderImage} alt={translate.altdescription} className="w-7 h-7 object-cover" />
-              {translate.schaduleTimming}
-            </h2>
-            <ScheduleTab schedule={consultant.schedule} />
-          </section>
-
-          <section id="location" className="scroll-mt-28 border-t border-gray-200 py-12">
-            <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
-              <img src={locationImage} alt={translate.altdescription} className="w-7 h-7 object-cover" />
-              {translate.clinicaddress}
-            </h2>
-            <LocationTab service={consultant} />
-          </section>
-
-          <section id="reviews" className="scroll-mt-28 border-t border-gray-200 py-12">
-            <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
-              <img src={commentImage} alt={translate.clinicaddress} className="w-7 h-7 object-cover" />
-              {translate.ratingandcomment}
-            </h2>
-            <ReviewsCard reviews={consultant.reviews || []} />
-          </section>
+          <AnchorTabs consultant={consultant} />
         </div>
       </div>
 
@@ -159,7 +120,7 @@ export default function ConsultantDetail() {
           }
         />
       </div>
-    
+
     </>
   );
 

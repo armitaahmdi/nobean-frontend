@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import NavDropdown from "./NavDropdown";
 import MobileDropdown from "./MobileDropdown";
@@ -40,7 +40,9 @@ export default function Navbar() {
 
                     {/* لوگو وسط چین */}
                     <div className="mx-auto">
-                        <img src={mainLogo} alt={translate.altdescription} className="w-[110px] h-[65px]" />
+                        <Link to="/">
+                            <img src={mainLogo} alt={translate.altdescription} className="w-[110px] h-[65px]" />
+                        </Link>
                     </div>
                 </div>
 
