@@ -6,8 +6,10 @@ import MobileDropdown from "./MobileDropdown";
 import mainLogo from "../../assets/images/logo/main-logo.png";
 import translate from "../../locale/translate";
 import { useMenuItems } from "../../hooks/useMenuItems";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+    const navigate = useNavigate();
     const menuItems = useMenuItems();
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -40,9 +42,12 @@ export default function Navbar() {
 
                     {/* لوگو وسط چین */}
                     <div className="mx-auto">
-                        <Link to="/">
-                            <img src={mainLogo} alt={translate.altdescription} className="w-[110px] h-[65px]" />
-                        </Link>
+                        <img
+                            onClick={() => navigate("/")}
+                            src={mainLogo}
+                            alt="لوگو"
+                            className="w-[110px] h-[65px] cursor-pointer"
+                        />
                     </div>
                 </div>
 
@@ -83,9 +88,10 @@ export default function Navbar() {
                         {/* لوگو */}
                         <div className="mx-3 flex-shrink-0">
                             <img
+                                onClick={() => navigate("/")}
                                 src={mainLogo}
                                 alt={translate.altdescription}
-                                className="w-[80px] h-auto"
+                                className="w-[80px] h-auto cursor-pointer"
                             />
                         </div>
 
