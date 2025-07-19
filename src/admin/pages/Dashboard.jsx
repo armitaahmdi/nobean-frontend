@@ -4,7 +4,10 @@ import { statItems } from "../config/statSections";
 import UserSignupChart from "../components/chart/UserSignupChart";
 import statistics from "../assets/statistics.png"
 import RecentUsersTable from "../components/tables/RecentUsersTable";
-import ExamAttemptsChart from "../components/chart/ExamAttemptsChart";
+import ExamAttemptsChart from "../components/chart/test/ExamAttemptsChart";
+import TopExamPieChart from "../components/chart/test/TopExamPieChart";
+import ActivityFeed from "../components/ActivityFeed";
+import notification from "../assets/notification.png"
 
 export default function Dashboard() {
     const [stats, setStats] = useState([]);
@@ -60,8 +63,23 @@ export default function Dashboard() {
                     <RecentUsersTable />
                 </div>
             </div>
+            <div className="flex flex-col lg:flex-row gap-6 items-start">
+                {/* Chart Section */}
+                <div className="lg:w-2/3 w-full">
+                    <ExamAttemptsChart />
+                </div>
+                {/* Top Exam Chart */}
+                <div className="lg:w-1/3 w-full">
+                    <TopExamPieChart />
+                </div>
+            </div>
+            {/* activity feed */}
             <div>
-                <ExamAttemptsChart />
+                <div className="flex items-baseline">
+                    <img className="w-10 h-10" src={notification} alt="admin panel" />
+                    <h1 className="mx-2 mb-2 font-semibold text-lg">آخرین فعالیت ها</h1>
+                </div>
+                <ActivityFeed />
             </div>
         </div>
     );

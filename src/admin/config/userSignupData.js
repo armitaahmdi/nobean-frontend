@@ -4,7 +4,7 @@ export const fakeUserSignupData = [
         name: "آرمیتا احمدی",
         email: "armita@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-15T08:20:00Z",
+        created_at: "2025-06-15T08:20:00Z",
         examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
         coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
         consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
@@ -15,7 +15,7 @@ export const fakeUserSignupData = [
         name: "مهدی رضایی",
         email: "mehdi@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-17T10:45:00Z",
+        created_at: "2025-06-17T10:45:00Z",
         examsTaken: [],
         coursesPurchased: [],
         consultations: [{ consultantId: 1, status: "cancelled", date: "2025-06-21T09:00:00Z" }],
@@ -26,7 +26,7 @@ export const fakeUserSignupData = [
         name: "سارا موسوی",
         email: "sara@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-18T12:30:00Z",
+        created_at: "2025-06-18T12:30:00Z",
         examsTaken: [
             { examId: 7, takenAt: "2025-06-19T11:15:00Z", score: 85 },
             { examId: 8, takenAt: "2025-06-21T15:00:00Z", score: 92 }
@@ -40,7 +40,7 @@ export const fakeUserSignupData = [
         name: "علی جعفری",
         email: "ali@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-18T12:30:00Z",
+        created_at: "2025-06-18T12:30:00Z",
         examsTaken: [],
         coursesPurchased: [],
         consultations: [],
@@ -51,7 +51,7 @@ export const fakeUserSignupData = [
         name: "نگار مرادی",
         email: "negar@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-18T12:30:00Z",
+        created_at: "2025-06-18T12:30:00Z",
         examsTaken: [{ examId: 11, takenAt: "2025-06-21T09:00:00Z", score: 68 }],
         coursesPurchased: [{ courseId: 4, purchasedAt: "2025-06-24T16:00:00Z" }],
         consultations: [{ consultantId: 2, status: "successful", date: "2025-06-25T10:30:00Z" }],
@@ -62,7 +62,7 @@ export const fakeUserSignupData = [
         name: "سینا محمدی",
         email: "sina@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-18T12:30:00Z",
+        created_at: "2025-06-18T12:30:00Z",
         examsTaken: [],
         coursesPurchased: [],
         consultations: [],
@@ -73,7 +73,7 @@ export const fakeUserSignupData = [
         name: "پریسا محمدی",
         email: "parisa@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-22T09:30:00Z",
+        created_at: "2025-06-22T09:30:00Z",
         examsTaken: [{ examId: 9, takenAt: "2025-06-23T08:00:00Z", score: 88 }],
         coursesPurchased: [],
         consultations: [],
@@ -84,7 +84,7 @@ export const fakeUserSignupData = [
         name: "کامران تیموری",
         email: "kamran@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-23T17:00:00Z",
+        created_at: "2025-06-23T17:00:00Z",
         examsTaken: [],
         coursesPurchased: [],
         consultations: [{ consultantId: 4, status: "successful", date: "2025-06-27T13:00:00Z" }],
@@ -95,7 +95,7 @@ export const fakeUserSignupData = [
         name: "لیلا زارع",
         email: "leila@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-25T14:45:00Z",
+        created_at: "2025-06-25T14:45:00Z",
         examsTaken: [
             { examId: 15, takenAt: "2025-06-26T10:00:00Z", score: 72 },
             { examId: 16, takenAt: "2025-06-28T13:15:00Z", score: 81 }
@@ -109,7 +109,7 @@ export const fakeUserSignupData = [
         name: "حسام کریمی",
         email: "hesam@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-27T10:00:00Z",
+        created_at: "2025-06-27T10:00:00Z",
         examsTaken: [],
         coursesPurchased: [],
         consultations: [],
@@ -120,7 +120,7 @@ export const fakeUserSignupData = [
         name: "آرمیتا احمدی",
         email: "armita@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-15T08:20:00Z",
+        created_at: "2025-06-15T08:20:00Z",
         examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
         coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
         consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
@@ -131,7 +131,7 @@ export const fakeUserSignupData = [
         name: "لیلا زارع",
         email: "leila@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-25T14:45:00Z",
+        created_at: "2025-06-25T14:45:00Z",
         examsTaken: [
             { examId: 15, takenAt: "2025-06-26T10:00:00Z", score: 72 },
             { examId: 16, takenAt: "2025-06-28T13:15:00Z", score: 81 }
@@ -145,7 +145,7 @@ export const fakeUserSignupData = [
         name: "لیلا زارع",
         email: "leila@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-25T14:45:00Z",
+        created_at: "2025-06-25T14:45:00Z",
         examsTaken: [
             { examId: 15, takenAt: "2025-06-26T10:00:00Z", score: 72 },
             { examId: 16, takenAt: "2025-06-28T13:15:00Z", score: 81 }
@@ -159,7 +159,7 @@ export const fakeUserSignupData = [
         name: "لیلا زارع",
         email: "leila@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-25T14:45:00Z",
+        created_at: "2025-06-25T14:45:00Z",
         examsTaken: [
             { examId: 15, takenAt: "2025-06-26T10:00:00Z", score: 72 },
             { examId: 16, takenAt: "2025-06-28T13:15:00Z", score: 81 }
@@ -173,7 +173,7 @@ export const fakeUserSignupData = [
         name: "لیلا زارع",
         email: "leila@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-25T14:45:00Z",
+        created_at: "2025-06-25T14:45:00Z",
         examsTaken: [
             { examId: 15, takenAt: "2025-06-26T10:00:00Z", score: 72 },
             { examId: 16, takenAt: "2025-06-28T13:15:00Z", score: 81 }
@@ -187,7 +187,7 @@ export const fakeUserSignupData = [
         name: "لیلا زارع",
         email: "leila@example.com",
         phoneNumber: "09120000000",
-        createdAt: "2025-06-25T14:45:00Z",
+        created_at: "2025-06-25T14:45:00Z",
         examsTaken: [
             { examId: 15, takenAt: "2025-06-26T10:00:00Z", score: 72 },
             { examId: 16, takenAt: "2025-06-28T13:15:00Z", score: 81 }
@@ -195,5 +195,71 @@ export const fakeUserSignupData = [
         coursesPurchased: [],
         consultations: [],
         comments: []
+    },
+    {
+        id: 17,
+        name: "آرمیتا احمدی",
+        email: "armita@example.com",
+        phoneNumber: "09120000000",
+        created_at: "2025-07-10T09:30:00Z",
+        examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
+        coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
+        consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
+        comments: [{ targetType: "article", targetId: 2, postedAt: "2025-07-01T12:00:00Z" }]
+    },
+    {
+        id: 18,
+        name: "آرمیتا احمدی",
+        email: "armita@example.com",
+        phoneNumber: "09120000000",
+        created_at: "2025-07-10T09:30:00Z",
+        examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
+        coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
+        consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
+        comments: [{ targetType: "article", targetId: 2, postedAt: "2025-07-01T12:00:00Z" }]
+    },
+    {
+        id: 19,
+        name: "آرمیتا احمدی",
+        email: "armita@example.com",
+        phoneNumber: "09120000000",
+        created_at: "2025-07-10T09:30:00Z",
+        examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
+        coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
+        consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
+        comments: [{ targetType: "article", targetId: 2, postedAt: "2025-07-01T12:00:00Z" }]
+    },
+    {
+        id: 20,
+        name: "آرمیتا احمدی",
+        email: "armita@example.com",
+        phoneNumber: "09120000000",
+        created_at: "2025-07-12T14:00:00Z",
+        examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
+        coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
+        consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
+        comments: [{ targetType: "article", targetId: 2, postedAt: "2025-07-01T12:00:00Z" }]
+    },
+    {
+        id: 21,
+        name: "آرمیتا احمدی",
+        email: "armita@example.com",
+        phoneNumber: "09120000000",
+        created_at: "2025-07-12T14:00:00Z",
+        examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
+        coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
+        consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
+        comments: [{ targetType: "article", targetId: 2, postedAt: "2025-07-01T12:00:00Z" }]
+    },
+    {
+        id: 22,
+        name: "آرمیتا احمدی",
+        email: "armita@example.com",
+        phoneNumber: "09120000000",
+        created_at: "2025-07-12T14:00:00Z",
+        examsTaken: [{ examId: 12, takenAt: "2025-06-20T14:30:00Z", score: 78 }],
+        coursesPurchased: [{ courseId: 5, purchasedAt: "2025-06-22T09:00:00Z" }],
+        consultations: [{ consultantId: 3, status: "successful", date: "2025-06-25T11:00:00Z" }],
+        comments: [{ targetType: "article", targetId: 2, postedAt: "2025-07-01T12:00:00Z" }]
     },
 ];

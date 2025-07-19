@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import CollapsibleCard from "../shared/CollapsibleCard";
+import CollapsibleCard from "../../shared/CollapsibleCard";
+import TimeRangeSelector from "../../shared/TimeRangeSelector";
+import ExcelExportButton from "../../shared/ExcelExportButton";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -14,6 +16,8 @@ import {
 } from "chart.js";
 import { Bar, Line } from "react-chartjs-2";
 import { FaClipboardList } from "react-icons/fa";
+import { filterByDateRange } from "../../../utils/dateFilters";
+import moment from "moment-jalaali";
 
 ChartJS.register(
     CategoryScale,
@@ -27,16 +31,22 @@ ChartJS.register(
 
 export default function ExamAttemptsChart() {
     const attempts = useSelector((state) => state.examAttempts.list) || [];
+    const users = useSelector((state) => state.userStats.users);
     const { tests } = useSelector((store) => store.tests);
     const [chartType, setChartType] = useState("bar");
+    const [range, setRange] = useState("1m");
+
+    const filteredAttempts = useMemo(() => {
+        return filterByDateRange(attempts, "created_at", range);
+    }, [attempts, range]);
 
     const chartData = useMemo(() => {
-        if (!Array.isArray(attempts) || !Array.isArray(tests)) {
+        if (!Array.isArray(filteredAttempts) || !Array.isArray(tests)) {
             return { labels: [], datasets: [] };
         }
 
         const examCountMap = {};
-        attempts.forEach((a) => {
+        filteredAttempts.forEach((a) => {
             examCountMap[a.examId] = (examCountMap[a.examId] || 0) + 1;
         });
 
@@ -69,7 +79,7 @@ export default function ExamAttemptsChart() {
                 },
             ],
         };
-    }, [attempts, tests, chartType]);
+    }, [filteredAttempts, tests, chartType]);
 
     const maxY = Math.max(...chartData.datasets[0]?.data || [0], 0);
     const yStep = 5;
@@ -111,12 +121,42 @@ export default function ExamAttemptsChart() {
         },
     };
 
+    const excelData = useMemo(() => {
+        return filteredAttempts.map((attempt) => {
+            const exam = tests.find((t) => t.id === attempt.examId);
+            const user = users.find((u) => u.id === attempt.userId);
+
+            return {
+                "عنوان آزمون": exam?.title || `آزمون ${attempt.examId}`,
+                "نام کاربر": user?.full_name || user?.name || "—",
+                "تاریخ شرکت": moment(attempt.created_at).format("jYYYY/jMM/jDD"),
+                "نمره": attempt.score ?? "—",
+            };
+        });
+    }, [filteredAttempts, tests, users]);
+
+
     return (
         <CollapsibleCard
-            title="آزمون‌های پرکاربرد"
+            title="آزمون‌های انجام شده"
             icon={FaClipboardList}
             headerBgColor="#b45309" // رنگ مشابه نارنجی تیره‌تر
         >
+            <div className="flex justify-between mb-3">
+                <TimeRangeSelector onChange={setRange} defaultValue="1m" />
+                <ExcelExportButton
+                    data={excelData}
+                    columns={[
+                        { label: "عنوان آزمون", key: "عنوان آزمون" },
+                        { label: "نام کاربر", key: "نام کاربر" },
+                        { label: "تاریخ شرکت", key: "تاریخ شرکت" },
+                        { label: "نمره", key: "نمره" },
+                    ]}
+                    fileName="exam-attempts.xlsx"
+                    sheetName="ExamAttempts"
+                    label="خروجی اکسل آزمون‌ها"
+                />
+            </div>
             <div>
                 {/* دکمه انتخاب نوع نمودار */}
                 <div className="flex justify-end mb-4 gap-2">

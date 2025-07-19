@@ -1,4 +1,4 @@
-import { FaHome, FaUsers, FaClipboardList, FaUserTie, FaFileAlt } from "react-icons/fa";
+import { FaHome, FaUsers, FaClipboardList, FaUserTie, FaFileAlt, FaPodcast, FaBookOpen, FaSchool } from "react-icons/fa";
 
 const adminMenu = [
     {
@@ -23,16 +23,34 @@ const adminMenu = [
         icon: FaClipboardList,
     },
     {
+        id: "courses",
+        name: "دوره ها",
+        link: "/admin/courses",
+        icon: FaBookOpen,
+    },
+    {
         id: "consultants",
-        name: "مشاوران",
+        name: "مشاورها",
         link: "/admin/consultants",
         icon: FaUserTie,
+    },
+    {
+        id: "schools",
+        name: "مدیریت مدارس",
+        link: "/admin/schools",
+        icon: FaSchool,
     },
     {
         id: "articles",
         name: "مقالات",
         link: "/admin/articles",
         icon: FaFileAlt,
+    },
+    {
+        id: "podcasts",
+        name: "پادکست ها",
+        link: "/admin/podcasts",
+        icon: FaPodcast,
     },
 ];
 
