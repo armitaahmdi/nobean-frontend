@@ -136,6 +136,7 @@ export const articleData = [
     `,
     author: "نوین کد",
     date: "2025-06-01",
+    tags: ["روانشناسی", "روانشناسی", "روانشناسی"],
     image: articleImg,
     readingTime: 4,
     category: "روانشناسی",

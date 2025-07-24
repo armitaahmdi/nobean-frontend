@@ -22,7 +22,7 @@ export default function Tests() {
             tests={data}
             selectedSort={selectedFilters.sortOptions}
             selectedCategory={selectedFilters.categories}
-            selectedBadge={selectedFilters.badge}
+            selectedBadge={selectedFilters.target_audience}
           />
         )}
         seo={translate.tests}

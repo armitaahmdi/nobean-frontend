@@ -1,18 +1,32 @@
-import Lottie from "lottie-react";
-import underconstruction from "../assets/images/UnderConstruction.json";
+import CategoryCardsSection from "../features/home/components/CategoryCardsSection";
+import FAQSection from "../features/home/components/FAQSection";
+import PopularItemsSection from "../features/home/components/PopularItemsSection";
+import RelatedDisordersSection from "../features/home/components/RelatedDisordersSection";
+import SearchBar from "../features/home/components/SearchBar";
+import ServicesSection from "../features/home/components/ServicesSection";
+import SuggestedArticlesSection from "../features/home/components/SuggestedArticlesSection";
+import TestimonialsSection from "../features/home/components/TestimonialsSection";
+import TopConsultantsSection from "../features/home/components/TopConsultantsSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center m-10 p-6">
-      <div className="w-80 md:w-96 shadow-md">
-        <Lottie animationData={underconstruction} loop={true} />
+    <>
+      <div className="mt-10">
+        <SearchBar />
       </div>
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mt-4">
-        این صفحه در حال ساخت است
-      </h1>
-      <p className="text-gray-600 mt-2 text-center max-w-md">
-        در حال توسعه بخش‌های مختلف سایت هستیم. لطفاً به‌زودی دوباره سر بزنید!
-      </p>
-    </div>
-  );
+
+      <CategoryCardsSection />
+      <ServicesSection />
+      <PopularItemsSection />
+      <div className="mx-auto max-w-full sm:max-w-7xl px-4 sm:px-6 md:px-8">
+        <div className="bg-blue-200/25 backdrop-blur-md rounded-lg shadow-lg p-6">
+          <TestimonialsSection />
+          <RelatedDisordersSection />
+        </div>
+      </div>
+      <TopConsultantsSection />
+      <SuggestedArticlesSection />
+      <FAQSection />
+    </>
+  )
 }

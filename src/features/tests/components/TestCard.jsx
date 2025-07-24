@@ -13,13 +13,13 @@ const badgeColors = {
 }
 
 export default function TestCard({ test }) {
-    const badgeBgColor = badgeColors[test.badge] || "gray";
+    const badgeBgColor = badgeColors[test.target_audience] || "gray";
 
     return (
         <div className="relative w-full py-6 h-auto flex flex-col justify-center items-center bg-[#ECF3FE] rounded-[20px] shadow-md overflow-hidden">
             <div style={{ backgroundColor: badgeBgColor }}
                 className="absolute top-3 left-7 rounded-[10px] text-xs py-2 px-3">
-                {test.badge}
+                {test.target_audience}
             </div>
 
             <img src={test.image} alt={test.title} className="w-[140px] h-[140px] rounded-[20px]" />

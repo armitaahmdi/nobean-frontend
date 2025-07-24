@@ -1,8 +1,8 @@
 export function applyFilters(data, filters) {
     let result = [...data];
 
-    if (filters.badges) {
-        result = result.filter((item) => item.badge === filters.badges);
+    if (filters.target_audience) {
+        result = result.filter((item) => item.target_audience === filters.target_audience);
     }
 
     if (filters.categories) {

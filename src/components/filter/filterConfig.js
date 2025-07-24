@@ -16,7 +16,7 @@ import parent from "../../assets/images/categoryIcons/parent.png";
 import psychology from "../../assets/images/categoryIcons/psychology.png";
 
 export const testsFilterConfig = {
-    badges: {
+    target_audience: {
         title: "مناسب برای",
         icon: FaRegUser,
         options: ["ویژه والدین و فرزندان", "ویژه فرزندان", "ویژه والدین"],
@@ -41,7 +41,7 @@ export const testsFilterConfig = {
 };
 
 export const coursesFilterConfig = {
-    badges: {
+    target_audience: {
         title: "مناسب برای",
         icon: FaRegUser,
         options: ["ویژه والدین و فرزندان", "ویژه فرزندان", "ویژه والدین"],
@@ -65,7 +65,7 @@ export const coursesFilterConfig = {
 };
 
 export const articlesFilterConfig = {
-    badges: {
+    target_audience: {
         title: "مناسب برای",
         icon: FaRegUser,
         options: ["ویژه والدین و فرزندان", "ویژه فرزندان", "ویژه والدین"],
@@ -85,7 +85,7 @@ export const articlesFilterConfig = {
 }
 
 export const podcastsFilterConfig = {
-    badges: {
+    target_audience: {
         title: "مناسب برای",
         icon: FaRegUser,
         options: ["ویژه والدین و فرزندان", "ویژه فرزندان", "ویژه والدین"],

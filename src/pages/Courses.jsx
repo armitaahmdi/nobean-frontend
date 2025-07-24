@@ -22,7 +22,7 @@ export default function Courses() {
             courses={data}
             selectedSort={selectedFilters.sortOptions}
             selectedCategory={selectedFilters.categories}
-            selectedBadge={selectedFilters.badge}
+            selectedBadge={selectedFilters.target_audience}
           />
         )}
         seo={translate.courses}

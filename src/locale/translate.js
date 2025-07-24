@@ -109,7 +109,22 @@ const translate = {
     categories: "دسته‌بندی‌ها",
     consultantDesc: "درباره مشاور",
     schaduleTimming: "نوبت دهی",
-    ratingandcomment: "امتیاز و نظرات کاربران"
+    ratingandcomment: "امتیاز و نظرات کاربران",
+    see: "مشاهده",
+    seeAll: "مشاهده همه",
+    specialCategory: "دسته‌بندی‌های ویژه",
+    free: "رایگان",
+    seeCourse: "مشاهده دوره",
+    seeExam: "مشاهده آزمون",
+    ourService: "خدمات ما",
+    Expertise: "تخصص",
+    sessionPrice: "قیمت جلسه",
+    seeAllArticles: "مشاهده همه مقالات",
+    continue: " ادامه مطلب",
+    recommendedArticles: "مقالات پیشنهادی",
+    reviews: "نظرات مراجعین",
+    bestConsultants: "برترین مشاور ماه و مشاوران پیشنهادی",
+    bestConsultantsOfMonth: "برترین مشاور ماه"
 }
 
 export default translate

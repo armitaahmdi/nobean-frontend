@@ -8,6 +8,7 @@ export const useMenuItems = () => {
     const { courses = [] } = useSelector((store) => store.courses);
     const { articles = [] } = useSelector((store) => store.articles);
     const { podcasts = [] } = useSelector((store) => store.podcasts)
+    const { consultants = [] } = useSelector((store) => store.consultants)
 
     const buildSubmenu = (items = [], baseLink) =>
         items.map(item => ({
@@ -45,7 +46,7 @@ export const useMenuItems = () => {
             name: "مشاورین",
             link: "/consultants",
             icon: HiOutlineUserGroup,
-            // submenu:
+            submenu: buildSubmenu(consultants, "/consultants")
         },
         {
             name: "خدمات‌سازمانی",

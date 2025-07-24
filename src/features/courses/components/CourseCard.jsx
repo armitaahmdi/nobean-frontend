@@ -15,7 +15,7 @@ const badgeColors = {
 
 export default function CourseCard({ course }) {
     const [isHovered, setIsHovered] = useState(false);
-    const badgeBgColor = badgeColors[course.badge] || "gray";
+    const badgeBgColor = badgeColors[course.target_audience] || "gray";
 
     return (
         <div className="relative w-full h-auto py-6 flex flex-col justify-center items-center bg-[#FFF8E6] rounded-[20px] shadow-md overflow-hidden"
@@ -23,7 +23,7 @@ export default function CourseCard({ course }) {
             onMouseLeave={() => setIsHovered(false)}>
             <div style={{ backgroundColor: badgeBgColor }}
                 className="absolute top-3 left-7 rounded-[10px] text-xs py-2 px-3">
-                {course.badge}
+                {course.target_audience}
             </div>
 
             {

@@ -1,0 +1,14 @@
+.animated-dashed {
+    stroke-dasharray: 5 5;
+    animation: dashmove 2s linear infinite;
+}
+
+@keyframes dashmove {
+    0% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: -10;
+    }
+}
