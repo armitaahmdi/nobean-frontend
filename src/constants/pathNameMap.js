@@ -6,6 +6,7 @@ const pathNameMap = {
     consultants: "مشاورین",
     services: "خدمات سازمانی",
     contact: "تماس با ما",
+    webinar: "وبینار"
   };
   
   export default pathNameMap;

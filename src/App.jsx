@@ -25,6 +25,7 @@ import { fetchPodcasts } from "./features/podcasts/podcastsSlice";
 import AuthContainer from "./features/authentication/AuthContainer";
 import AdminRoutes from "./admin/routes/AdminRoutes";
 import ScrollToTop from "./components/shared/ScrollToTop";
+import Webinar from "./pages/Webinar";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,8 @@ export default function App() {
 
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/courses/:id" element={<CourseDetails />} />
+
+                <Route path="/webinar" element={<Webinar />} />
 
                 <Route path="/articles" element={<Article />} />
                 <Route path="/articles/:id" element={<ArticleDetail />} />

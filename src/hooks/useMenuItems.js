@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { IoHomeOutline,IoBriefcaseOutline, IoClipboardOutline, IoBookOutline, IoNewspaperOutline } from "react-icons/io5";
 import { HiOutlineUserGroup, HiOutlinePhone } from "react-icons/hi2";
 import { CiMicrophoneOn } from "react-icons/ci";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 export const useMenuItems = () => {
     const { tests = [] } = useSelector((store) => store.tests);
@@ -29,6 +30,11 @@ export const useMenuItems = () => {
             link: "/courses",
             icon: IoBookOutline,
             submenu: buildSubmenu(courses, "/courses"),
+        },
+        {
+            name: "وبینار 🔥",
+            link: "/webinar",
+            icon: FaChalkboardTeacher,
         },
         {
             name: "مقالات",
