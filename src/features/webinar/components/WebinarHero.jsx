@@ -2,10 +2,10 @@ import { FaRegClock, FaCalendarAlt, FaRegCheckCircle } from "react-icons/fa";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import webinarImg from "../../../assets/images/banner/webinar-banner.jpg";
 
-export default function WebinarHero({scrollToPrice}) {
+export default function WebinarHero({ scrollToPrice }) {
   return (
     <div className="flex justify-center items-center px-4">
-      <section className="bg-white rounded-[20px] py-12 lg:py-20 shadow-md w-full max-w-screen-xl mx-auto">
+      <section className="bg-white rounded-[20px] py-4 shadow-md w-full max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center px-6">
           {/* متن */}
           <div>
@@ -42,7 +42,7 @@ export default function WebinarHero({scrollToPrice}) {
             </div>
 
             <button onClick={scrollToPrice}
-             className="bg-darkBlue text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-[#152541] transition">
+              className="bg-darkBlue text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-[#152541] transition">
               ثبت‌نام در وبینار
               <HiOutlineArrowRight className="text-lg" />
             </button>
@@ -54,7 +54,7 @@ export default function WebinarHero({scrollToPrice}) {
               <img
                 src={webinarImg}
                 alt="وبینار اختلال یادگیری"
-                className="object-cover w-full h-full hover:scale-105"
+                className="object-cover w-full h-full"
               />
             </div>
           </div>

@@ -33,26 +33,33 @@ const faqData = [
 
 export default function WebinarPage({ priceRef }) {
     const [activeTab, setActiveTab] = useState("about");
+    const isFirstLoad = useRef(true);
 
     const aboutRef = useRef(null);
     const featuresRef = useRef(null);
     const faqRef = useRef(null);
     const teacherRef = useRef(null);
-    const curriculumRef = useRef(null)
+    const curriculumRef = useRef(null);
+    const suitableRef = useRef(null);
 
     useEffect(() => {
+        if (isFirstLoad.current) {
+            isFirstLoad.current = false;
+            return;
+        }
+
         const refs = {
             about: aboutRef,
-            suitablefor: aboutRef,
+            suitablefor: suitableRef,
             features: featuresRef,
             faq: faqRef,
             teacher: teacherRef,
-            curriculum: curriculumRef
+            curriculum: curriculumRef,
         };
 
         const selectedRef = refs[activeTab];
         if (selectedRef?.current) {
-            const offsetTop = selectedRef.current.getBoundingClientRect().top + window.scrollY - 120; // <- اینجا 120 می‌تونی تنظیم کنی
+            const offsetTop = selectedRef.current.getBoundingClientRect().top + window.scrollY - 120;
             window.scrollTo({ top: offsetTop, behavior: "smooth" });
         }
     }, [activeTab]);
@@ -62,8 +69,8 @@ export default function WebinarPage({ priceRef }) {
             <WebinarTabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
 
             <div className="mt-6 space-y-20">
-                <div ref={aboutRef}>
-                    <AboutSections />
+                <div>
+                    <AboutSections suitableRef={suitableRef} aboutRef={aboutRef} />
                 </div>
                 <div ref={featuresRef}>
                     <FeaturesSection />

@@ -1,14 +1,13 @@
 export default function WebinarTabs({ tabs, activeTab, onChange }) {
     return (
-        <div className="relative mt-10">
-            <div className="overflow-x-auto scrollbar-hide lg:overflow-visible">
+        <div className="relative mt-5 max-w-full overflow-hidden">
+            <div className="overflow-x-auto scrollbar-hide">
                 <menu
                     className="
-                        flex w-max lg:w-full 
-                        max-w-none lg:max-w-7xl
-                        mx-auto items-center gap-4 sm:gap-6 
-                        px-4 py-3 bg-white 
-                        border border-dashed border-[#6308FD33] 
+                        flex w-max
+                        items-center gap-4 sm:gap-6
+                        px-4 py-3 bg-white
+                        border border-dashed border-[#6308FD33]
                         rounded-2xl shadow-sm
                     "
                 >
@@ -28,5 +27,6 @@ export default function WebinarTabs({ tabs, activeTab, onChange }) {
                 </menu>
             </div>
         </div>
+
     );
 }

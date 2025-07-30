@@ -1,11 +1,11 @@
 import { FaCheckCircle, FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa";
 import RegistrationHero from "../RegistrationHero";
 
-export default function AboutSection() {
+export default function AboutSection({ aboutRef, suitableRef }) {
     return (
         <section className="bg-white rounded-3xl max-w-7xl px-6 py-14 shadow-lg border border-gray-100">
             <div>
-                <h2 className="text-3xl font-extrabold text-gray-900 mb-8 tracking-tight text-center">
+                <h2 ref={aboutRef} className="text-3xl font-extrabold text-gray-900 mb-8 tracking-tight text-center">
                     درباره وبینار
                 </h2>
                 <div>
@@ -43,7 +43,7 @@ export default function AboutSection() {
                     </li>
                 </ul>
 
-                <h3 className="text-2xl font-semibold text-gray-900 mb-6">برای چه کسانی مناسب است؟</h3>
+                <h3 ref={suitableRef} className="text-2xl font-semibold text-gray-900 mb-6">برای چه کسانی مناسب است؟</h3>
                 <ul className="space-y-6 text-gray-700 text-base sm:text-lg">
                     <li className="flex items-center gap-3">
                         <FaUserGraduate className="text-primary flex-shrink-0" size={22} />
