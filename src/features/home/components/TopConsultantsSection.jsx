@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchConsultants } from "../../consultants/consultantsSlice";
+import { fetchConsultants } from "../../../features/user/consultants/consultantsSlice";
 import { FaStar, FaCrown } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

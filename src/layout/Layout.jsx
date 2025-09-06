@@ -2,11 +2,11 @@ import Footer from "../components/footer/Footer";
 import Breadcrumb from "../components/header/Breadcrumb";
 import Header from "../components/header/Header";
 import AuthContainer from "../features/authentication/AuthContainer"
-import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import translate from "../locale/translate";
 import { HiOutlineHome } from "react-icons/hi";
 
-export default function Layout({ children }) {
+export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -48,7 +48,8 @@ export default function Layout({ children }) {
         </div>
 
         <main className="relative  flex-grow px-4 md:px-8 lg:px-16">
-          {children}
+          {/* {children} */}
+          <Outlet />
         </main>
       </div>
 

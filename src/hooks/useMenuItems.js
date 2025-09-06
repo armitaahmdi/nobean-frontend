@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { IoHomeOutline,IoBriefcaseOutline, IoClipboardOutline, IoBookOutline, IoNewspaperOutline } from "react-icons/io5";
+import { IoHomeOutline, IoBriefcaseOutline, IoClipboardOutline, IoBookOutline, IoNewspaperOutline } from "react-icons/io5";
 import { HiOutlineUserGroup, HiOutlinePhone } from "react-icons/hi2";
 import { CiMicrophoneOn } from "react-icons/ci";
 import { FaChalkboardTeacher } from "react-icons/fa";
@@ -53,6 +53,10 @@ export const useMenuItems = () => {
             link: "/consultants",
             icon: HiOutlineUserGroup,
             submenu: buildSubmenu(consultants, "/consultants")
+        },
+        {
+            name: "فروشگاه",
+            link: "/store",
         },
         {
             name: "خدمات‌سازمانی",
