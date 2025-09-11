@@ -9,12 +9,14 @@ import ConsultantProfile from "../../features/user/consultants/pages/ConsultantP
 import QuickReserveCard from "../../features/user/consultants/components/QuickReserveCard";
 import RelatedConsultantsSlider from "../../features/user/consultants/components/RelatedConsultantCard";
 import AnchorTabs from "../../components/tab/shared/AnchorTabs";
+import { useBreadcrumb } from "../../contexts/BreadcrumbContext";
 
 export default function ConsultantDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const { consultants, loading, error } = useSelector((state) => state.consultants);
+  const { setPageTitle, clearPageTitle } = useBreadcrumb();
 
   useEffect(() => {
     if (consultants.length === 0) {
@@ -23,6 +25,18 @@ export default function ConsultantDetail() {
   }, [consultants.length, dispatch]);
 
   const consultant = consultants.find((c) => c.id === Number(id));
+  
+  // Set breadcrumb title when consultant is loaded
+  useEffect(() => {
+    if (consultant) {
+      setPageTitle(consultant.name);
+    }
+    
+    // Clean up when component unmounts
+    return () => {
+      clearPageTitle();
+    };
+  }, [consultant, setPageTitle, clearPageTitle]);
   const [reservedSlot, setReservedSlot] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 

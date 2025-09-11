@@ -1,7 +1,5 @@
-import React from 'react'
+import AdminTestsManager from '../../features/admin/components/AdminTestsManager';
 
 export default function Tests() {
-  return (
-    <div>Tests</div>
-  )
+  return <AdminTestsManager />;
 }

@@ -1,0 +1,84 @@
+import { apiRequest, apiRequestWithRetry } from './api';
+
+const AUTH_ENDPOINTS = {
+  SEND_OTP: '/users/send-otp',
+  VERIFY_OTP: '/users/verify-otp',
+  REFRESH_TOKEN: '/users/refresh',
+  LOGOUT: '/users/logout',
+  GET_PROFILE: '/users/profile',
+  UPDATE_PROFILE: '/users/profile',
+};
+
+class AuthService {
+  constructor(baseURL) {
+    this.baseURL = baseURL;
+  }
+
+  // Send OTP to phone number
+  async sendOtp(phone) {
+    try {
+      return await apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.SEND_OTP}`, {
+        method: 'POST',
+        body: { phone },
+      });
+    } catch (error) {
+      if (error.message.includes('500')) {
+        throw new Error('خطای سرور: لطفاً با پشتیبانی تماس بگیرید یا دوباره تلاش کنید');
+      }
+      throw error;
+    }
+  }
+
+  // Verify OTP and login
+  async verifyOtp(phone, code) {
+    return apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.VERIFY_OTP}`, {
+      method: 'POST',
+      body: { phone, code },
+    });
+  }
+
+  // Refresh authentication token
+  async refreshToken(token) {
+    return apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.REFRESH_TOKEN}`, {
+      method: 'POST',
+      token,
+    });
+  }
+
+  // Logout user
+  async logout(token) {
+    return apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.LOGOUT}`, {
+      method: 'POST',
+      token,
+    });
+  }
+
+  // Get user profile
+  async getProfile(token) {
+    return apiRequest(`${this.baseURL}${AUTH_ENDPOINTS.GET_PROFILE}`, {
+      method: 'GET',
+      token,
+      timeout: 5000, // 5 seconds timeout for profile
+    }); // No retry for profile - faster loading
+  }
+
+  // Create user profile (POST) - Use POST for CORS compatibility
+  async createProfile(token, profileData) {
+    return apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.UPDATE_PROFILE}`, {
+      method: 'POST', // Use POST for CORS compatibility
+      body: profileData,
+      token,
+    });
+  }
+
+  // Update user profile (PATCH) - Use PATCH for proper REST semantics
+  async updateProfile(token, profileData) {
+    return apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.UPDATE_PROFILE}`, {
+      method: 'PATCH', // Use PATCH for proper REST semantics
+      body: profileData,
+      token,
+    });
+  }
+}
+
+export default new AuthService('https://api.nobean.ir/api/v1');

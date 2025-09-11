@@ -1,9 +1,11 @@
 // components/Breadcrumb.jsx
 import { Link, useLocation } from "react-router-dom";
 import pathNameMap from "../../constants/pathNameMap";
+import { useBreadcrumb } from "../../contexts/BreadcrumbContext";
 
 export default function Breadcrumb() {
   const location = useLocation();
+  const { currentPageTitle } = useBreadcrumb();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
@@ -15,7 +17,14 @@ export default function Breadcrumb() {
         {pathnames.map((name, index) => {
           const routeTo = "/" + pathnames.slice(0, index + 1).join("/");
           const isLast = index === pathnames.length - 1;
-          const displayName = pathNameMap[name] || decodeURIComponent(name);
+          
+          // Use currentPageTitle for the last item if available, otherwise use pathNameMap or decoded name
+          let displayName;
+          if (isLast && currentPageTitle) {
+            displayName = currentPageTitle;
+          } else {
+            displayName = pathNameMap[name] || decodeURIComponent(name);
+          }
 
           return (
             <li key={index} className="flex items-center">

@@ -1,4 +1,5 @@
 import { FaInstagram, FaTelegramPlane, FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import mainLogo from "../../assets/images/logo/main-logo.png";
 import translate from "../../locale/translate";
 import enamadLogo from "../../assets/images/logo/enamadLogo.png"
@@ -30,7 +31,7 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-darkBlue mb-2">بخش‌های مهم سایت</h4>
                         <ul className="text-sm space-y-1">
-                            <li><a href="/tests" className="hover:text-blue-600 text-black">درباره ما</a></li>
+                            <li><Link to="/about" className="hover:text-blue-600 text-black">درباره ما</Link></li>
                             <li><a href="/tests" className="hover:text-blue-600 text-black">آزمون‌ها</a></li>
                             <li><a href="/courses" className="hover:text-blue-600 text-black">دوره‌های توسعه فردی</a></li>
                             <li><a href="/consulting" className="hover:text-blue-600 text-black">مقالات</a></li>
@@ -39,8 +40,8 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-darkBlue mb-2">صفحات مهم</h4>
                         <ul className="text-sm space-y-1">
-                            <li><a href="/about-us" className="hover:text-blue-600 text-black">دوره‌های توسعه فردی</a></li>
-                            <li><a href="/contact" className="hover:text-blue-600 text-black">آزمون‌ وکسلر</a></li>
+                            <li><a href="/courses" className="hover:text-blue-600 text-black">دوره‌های توسعه فردی</a></li>
+                            <li><Link to="/contact" className="hover:text-blue-600 text-black">تماس با ما</Link></li>
                             <li><a href="/faq" className="hover:text-blue-600 text-black">مهارت کنترل خشم</a></li>
                             <li><a href="/faq" className="hover:text-blue-600 text-black">رفتار با فرزند خود</a></li>
                         </ul>

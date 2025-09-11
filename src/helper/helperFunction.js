@@ -1,4 +1,5 @@
 function getShortenText(text, wordCount = 5) {
+    if (!text || typeof text !== 'string') return '';
     const words = text.split(" ");
     if (words.length <= wordCount) return text;
     return words.slice(0, wordCount).join(" ");
@@ -12,6 +13,7 @@ function getInitialSelectedFilters(config) {
 }
 
 function getExcerpt(text, length = 200) {
+    if (!text || typeof text !== 'string') return '';
     return text.length > length ? text.slice(0, length) + "..." : text;
 }
 

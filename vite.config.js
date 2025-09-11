@@ -5,4 +5,20 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/',
   plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.nobean.ir',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path
+      },
+      '/uploads': {
+        target: 'https://api.nobean.ir',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path
+      }
+    }
+  }
 })

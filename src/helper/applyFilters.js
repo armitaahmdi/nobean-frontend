@@ -14,7 +14,17 @@ export function applyFilters(data, filters) {
     } else if (filters.sortOptions === "بیشترین انجام") {
         result.sort((a, b) => b.participants - a.participants);
     } else if (filters.sortOptions === "بیشترین امتیاز") {
-        result.sort((a, b) => b.rating - a.rating);
+        result.sort((a, b) => (b.ratingAverage || 0) - (a.ratingAverage || 0));
+    } else if (filters.sortOptions === "کمترین قیمت") {
+        result.sort((a, b) => a.price - b.price);
+    } else if (filters.sortOptions === "بیشترین قیمت") {
+        result.sort((a, b) => b.price - a.price);
+    } else if (filters.sortOptions === "جدیدترین") {
+        result.sort((a, b) => {
+            const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+            const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+            return dateB - dateA;
+        });
     }
 
     if (filters.gender && filters.gender.length > 0) {

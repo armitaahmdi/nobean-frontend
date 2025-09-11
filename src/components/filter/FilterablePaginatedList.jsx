@@ -17,7 +17,9 @@ export default function FilterablePaginatedList({
     config,
     ListComponent,
     seo,
-    filtersProps = {}
+    filtersProps = {},
+    scrollToTop = true,
+    scrollToElement = null
 }) {
     const { title, description, keywords } = seo;
 
@@ -32,7 +34,6 @@ export default function FilterablePaginatedList({
         }
     }, [dispatch, fetchAction]);
 
-
     const filteredItems = applyFilters(items, selectedFilters);
 
     const {
@@ -40,21 +41,38 @@ export default function FilterablePaginatedList({
         currentPage,
         totalPages,
         goToPage
-    } = usePagination(filteredItems, 12);
+    } = usePagination(filteredItems, 12, scrollToTop, scrollToElement);
 
     return (
-        <>
+        <div className="relative">
             <HelmetSeo title={title} description={description} keywords={keywords} />
-            <div className="flex flex-col lg:flex-row gap-6 p-4">
-                <div className="lg:w-1/4 w-full">
-                    <FiltersPanel
-                        config={config}
-                        selectedFilters={selectedFilters}
-                        setSelectedFilters={setSelectedFilters}
-                    />
+
+            {/* Main Content Container */}
+            <div className="flex flex-col xl:flex-row gap-4 xl:gap-6 p-2 sm:p-4 lg:p-6 min-h-screen">
+                {/* Desktop Sidebar */}
+                <div className="hidden xl:block xl:w-1/4 xl:min-w-[280px] xl:max-w-[320px]">
+                    <div className="sticky top-6 pb-6">
+                        <FiltersPanel
+                            config={config}
+                            selectedFilters={selectedFilters}
+                            setSelectedFilters={setSelectedFilters}
+                            isMobile={false}
+                        />
+                    </div>
                 </div>
 
-                <div className="lg:w-3/4 w-full">
+                {/* Main Content */}
+                <div className="xl:w-3/4 w-full min-w-0 flex-1 pb-8">
+                    {/* Mobile Filters - Original Design */}
+                    <div className="xl:hidden mb-6">
+                        <FiltersPanel
+                            config={config}
+                            selectedFilters={selectedFilters}
+                            setSelectedFilters={setSelectedFilters}
+                            isMobile={false}
+                        />
+                    </div>
+
                     {loading && <LoadingState />}
                     {error && <ErrorState />}
                     {!loading && !error && (
@@ -64,15 +82,17 @@ export default function FilterablePaginatedList({
                                 data={currentData}
                                 selectedFilters={selectedFilters}
                             />
-                            <Pagination
-                                currentPage={currentPage}
-                                totalPages={totalPages}
-                                onPageChange={goToPage}
-                            />
+                            <div className="mt-6">
+                                <Pagination
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    onPageChange={goToPage}
+                                />
+                            </div>
                         </>
                     )}
                 </div>
             </div>
-        </>
+        </div>
     );
 }

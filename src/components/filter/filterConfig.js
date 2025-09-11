@@ -15,6 +15,13 @@ import skill from "../../assets/images/categoryIcons/skill-development.png";
 import parent from "../../assets/images/categoryIcons/parent.png";
 import psychology from "../../assets/images/categoryIcons/psychology.png";
 
+// Import test-specific icons
+import readingIcon from "../../assets/images/testIcons/reading-disorder.png";
+import writingIcon from "../../assets/images/testIcons/writing.png";
+import mathIcon from "../../assets/images/testIcons/maths.png";
+import attentionIcon from "../../assets/images/testIcons/adhd.png";
+import learningIcon from "../../assets/images/testIcons/learning-disorder.png";
+
 export const testsFilterConfig = {
     target_audience: {
         title: "مناسب برای",
@@ -29,13 +36,12 @@ export const testsFilterConfig = {
     categories: {
         title: "دسته‌بندی آزمون",
         icon: IoMdPricetag,
-        // options: ["خانواده", "سبک زندگی", "شخصیت شتاسی", "اضطراب", "اختلالات رفتاری"],
         options: [
-            { name: "خانواده", image: family },
-            { name: "سبک زندگی", image: healthy },
-            { name: "شخصیت شناسی", image: behaviour },
-            { name: "اضطراب", image: anxiety },
-            { name: "اختلالات رفتاری", image: behavioral },
+            { name: "اختلال خواندن", image: readingIcon },
+            { name: "اختلال نوشتن", image: writingIcon },
+            { name: "اختلال ریاضی", image: mathIcon },
+            { name: "اختلال توجه", image: attentionIcon },
+            { name: "اختلال یادگیری", image: learningIcon },
         ],
     },
 };
@@ -119,4 +125,17 @@ export const consultatsFilterConfig = {
         icon: LuGraduationCap,
         options: ["کارشناس", "کارشناسی ارشد", "دکتری"]
     }
+}
+
+export const storeFilterConfig = {
+    target_audience: {
+        title: "مناسب برای",
+        icon: FaRegUser,
+        options: ["خانواده", "معلم", "دانش آموز"],
+    },
+    sortOptions: {
+        title: "مرتب‌سازی بر اساس",
+        icon: IoFilter,
+        options: ["بیشترین امتیاز", "کمترین قیمت", "بیشترین قیمت", "جدیدترین"],
+    },
 }

@@ -8,11 +8,13 @@ import ArticleInfo from "../../features/user/articles/components/ArticleInfo";
 import { fetchArticles } from "../../features/user/articles/articlesSlice";
 import RelatedArticlesColumn from "../../features/user/articles/components/RelatedArticlesColumn";
 import ShareButton from "../../components/shared/Button";
+import { useBreadcrumb } from "../../contexts/BreadcrumbContext";
 
 export default function ArticleDetail() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { articles, loading, error } = useSelector((state) => state.articles);
+    const { setPageTitle, clearPageTitle } = useBreadcrumb();
     const currentUrl = window.location.href;
 
     useEffect(() => {
@@ -20,6 +22,20 @@ export default function ArticleDetail() {
             dispatch(fetchArticles());
         }
     }, [articles.length, dispatch]);
+
+    const article = articles.find((c) => c.id === Number(id));
+    
+    // Set breadcrumb title when article is loaded
+    useEffect(() => {
+        if (article) {
+            setPageTitle(article.title);
+        }
+        
+        // Clean up when component unmounts
+        return () => {
+            clearPageTitle();
+        };
+    }, [article, setPageTitle, clearPageTitle]);
 
     const handleShareClick = () => {
         navigator.clipboard.writeText(currentUrl)
@@ -33,8 +49,6 @@ export default function ArticleDetail() {
 
     if (loading) return <div>در حال بارگذاری...</div>;
     if (error) return <div>خطا در بارگذاری داده: {error}</div>;
-
-    const article = articles.find((c) => c.id === Number(id));
     if (!article) return <div>مقاله پیدا نشد.</div>;
 
     return (

@@ -31,7 +31,7 @@ export default function Tabs({ tabs, data }) {
 
     switch (activeTabObj.key) {
       case "description":
-        return <DescriptionTab description={data.description} video={data.video} />
+        return <DescriptionTab description={data.description} video={data.descriptionVideo} imagePath={data.imagePath} />
       case "faq":
         return <FaqTab faq={data.faq} />
       // case "validity":

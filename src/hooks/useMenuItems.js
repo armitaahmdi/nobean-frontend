@@ -48,12 +48,12 @@ export const useMenuItems = () => {
             icon: CiMicrophoneOn,
             submenu: buildSubmenu(podcasts, "/podcasts"),
         },
-        {
-            name: "مشاورین",
-            link: "/consultants",
-            icon: HiOutlineUserGroup,
-            submenu: buildSubmenu(consultants, "/consultants")
-        },
+        // {
+        //     name: "مشاورین",
+        //     link: "/consultants",
+        //     icon: HiOutlineUserGroup,
+        //     submenu: buildSubmenu(consultants, "/consultants")
+        // },
         {
             name: "فروشگاه",
             link: "/store",

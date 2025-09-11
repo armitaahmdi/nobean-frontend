@@ -19,8 +19,11 @@ const adminMenu = [
     {
         id: "exams",
         name: "آزمون‌ها",
-        link: "/admin/exams",
         icon: FaClipboardList,
+        submenu: [
+            { id: "exams-list", name: "لیست آزمون‌ها", link: "/admin/tests" },
+            { id: "exams-management", name: "مدیریت آزمون‌ها", link: "/admin/tests-management" },
+        ],
     },
     {
         id: "courses",

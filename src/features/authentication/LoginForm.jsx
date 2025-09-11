@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Button from "../../components/shared/Button";
 import translate from "../../locale/translate";
 import mainLogo from "../../assets/images/logo/main-logo.png";
 import { FiPhone } from "react-icons/fi";
 import { RiCheckboxCircleFill } from "react-icons/ri";
 import { HiExclamationCircle } from "react-icons/hi";
-import { useState } from "react";
+import { sendOtp, setMobile, clearError } from "./slices/loginSlice";
 
 const schema = yup.object({
     mobile: yup
@@ -18,6 +22,10 @@ const schema = yup.object({
 
 export default function LoginForm({ onSubmit }) {
     const [isFocused, setIsFocused] = useState(false);
+    const dispatch = useDispatch();
+    
+    // Get auth state from Redux
+    const { isLoading, error, otpSent } = useSelector((state) => state.auth);
 
     const {
         register,
@@ -32,6 +40,45 @@ export default function LoginForm({ onSubmit }) {
     const mobileValue = watch("mobile") || "";
     const digitsCount = mobileValue.replace(/\D/g, "").length;
     const isComplete = digitsCount === 11;
+
+    // Handle form submission
+    const handleFormSubmit = async (data) => {
+        try {
+            // Dispatch the sendOtp action
+            const result = await dispatch(sendOtp(data.mobile));
+            
+            if (sendOtp.fulfilled.match(result)) {
+                // Store mobile number in Redux state
+                dispatch(setMobile(data.mobile));
+                
+                // Show success message
+                toast.success("کد تأیید با موفقیت ارسال شد", {
+                    className: "text-lg font-semibold",
+                });
+                
+                // Call the parent onSubmit callback to navigate to OTP form
+                if (onSubmit) {
+                    onSubmit(data);
+                }
+            } else if (sendOtp.rejected.match(result)) {
+                // Error is already handled by the slice, just show toast
+                toast.error(result.payload || "خطا در ارسال کد تأیید", {
+                    className: "text-lg font-semibold",
+                });
+            }
+        } catch (error) {
+            toast.error("خطا در ارسال کد تأیید", {
+                className: "text-lg font-semibold",
+            });
+        }
+    };
+
+    // Clear error when component mounts or when error changes
+    useEffect(() => {
+        if (error) {
+            dispatch(clearError());
+        }
+    }, [dispatch, error]);
 
     return (
         <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl px-8 py-10 flex flex-col items-center gap-8 border border-white/30">
@@ -50,7 +97,7 @@ export default function LoginForm({ onSubmit }) {
                 </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6 relative">
+            <form onSubmit={handleSubmit(handleFormSubmit)} className="w-full space-y-6 relative">
 
                 {/* آیکون داخل input */}
                 <div className="relative">
@@ -84,8 +131,14 @@ export default function LoginForm({ onSubmit }) {
                 )}
 
                 <div className="pt-4 flex justify-center">
-                    <Button type="submit" color="blue" size="large" buttonClassName="w-full rounded-[20px]">
-                        {translate.login}
+                    <Button 
+                        type="submit" 
+                        color="blue" 
+                        size="large" 
+                        buttonClassName="w-full rounded-[20px]"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "در حال ارسال..." : translate.login}
                     </Button>
                 </div>
             </form>

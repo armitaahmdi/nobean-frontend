@@ -92,6 +92,7 @@ import { useDispatch } from "react-redux";
 import { PublicRoutes } from "./routes/publicRoutes";
 import {AdminRoutes} from "./routes/AdminRoutes";
 import ScrollToTop from "./components/shared/ScrollToTop";
+import AuthProvider from "./features/authentication/AuthProvider";
 
 import { fetchTests } from "./features/user/tests/testsSlice";
 import { fetchCourses } from "./features/user/courses/coursesSlice";
@@ -110,7 +111,7 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <AuthProvider>
       <ScrollToTop />
 
       <Routes>
@@ -142,6 +143,6 @@ export default function App() {
           </Route>
         ))}
       </Routes>
-    </>
+    </AuthProvider>
   );
 }

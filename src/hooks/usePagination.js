@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export default function usePagination(data = [], pageSize = 6) {
+export default function usePagination(data = [], pageSize = 6, scrollToTop = true, scrollToElement = null) {
     const [searchParams, setSearchParams] = useSearchParams();
     const initialPage = parseInt(searchParams.get("page")) || 1;
     const [currentPage, setCurrentPage] = useState(initialPage);
@@ -23,8 +23,12 @@ export default function usePagination(data = [], pageSize = 6) {
     };
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }, [currentPage]);
+        if (scrollToTop) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        } else if (scrollToElement) {
+            scrollToElement.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [currentPage, scrollToTop, scrollToElement]);
 
     return {
         currentPage,

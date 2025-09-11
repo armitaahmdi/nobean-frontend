@@ -17,6 +17,11 @@ import ConsultantDetail from "../pages/public/ConsultantDetail";
 import TestQuestions from "../pages/public/TestQuestion";
 import Webinar from "../pages/public/Webinar";
 import Store from "../pages/public/Store";
+import ProductDetail from "../pages/public/ProductDetail";
+import Cart from "../pages/public/Cart";
+import Favorites from "../pages/public/Favorites";
+import AboutUs from "../pages/public/AboutUs";
+import Profile from "../pages/public/Profile";
 import AuthContainer from "../features/authentication/AuthContainer";
 
 export const PublicRoutes = () => [
@@ -40,7 +45,12 @@ export const PublicRoutes = () => [
             { path: "contact", element: <Contact /> },
             { path: "consultants", element: <Consultants /> },
             { path: "consultants/:id", element: <ConsultantDetail /> },
+            { path: "store/:id", element: <ProductDetail /> },
             { path: "store", element: <Store /> },
+            { path: "cart", element: <Cart /> },
+            { path: "favorites", element: <Favorites /> },
+            { path: "profile", element: <Profile /> },
+            { path: "about", element: <AboutUs /> },
             { path: "*", element: <Navigate to="/" replace /> },
         ],
     },

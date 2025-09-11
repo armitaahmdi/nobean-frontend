@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { examDetails } from "../../../constants/examDetails";
+import { testsApi } from "../../../services/testsApi";
 
 const initialState = {
     byTestId: {},
@@ -8,24 +8,21 @@ const initialState = {
     error: ""
 }
 
-const fetchExamQuestionsAPI = async (testId) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const id = Number(testId);
-            if (examDetails[id]) resolve(examDetails[id]);
-            else reject("سوالات این آزمون یافت نشد.");
-        }, 1000);
-    });
-};
-
 export const fetchExamDetails = createAsyncThunk(
     "examDetails/fetchExamDetails",
     async (testId, thunkAPI) => {
         try {
-            const response = await fetchExamQuestionsAPI(testId); // returns { questions: [...] }
-            return { testId, questions: response.questions };
+            const state = thunkAPI.getState();
+            const token = state.auth?.token;
+            
+            if (!token) {
+                throw new Error('برای دریافت سوالات آزمون باید وارد شوید');
+            }
+            
+            const response = await testsApi.getTestQuestions(testId, token);
+            return { testId, questions: response.data || response };
         } catch (error) {
-            return thunkAPI.rejectWithValue(error);
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );

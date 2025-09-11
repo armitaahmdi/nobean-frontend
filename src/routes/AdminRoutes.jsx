@@ -7,6 +7,7 @@ import Consultants from "../pages/admin/Consultants";
 import Courses from "../pages/admin/Courses";
 import Podcasts from "../pages/admin/Podcasts";
 import Tests from "../pages/admin/Tests";
+import AdminTests from "../pages/admin/AdminTests";
 
 export const AdminRoutes = ({ user }) => {
     if (!user || user.role !== "superadmin") {
@@ -27,6 +28,7 @@ export const AdminRoutes = ({ user }) => {
                 { path: "courses", element: <Courses /> },
                 { path: "podcasts", element: <Podcasts /> },
                 { path: "tests", element: <Tests /> },
+                { path: "tests-management", element: <AdminTests /> },
             ],
         },
     ];

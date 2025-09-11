@@ -7,7 +7,7 @@ const initialState = {
     error: ""
 };
 
-const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
     return products; // فعلا محصولات فیک
 });
 
@@ -33,4 +33,3 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export { fetchProducts };

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { examsData } from "../../../constants/examData"; // یا از API بیار
+import { testsApi } from "../../../services/testsApi";
+import { processTestsData } from "./utils/testUtils";
 
 const initialState = {
     loading: false,
@@ -7,10 +8,29 @@ const initialState = {
     error: ""
 }
 
-const fetchTests = createAsyncThunk("tests/fetchTests", async () => {
-    // const response = await fetch("/api/tests");
-    // return await response.json();
-    return examsData;
+const fetchTests = createAsyncThunk("tests/fetchTests", async (_, thunkAPI) => {
+    try {
+        const state = thunkAPI.getState();
+        const token = state.auth?.token || null;
+        const response = await testsApi.getAllTests(token);
+        
+        // Debug logging to see what we're getting
+        console.log('Tests API Response:', response);
+        
+        const tests = response.data || response;
+        
+        // Process tests data using utility function
+        const processedTests = processTestsData(tests, {
+            generateRating: true
+        });
+        
+        console.log('Processed Tests:', processedTests);
+        
+        return processedTests;
+    } catch (error) {
+        console.error('Error fetching tests:', error);
+        return thunkAPI.rejectWithValue(error.message);
+    }
 });
 
 const testsSlice = createSlice({
