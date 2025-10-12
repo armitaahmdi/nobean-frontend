@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { testsApi } from '../../services/testsApi';
+import { toast } from 'react-toastify';
+import { testsApi } from '../../../services/testsApi';
 import { useSelector } from 'react-redux';
 import { FaTimes, FaSave } from 'react-icons/fa';
 
@@ -102,7 +103,7 @@ export default function TestFormModal({ test, onClose, onSave }) {
       onSave();
     } catch (error) {
       console.error('Error saving test:', error);
-      alert('خطا در ذخیره آزمون: ' + error.message);
+      toast.error('خطا در ذخیره آزمون: ' + error.message);
     } finally {
       setLoading(false);
     }

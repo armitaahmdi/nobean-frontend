@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { testsApi } from '../../../services/testsApi';
 import { useSelector } from 'react-redux';
 import { FaTimes, FaSave, FaPlus, FaTrash } from 'react-icons/fa';
@@ -124,7 +125,7 @@ export default function QuestionFormModal({ test, question, onClose, onSave }) {
       onSave();
     } catch (error) {
       console.error('Error saving question:', error);
-      alert('خطا در ذخیره سوال: ' + error.message);
+      toast.error('خطا در ذخیره سوال: ' + error.message);
     } finally {
       setLoading(false);
     }

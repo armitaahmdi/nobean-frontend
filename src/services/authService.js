@@ -81,4 +81,7 @@ class AuthService {
   }
 }
 
-export default new AuthService('https://api.nobean.ir/api/v1');
+// Use proxy in development, direct URL in production
+const AUTH_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '/api/v1' : 'https://api.nobean.ir/api/v1');
+
+export default new AuthService(AUTH_BASE_URL);

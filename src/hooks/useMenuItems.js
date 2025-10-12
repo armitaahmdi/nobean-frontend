@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { IoHomeOutline, IoBriefcaseOutline, IoClipboardOutline, IoBookOutline, IoNewspaperOutline } from "react-icons/io5";
+import { IoHomeOutline, IoBriefcaseOutline, IoClipboardOutline, IoBookOutline, IoNewspaperOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { HiOutlineUserGroup, HiOutlinePhone } from "react-icons/hi2";
 import { CiMicrophoneOn } from "react-icons/ci";
 import { FaChalkboardTeacher } from "react-icons/fa";
@@ -25,44 +25,45 @@ export const useMenuItems = () => {
             icon: IoClipboardOutline,
             submenu: buildSubmenu(tests, "/tests"),
         },
-        {
-            name: "دوره‌های توسعه فردی",
-            link: "/courses",
-            icon: IoBookOutline,
-            submenu: buildSubmenu(courses, "/courses"),
-        },
-        {
-            name: "وبینار 🔥",
-            link: "/webinar",
-            icon: FaChalkboardTeacher,
-        },
-        {
-            name: "مقالات",
-            link: "/articles",
-            icon: IoNewspaperOutline,
-            submenu: buildSubmenu(articles, "/articles"),
-        },
-        {
-            name: "پادکست",
-            link: "/podcasts",
-            icon: CiMicrophoneOn,
-            submenu: buildSubmenu(podcasts, "/podcasts"),
-        },
+        // {
+        //     name: "دوره‌های توسعه فردی",
+        //     link: "/courses",
+        //     icon: IoBookOutline,
+        //     submenu: buildSubmenu(courses, "/courses"),
+        // },
+        // {
+        //     name: "وبینار 🔥",
+        //     link: "/webinar",
+        //     icon: FaChalkboardTeacher,
+        // },
+        // {
+        //     name: "مقالات",
+        //     link: "/articles",
+        //     icon: IoNewspaperOutline,
+        //     submenu: buildSubmenu(articles, "/articles"),
+        // },
+        // {
+        //     name: "پادکست",
+        //     link: "/podcasts",
+        //     icon: CiMicrophoneOn,
+        //     submenu: buildSubmenu(podcasts, "/podcasts"),
+        // },
         // {
         //     name: "مشاورین",
         //     link: "/consultants",
         //     icon: HiOutlineUserGroup,
         //     submenu: buildSubmenu(consultants, "/consultants")
         // },
-        {
-            name: "فروشگاه",
-            link: "/store",
-        },
-        {
-            name: "خدمات‌سازمانی",
-            link: "/services",
-            icon: IoBriefcaseOutline,
-        },
+        // {
+        //     name: "فروشگاه",
+        //     link: "/store",
+        // },
+        // {
+        //     name: "خدمات‌سازمانی",
+        //     link: "/services",
+        //     icon: IoBriefcaseOutline,
+        // },
+        { name: "درباره ما", link: "/about", icon: IoInformationCircleOutline },
         { name: "ارتباط با ما", link: "/contact", icon: HiOutlinePhone },
     ];
 

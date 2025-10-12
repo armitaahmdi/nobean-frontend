@@ -12,10 +12,12 @@ const fetchTests = createAsyncThunk("tests/fetchTests", async (_, thunkAPI) => {
     try {
         const state = thunkAPI.getState();
         const token = state.auth?.token || null;
-        const response = await testsApi.getAllTests(token);
+        
+        // استفاده از API جدید برای دریافت فقط آزمون‌های فعال
+        const response = await testsApi.getActiveTests();
         
         // Debug logging to see what we're getting
-        console.log('Tests API Response:', response);
+        console.log('Active Tests API Response:', response);
         
         const tests = response.data || response;
         
@@ -24,7 +26,7 @@ const fetchTests = createAsyncThunk("tests/fetchTests", async (_, thunkAPI) => {
             generateRating: true
         });
         
-        console.log('Processed Tests:', processedTests);
+        console.log('Processed Active Tests:', processedTests);
         
         return processedTests;
     } catch (error) {

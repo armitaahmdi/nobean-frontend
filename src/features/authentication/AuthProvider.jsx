@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { restoreUserSession } from './slices/loginSlice';
+import { getProfile } from '../user/profile/profileSlice';
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -22,6 +23,32 @@ const AuthProvider = ({ children }) => {
       dispatch(restoreUserSession());
     }
   }, [dispatch, token, isAuthenticated, user, isLoading]);
+
+  // Additional effect to ensure profile data is complete after authentication
+  useEffect(() => {
+    if (isAuthenticated && user && token) {
+      // Check if we have complete profile data
+      const hasCompleteData = user.firstName && user.lastName && user.email && user.age;
+      
+      if (!hasCompleteData) {
+        console.log('AuthProvider: User authenticated but profile data incomplete, fetching...');
+        
+        // Try to get complete profile data
+        dispatch(getProfile()).then((result) => {
+          if (result.payload) {
+            console.log('AuthProvider: Profile data fetched successfully');
+            // Update localStorage with complete data
+            const updatedUserData = { ...user, ...result.payload };
+            localStorage.setItem('userData', JSON.stringify(updatedUserData));
+          }
+        }).catch((error) => {
+          console.error('AuthProvider: Failed to fetch profile data:', error);
+        });
+      } else {
+        console.log('AuthProvider: Complete profile data already available');
+      }
+    }
+  }, [isAuthenticated, user, token, dispatch]);
 
   // Show loading while restoring session
   if (localStorage.getItem('authToken') && !isAuthenticated && !user && isLoading) {

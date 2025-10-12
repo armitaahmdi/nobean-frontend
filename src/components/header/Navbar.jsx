@@ -10,6 +10,7 @@ import translate from "../../locale/translate";
 import { useMenuItems } from "../../hooks/useMenuItems";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../features/authentication/slices/loginSlice";
+import { RiAdminLine } from "react-icons/ri";
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -22,6 +23,10 @@ export default function Navbar() {
     // Get authentication state from Redux
     const { isAuthenticated, user } = useSelector((state) => state.auth);
     const { profile } = useSelector((state) => state.profile);
+
+    console.log('Navbar - User data:', user);
+    console.log('Navbar - User role:', user?.user?.role || user?.role);
+    console.log('Navbar - Is admin?', (user?.user?.role === "admin" || user?.user?.role === "superadmin") || (user?.role === "admin" || user?.role === "superadmin"));
 
     // Check if profile is complete
     const isProfileComplete = () => {
@@ -169,7 +174,7 @@ export default function Navbar() {
                                 ))}
                             </ul>
                             {isAuthenticated ? (
-                                <div className="relative ml-2" ref={userDropdownRef}>
+                                <div className="relative ml-2 flex items-center" ref={userDropdownRef}>
                                     <button
                                         onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                                         className="bg-white text-gray-700 font-semibold px-4 py-2 rounded-xl whitespace-nowrap
@@ -181,6 +186,18 @@ export default function Navbar() {
                                         </div>
                                         {user?.phone || user?.name || 'کاربر'}
                                     </button>
+                                    {((user?.user?.role === "superadmin" || user?.user?.role === "admin") || (user?.role === "superadmin" || user?.role === "admin")) && (
+                                        <button
+                                            onClick={() => navigate('/admin')}
+                                            className="mr-2 transition-all duration-300 hover:shadow-md"
+                                            aria-label="پنل ادمین"
+                                            title="پنل ادمین"
+                                        >
+                                            <div className="w-10 h-10 bg-lightBlue/10 rounded-full flex items-center justify-center">
+                                                <RiAdminLine className="w-5 h-5 text-lightBlue" />
+                                            </div>
+                                        </button>
+                                    )}
                                     
                                     {/* Profile Completion Alert */}
                                     {!isProfileComplete() && (
@@ -205,11 +222,11 @@ export default function Navbar() {
                                                     </p>
                                                 </div>
                                                 <button
-                                                    onClick={() => navigate('/profile')}
+                                                    onClick={() => navigate('/dashboard')}
                                                     className="w-full text-right px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                                                 >
                                                     <FaUser className="text-sm" />
-                                                    پروفایل
+                                                    حساب کاربری
                                                 </button>
                                                 <button
                                                     onClick={handleLogout}
@@ -292,11 +309,28 @@ export default function Navbar() {
                     <div className="absolute flex justify-center bottom-6 left-0 w-full px-4">
                         {isAuthenticated ? (
                             <div className="w-3/4 space-y-2">
-                                <div className="bg-white text-gray-700 font-semibold px-4 py-3 rounded-[40px] text-center flex items-center justify-center gap-2 border border-gray-200">
-                                    <div className="w-8 h-8 bg-lightBlue/10 rounded-full flex items-center justify-center">
-                                        <FaUser className="text-sm text-lightBlue" />
+                                <div className="flex items-center justify-center gap-2">
+                                    <div className="flex-1 bg-white text-gray-700 font-semibold px-4 py-3 rounded-[40px] text-center flex items-center justify-center gap-2 border border-gray-200">
+                                        <div className="w-8 h-8 bg-lightBlue/10 rounded-full flex items-center justify-center">
+                                            <FaUser className="text-sm text-lightBlue" />
+                                        </div>
+                                        {user?.phone || user?.name || 'کاربر'}
                                     </div>
-                                    {user?.phone || user?.name || 'کاربر'}
+                                    {((user?.user?.role === "superadmin" || user?.user?.role === "admin") || (user?.role === "superadmin" || user?.role === "admin")) && (
+                                        <button
+                                            onClick={() => {
+                                                navigate('/admin');
+                                                setMobileOpen(false);
+                                            }}
+                                            className="p-2 rounded-full transition-all duration-300 hover:shadow-md"
+                                            aria-label="پنل ادمین"
+                                            title="پنل ادمین"
+                                        >
+                                            <div className="w-8 h-8 bg-lightBlue/10 rounded-full flex items-center justify-center">
+                                                <RiAdminLine className="text-sm text-lightBlue" />
+                                            </div>
+                                        </button>
+                                    )}
                                 </div>
                                 
                                 {/* Profile Completion Alert - Mobile */}

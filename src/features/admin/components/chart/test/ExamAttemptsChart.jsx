@@ -18,6 +18,7 @@ import { Bar, Line } from "react-chartjs-2";
 import { FaClipboardList } from "react-icons/fa";
 import { filterByDateRange } from "../../../../../helper/dateFilters"
 import moment from "moment-jalaali";
+import { selectRecentActivities } from "../../../slices/dashboardSlice";
 
 ChartJS.register(
     CategoryScale,
@@ -30,18 +31,31 @@ ChartJS.register(
 );
 
 export default function ExamAttemptsChart() {
-    const attempts = useSelector((state) => state.examAttempts.list) || [];
+    const attempts = useSelector(selectRecentActivities);
     const users = useSelector((state) => state.userStats.users);
     const { tests } = useSelector((store) => store.tests);
     const [chartType, setChartType] = useState("bar");
     const [range, setRange] = useState("1m");
 
     const filteredAttempts = useMemo(() => {
-        return filterByDateRange(attempts, "created_at", range);
+        return filterByDateRange(attempts || [], "completedAt", range);
     }, [attempts, range]);
 
     const chartData = useMemo(() => {
-        if (!Array.isArray(filteredAttempts) || !Array.isArray(tests)) {
+        if (!Array.isArray(filteredAttempts) || filteredAttempts.length === 0) {
+            return { 
+                labels: ["هیچ داده‌ای موجود نیست"], 
+                datasets: [{
+                    label: "تعداد شرکت در آزمون",
+                    data: [0],
+                    backgroundColor: "#e5e7eb",
+                    borderColor: "#9ca3af",
+                    borderWidth: 1,
+                }]
+            };
+        }
+
+        if (!Array.isArray(tests)) {
             return { labels: [], datasets: [] };
         }
 

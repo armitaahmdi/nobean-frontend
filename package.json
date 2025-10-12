@@ -15,7 +15,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "chart.js": "^4.5.0",
     "file-saver": "^2.0.5",
-    "framer-motion": "^12.16.0",
+    "framer-motion": "^12.23.22",
     "lottie-react": "^2.4.1",
     "moment-jalaali": "^0.10.4",
     "react": "^19.1.0",

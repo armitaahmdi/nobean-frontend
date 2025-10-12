@@ -1,4 +1,5 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import StatsGroup from "../../features/admin/components/StatsGroup";
 import { statItems } from "../../config/statSections";
 import UserSignupChart from "../../features/admin/components/chart/UserSignupChart";
@@ -8,39 +9,83 @@ import ExamAttemptsChart from "../../features/admin/components/chart/test/ExamAt
 import TopExamPieChart from "../../features/admin/components/chart/test/TopExamPieChart";
 import ActivityFeed from "../../features/admin/components/ActivityFeed";
 import notification from "../../assets/admin/notification.png"
+import LoadingState from "../../components/ui/LoadingState";
+import ErrorState from "../../components/ui/ErrorState";
+import { 
+    fetchDashboardStats, 
+    fetchRecentUsers, 
+    fetchRecentActivities,
+    clearErrors,
+    selectDashboardStats,
+    selectDashboardLoading,
+    selectDashboardErrors,
+    selectIsDashboardInitialized,
+    selectRecentUsers,
+    selectRecentActivities
+} from "../../features/admin/slices/dashboardSlice";
 
 export default function Dashboard() {
-    const [stats, setStats] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const dashboardStats = useSelector(selectDashboardStats);
+    const loading = useSelector(selectDashboardLoading);
+    const errors = useSelector(selectDashboardErrors);
+    const isInitialized = useSelector(selectIsDashboardInitialized);
+    const recentUsers = useSelector(selectRecentUsers);
+    const recentActivities = useSelector(selectRecentActivities);
+    
+    // Get token from auth state
+    const token = useSelector((state) => state.auth?.token);
 
     useEffect(() => {
-        // شبیه‌سازی fetch داده
-        setTimeout(() => {
-            const fakeData = [
-                { key: "users", count: 230 },
-                { key: "exams", count: 18 },
-                { key: "examsTaken", count: 450 },
-                { key: "coursesPurchased", count: 120 },
-                { key: "consultants", count: 12 },
-                { key: "successfulConsultations", count: 85 },
-                { key: "articles", count: 45 },
-                { key: "podcasts", count: 10 },
-                { key: "comments", count: 280 },
-            ];
-            setStats(fakeData);
-            setLoading(false);
-        }, 1000);
-    }, []);
+        if (token && !isInitialized) {
+            console.log('Loading dashboard data with token:', token ? 'Token present' : 'No token');
+            // بارگذاری آمار کلی داشبورد
+            dispatch(fetchDashboardStats(token));
+            
+            // بارگذاری کاربران اخیر
+            dispatch(fetchRecentUsers({ token, limit: 5 }));
+            
+            // بارگذاری فعالیت‌های اخیر
+            dispatch(fetchRecentActivities({ token, limit: 10 }));
+        }
+    }, [dispatch, token, isInitialized]);
 
+    // پاک کردن خطاها هنگام unmount
+    useEffect(() => {
+        return () => {
+            dispatch(clearErrors());
+        };
+    }, [dispatch]);
+
+    // تبدیل آمار به فرمت مورد نیاز StatsGroup
     const statsMap = useMemo(() => {
-        const map = {};
-        stats.forEach(s => {
-            map[s.key] = s.count;
-        });
-        return map;
-    }, [stats]);
+        if (!dashboardStats) return {};
+        
+        return {
+            users: dashboardStats.users?.total || 0,
+            exams: dashboardStats.tests?.total || 0,
+            examsTaken: dashboardStats.examAttempts?.totalAttempts || 0,
+            coursesPurchased: dashboardStats.coursesPurchased || 0,
+            consultants: dashboardStats.consultants || 0,
+            successfulConsultations: dashboardStats.successfulConsultations || 0,
+            articles: dashboardStats.articles || 0,
+            podcasts: dashboardStats.podcasts || 0,
+            comments: dashboardStats.comments || 0,
+        };
+    }, [dashboardStats]);
 
-    if (loading) return <p>در حال بارگذاری آمار...</p>;
+    // بررسی وجود خطا
+    const hasError = Object.values(errors).some(error => error !== null);
+    const isLoading = Object.values(loading).some(loadingState => loadingState === true);
+
+    if (isLoading && !isInitialized) {
+        return <LoadingState message="در حال بارگذاری آمار داشبورد..." />;
+    }
+
+    if (hasError) {
+        const firstError = Object.values(errors).find(error => error !== null);
+        return <ErrorState message={firstError} />;
+    }
 
     return (
         <div className="flex flex-col gap-10">

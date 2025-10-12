@@ -31,7 +31,10 @@ export default function AdminTestForm({ test, onClose, onSave }) {
         imagepath: '',
         suitableFor: [],
         tags: [],
-        descriptionVideo: ""
+        descriptionVideo: "",
+        minAge: '',
+        maxAge: '',
+        components: []
     });
 
     const [uploadedFiles, setUploadedFiles] = useState({
@@ -42,6 +45,9 @@ export default function AdminTestForm({ test, onClose, onSave }) {
     const [errors, setErrors] = useState({});
     const [currentStep, setCurrentStep] = useState(1);
     const totalSteps = 3;
+
+    // (حذف مراحل اضافی حیطه/مولفه در این مدال)
+    const [createdTestId, setCreatedTestId] = useState(null);
 
     useEffect(() => {
         if (test) {
@@ -57,6 +63,9 @@ export default function AdminTestForm({ test, onClose, onSave }) {
                 suitableFor: Array.isArray(test.suitableFor) ? test.suitableFor : [],
                 tags: Array.isArray(test.tags) ? test.tags : [],
                 descriptionVideo: test.descriptionVideo || '',
+                minAge: test.minAge ?? '',
+                maxAge: test.maxAge ?? '',
+                components: Array.isArray(test.components) ? test.components : []
             });
         }
     }, [test]);
@@ -93,6 +102,19 @@ export default function AdminTestForm({ test, onClose, onSave }) {
             newErrors.target_audience = 'گروه هدف الزامی است';
         }
 
+        // Validate ages if provided
+        const minAgeNum = formData.minAge === '' ? null : parseInt(formData.minAge, 10);
+        const maxAgeNum = formData.maxAge === '' ? null : parseInt(formData.maxAge, 10);
+        if (minAgeNum !== null && (isNaN(minAgeNum) || minAgeNum < 0 || minAgeNum > 120)) {
+            newErrors.minAge = 'حداقل سن باید بین 0 تا 120 باشد';
+        }
+        if (maxAgeNum !== null && (isNaN(maxAgeNum) || maxAgeNum < 0 || maxAgeNum > 120)) {
+            newErrors.maxAge = 'حداکثر سن باید بین 0 تا 120 باشد';
+        }
+        if (minAgeNum !== null && maxAgeNum !== null && minAgeNum > maxAgeNum) {
+            newErrors.maxAge = 'حداکثر سن باید بزرگتر یا مساوی حداقل سن باشد';
+        }
+
         if (!formData.ShortDescription || formData.ShortDescription.length < 10) {
             newErrors.ShortDescription = 'توضیحات کوتاه باید حداقل 10 کاراکتر باشد';
         }
@@ -100,6 +122,8 @@ export default function AdminTestForm({ test, onClose, onSave }) {
         if (!formData.mainDescription || formData.mainDescription.length < 20) {
             newErrors.mainDescription = 'توضیحات کامل باید حداقل 20 کاراکتر باشد';
         }
+
+        // حذف اعتبارسنجی مولفه‌ها از مرحله 2 (به مرحله‌های 4 و 5 منتقل شد)
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -116,24 +140,30 @@ export default function AdminTestForm({ test, onClose, onSave }) {
             const testData = {
                 title: formData.title.trim(),
                 time: parseInt(formData.time),
+                date: new Date().toISOString().split('T')[0],
                 mainDescription: formData.mainDescription.trim(),
                 ShortDescription: formData.ShortDescription.trim(),
-                target_audience: formData.target_audience,
+                target_audience: formData.target_audience.trim(),
                 price: parseInt(formData.price),
                 category: formData.category,
-                imagepath: formData.imagepath.trim(),
+                imagePath: formData.imagepath.trim(),
                 suitableFor: formData.suitableFor,
                 tags: formData.tags,
                 descriptionVideo: formData.descriptionVideo || null,
+                minAge: formData.minAge === '' ? null : parseInt(formData.minAge, 10),
+                maxAge: formData.maxAge === '' ? null : parseInt(formData.maxAge, 10),
+                components: Array.isArray(formData.components) ? formData.components : []
             };
 
             if (test) {
-                await dispatch(updateAdminTest({ id: test.id, ...testData }));
+                await dispatch(updateAdminTest({ id: test.id, testData }));
+                onSave();
             } else {
-                await dispatch(createAdminTest(testData));
+                const res = await dispatch(createAdminTest(testData)).unwrap();
+                const newId = res?.id || res?.test?.id || res?.data?.id;
+                if (newId) setCreatedTestId(newId);
+                onSave();
             }
-            
-            onSave();
         } catch (error) {
             console.error('Error saving test:', error);
         }
@@ -230,6 +260,7 @@ export default function AdminTestForm({ test, onClose, onSave }) {
         { value: 'writing_disorder', label: 'اختلال نوشتن' },
         { value: 'math_disorder', label: 'اختلال ریاضی' },
         { value: 'attention_disorder', label: 'اختلال توجه' },
+        { value: 'learning_style', label: 'سبک یادگیری' },
     ];
 
     const suitableForOptions = [
@@ -426,6 +457,52 @@ export default function AdminTestForm({ test, onClose, onSave }) {
                                 </div>
                             </div>
 
+                            {/* Age Range */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        حداقل سن (اختیاری)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="minAge"
+                                        value={formData.minAge}
+                                        onChange={handleInputChange}
+                                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                            errors.minAge ? 'border-red-300' : 'border-gray-300'
+                                        }`}
+                                        placeholder="مثلاً 7"
+                                        min="0"
+                                        max="120"
+                                    />
+                                    {errors.minAge && (
+                                        <p className="text-red-500 text-sm mt-1">{errors.minAge}</p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        حداکثر سن (اختیاری)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="maxAge"
+                                        value={formData.maxAge}
+                                        onChange={handleInputChange}
+                                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                            errors.maxAge ? 'border-red-300' : 'border-gray-300'
+                                        }`}
+                                        placeholder="مثلاً 18"
+                                        min="0"
+                                        max="120"
+                                    />
+                                    {errors.maxAge && (
+                                        <p className="text-red-500 text-sm mt-1">{errors.maxAge}</p>
+                                    )}
+                                </div>
+                            </div>
+
+                    {/* حذف تعریف مولفه‌ها از این مرحله */}
+
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-3">
                                     مناسب برای (چند انتخابی)
@@ -522,8 +599,8 @@ export default function AdminTestForm({ test, onClose, onSave }) {
                                     ویدیو توضیحی برای آزمون (حداکثر 100 مگابایت)
                                 </p>
                             </div>
-                        </div>
-                    )}
+                </div>
+            )}
 
                     {/* Navigation Buttons */}
                     <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">

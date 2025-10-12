@@ -30,6 +30,7 @@ export default function QuickTestFinder() {
             icon: FaLightbulb,
             gradient: "from-blue-500 to-cyan-500",
             options: [
+                { value: "learning_style", label: "سبک یادگیری", description: "شناخت سبک‌های یادگیری شخصی", icon: FaLightbulb, color: "indigo" },
                 { value: "reading_disorder", label: "اختلال خواندن", description: "مشکل در خواندن و درک متن", icon: FaBookOpen, color: "red" },
                 { value: "writing_disorder", label: "اختلال نوشتن", description: "مشکل در نوشتن و املا", icon: FaGraduationCap, color: "blue" },
                 { value: "math_disorder", label: "اختلال ریاضی", description: "مشکل در محاسبات و ریاضی", icon: FaCalculator, color: "green" },
@@ -64,20 +65,19 @@ export default function QuickTestFinder() {
         console.log("=== GENERATING RECOMMENDATIONS ===");
         console.log("Available tests:", tests.length);
         console.log("Answers:", answers);
+        console.log("Available test categories:", [...new Set(tests.map(t => t.category))]);
 
         // Start with all tests
         let filteredTests = [...tests];
 
-        // Filter by age range
+        // Filter by age range using minAge/maxAge overlap
         if (answers.age) {
             console.log("Filtering by age:", answers.age);
+            const [selMin, selMax] = parseSelectedAgeBracket(answers.age);
             filteredTests = filteredTests.filter(test => {
-                const ageRange = test.age_range;
-                console.log(`Test "${test.title}" has age range: "${ageRange}"`);
-                
-                // Check if the selected age falls within the test's age range
-                const isMatch = checkAgeMatch(answers.age, ageRange);
-                console.log(`Age match: ${isMatch}`);
+                const tMin = (test.minAge !== undefined && test.minAge !== null) ? Number(test.minAge) : null;
+                const tMax = (test.maxAge !== undefined && test.maxAge !== null) ? Number(test.maxAge) : null;
+                const isMatch = checkAgeOverlap(selMin, selMax, tMin, tMax);
                 return isMatch;
             });
         }
@@ -93,21 +93,17 @@ export default function QuickTestFinder() {
                 
                 // Map category selection to actual categories
                 const categoryMatch = checkCategoryMatch(answers.category, category);
-                console.log(`Category match: ${categoryMatch}`);
+                console.log(`Category match for "${test.title}": ${categoryMatch}`);
                 return categoryMatch;
             });
         }
 
         console.log(`After category filtering: ${filteredTests.length} tests`);
 
-        // If no tests match, show top 3 most popular
+        // If no tests match, show random 3 from all tests
         if (filteredTests.length === 0) {
-            console.log("No tests match filters, showing top 3 most popular");
-            filteredTests = [...tests].sort((a, b) => {
-                const scoreA = (a.participants || 0) * 0.7 + (parseFloat(a.rating) || 4.5) * 0.3;
-                const scoreB = (b.participants || 0) * 0.7 + (parseFloat(b.rating) || 4.5) * 0.3;
-                return scoreB - scoreA;
-            }).slice(0, 3);
+            const shuffled = [...tests].sort(() => Math.random() - 0.5);
+            filteredTests = shuffled.slice(0, 3);
         } else {
             // Sort by popularity and rating
             filteredTests = filteredTests.sort((a, b) => {
@@ -124,37 +120,37 @@ export default function QuickTestFinder() {
         setRecommendations(finalRecommendations);
     };
 
-    const checkAgeMatch = (selectedAge, testAgeRange) => {
-        switch (selectedAge) {
-            case "3-6":
-                return testAgeRange === "3-12" || testAgeRange === "3-18";
-            case "7-12":
-                return testAgeRange === "3-12" || testAgeRange === "3-18";
-            case "13-18":
-                return testAgeRange === "13-18" || testAgeRange === "3-18";
-            case "adult":
-                return testAgeRange === "3-18"; // Family tests for adults with children
-            default:
-                return true;
+    const parseSelectedAgeBracket = (selected) => {
+        if (selected === 'adult') return [18, 120];
+        const parts = String(selected).split('-').map(n => parseInt(n, 10));
+        if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+            return [parts[0], parts[1]];
         }
+        return [null, null];
+    };
+
+    const checkAgeOverlap = (selMin, selMax, testMin, testMax) => {
+        // Treat nulls as open intervals
+        const aMin = selMin ?? -Infinity;
+        const aMax = selMax ?? Infinity;
+        const bMin = testMin ?? -Infinity;
+        const bMax = testMax ?? Infinity;
+        return Math.max(aMin, bMin) <= Math.min(aMax, bMax);
     };
 
     const checkCategoryMatch = (selectedCategory, testCategory) => {
-        // Map category selection to actual categories
-        switch (selectedCategory) {
-            case "reading_disorder":
-                return testCategory === "اختلال خواندن";
-            case "writing_disorder":
-                return testCategory === "اختلال نوشتن";
-            case "math_disorder":
-                return testCategory === "اختلال ریاضی";
-            case "attention_disorder":
-                return testCategory === "اختلال توجه";
-            case "learning_disorder":
-                return testCategory === "اختلال یادگیری";
-            default:
-                return true;
-        }
+        // Normalize both sides to codes
+        const codeToFa = {
+            learning_style: 'سبک یادگیری',
+            reading_disorder: 'اختلال خواندن',
+            writing_disorder: 'اختلال نوشتن',
+            math_disorder: 'اختلال ریاضی',
+            attention_disorder: 'اختلال توجه',
+            learning_disorder: 'اختلال یادگیری'
+        };
+        const faToCode = Object.fromEntries(Object.entries(codeToFa).map(([k, v]) => [v, k]));
+        const testCode = faToCode[testCategory] || testCategory;
+        return selectedCategory === testCode;
     };
 
     const resetAssessment = () => {

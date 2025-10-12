@@ -15,8 +15,31 @@ export {
     clearTests
 } from './adminTestsSlice';
 
-// Questions management slice - REMOVED
-// This functionality was not implemented and has been removed
+// Questions management slice
+export { default as adminQuestionsReducer } from './adminQuestionsSlice';
+export {
+    createQuestion,
+    fetchTestQuestions,
+    updateQuestion,
+    deleteQuestion,
+    clearError as clearQuestionsError,
+    clearQuestions
+} from './adminQuestionsSlice';
+
+// Dashboard slice
+export { default as dashboardReducer } from './dashboardSlice';
+export {
+    fetchDashboardStats,
+    fetchUserStats,
+    fetchTestStats,
+    fetchExamAttemptsStats,
+    fetchRecentUsers,
+    fetchRecentActivities,
+    clearErrors as clearDashboardErrors,
+    clearError as clearDashboardError,
+    resetDashboard,
+    updateStats
+} from './dashboardSlice';
 
 // Utility functions
 export {

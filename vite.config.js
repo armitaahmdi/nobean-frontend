@@ -6,19 +6,15 @@ export default defineConfig({
   base: '/',
   plugins: [react()],
   server: {
+    port: 5173,
+    host: true,
     proxy: {
       '/api': {
-        target: 'https://api.nobean.ir',
+        target: 'http://localhost:8888',
         changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
       },
-      '/uploads': {
-        target: 'https://api.nobean.ir',
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path
-      }
     }
   }
 })

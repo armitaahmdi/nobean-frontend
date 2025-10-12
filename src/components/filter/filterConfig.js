@@ -14,6 +14,7 @@ import education from "../../assets/images/categoryIcons/education.png";
 import skill from "../../assets/images/categoryIcons/skill-development.png";
 import parent from "../../assets/images/categoryIcons/parent.png";
 import psychology from "../../assets/images/categoryIcons/psychology.png";
+import learningStyle from "../../assets/images/categoryIcons/knowledge.png";
 
 // Import test-specific icons
 import readingIcon from "../../assets/images/testIcons/reading-disorder.png";
@@ -37,6 +38,7 @@ export const testsFilterConfig = {
         title: "دسته‌بندی آزمون",
         icon: IoMdPricetag,
         options: [
+            { name: "سبک یادگیری", image: learningStyle },
             { name: "اختلال خواندن", image: readingIcon },
             { name: "اختلال نوشتن", image: writingIcon },
             { name: "اختلال ریاضی", image: mathIcon },

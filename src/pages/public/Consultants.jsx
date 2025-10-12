@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useRef } from 'react'
 import { fetchConsultants } from "../../features/user/consultants/consultantsSlice"
 import FilterablePaginatedList from '../../components/filter/FilterablePaginatedList';
 import { consultatsFilterConfig } from "../../components/filter/filterConfig";
@@ -8,26 +9,31 @@ import translate from "../../locale/translate";
 export default function Consultants() {
     const dispatch = useDispatch();
     const { consultants, loading, error } = useSelector((store) => store.consultants)
+    const listRef = useRef(null);
 
     return (
         <>
-            <FilterablePaginatedList
-                fetchAction={fetchConsultants}
-                items={consultants}
-                loading={loading}
-                error={error}
-                config={consultatsFilterConfig}
-                ListComponent={({ data, selectedFilters }) => (
-                    <ConsultantsList
-                        consultants={data}
-                        selectedGender={selectedFilters.gender}
-                        selectedService={selectedFilters.service}
-                        selectedScientificDegree={selectedFilters.scientificDegree}
-                    />
-                )}
-                seo={translate.consultants}
-                filtersProps={{ dispatch }}
-            />
+            <div ref={listRef}>
+                <FilterablePaginatedList
+                    fetchAction={fetchConsultants}
+                    items={consultants}
+                    loading={loading}
+                    error={error}
+                    config={consultatsFilterConfig}
+                    ListComponent={({ data, selectedFilters }) => (
+                        <ConsultantsList
+                            consultants={data}
+                            selectedGender={selectedFilters.gender}
+                            selectedService={selectedFilters.service}
+                            selectedScientificDegree={selectedFilters.scientificDegree}
+                        />
+                    )}
+                    seo={translate.consultants}
+                    filtersProps={{ dispatch }}
+                    scrollToTop={false}
+                    scrollToElement={listRef.current}
+                />
+            </div>
         </>
     )
 }

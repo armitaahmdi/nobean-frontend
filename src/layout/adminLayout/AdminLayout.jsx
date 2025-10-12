@@ -33,7 +33,7 @@ export default function AdminLayout({ role }) {
             )}
 
             {/* محتوای اصلی */}
-            <div className="flex flex-col flex-1 overflow-hidden lg:pr-64">
+            <div className="flex flex-col flex-1 overflow-hidden lg:pr-72">
                 <AdminHeader
                     role={role}
                     onMobileMenuToggle={() => setMobileMenuOpen((v) => !v)}

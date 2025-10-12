@@ -4,6 +4,8 @@ import { HiOutlineListBullet } from "react-icons/hi2";
 import translate from "../../../../locale/translate";
 import { Link } from "react-router-dom";
 import { getShortenText } from "../../../../helper/helperFunction";
+import { useEffect, useState } from "react";
+import { testsApi } from "../../../../services/testsApi";
 
 // Constants
 const BADGE_COLORS = {
@@ -33,12 +35,41 @@ export default function TestCard({ test }) {
         title = DEFAULT_VALUES.title,
         imagepath = DEFAULT_VALUES.image,
         time = DEFAULT_VALUES.time,
-        questionsCount = DEFAULT_VALUES.questionsCount,
         participants = DEFAULT_VALUES.participants,
         description = DEFAULT_VALUES.description,
         target_audience = 'ویژه فرزندان',
         id = 'unknown'
     } = test;
+
+    // Normalize question count from various possible API fields
+    const normalizedQuestionsCount = (
+        test.questionsCount !== undefined && test.questionsCount !== null
+            ? test.questionsCount
+            : (test.question_count !== undefined && test.question_count !== null
+                ? test.question_count
+                : DEFAULT_VALUES.questionsCount)
+    );
+
+    const [lazyQuestionsCount, setLazyQuestionsCount] = useState(null);
+
+    useEffect(() => {
+        let isMounted = true;
+        // If count is unknown/zero, try to fetch test details to get question_count
+        if (!normalizedQuestionsCount && id && id !== 'unknown') {
+            (async () => {
+                try {
+                    const resp = await testsApi.getTestById(id);
+                    const data = resp?.data || resp;
+                    if (isMounted && data && (data.question_count !== undefined && data.question_count !== null)) {
+                        setLazyQuestionsCount(data.question_count);
+                    }
+                } catch (e) {
+                    // silently ignore
+                }
+            })();
+        }
+        return () => { isMounted = false; };
+    }, [id, normalizedQuestionsCount]);
 
     return (
         <div className="group relative w-full bg-gradient-to-br from-white to-gray-50/50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-lightBlue/40 transform hover:-translate-y-1">
@@ -92,7 +123,7 @@ export default function TestCard({ test }) {
                                 <HiOutlineListBullet className="text-lightYellow w-4 h-4" />
                             </div>
                             <div className="text-sm">
-                                <span className="font-bold text-gray-900">{questionsCount}</span>
+                                <span className="font-bold text-gray-900">{lazyQuestionsCount ?? normalizedQuestionsCount}</span>
                                 <span className="text-gray-500 mr-1 text-xs">سوال</span>
                             </div>
                         </div>

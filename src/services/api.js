@@ -1,6 +1,6 @@
 // API Configuration
 const API_CONFIG = {
-  BASE_URL: 'https://api.nobean.ir/api/v1',
+  BASE_URL: import.meta.env.VITE_API_URL || '/api/v1',
   TIMEOUT: 10000,
   RETRY_ATTEMPTS: 3,
 };
@@ -85,7 +85,7 @@ export const apiRequest = async (url, options = {}) => {
       hasToken: !!token,
       tokenPreview: token ? token.substring(0, 20) + '...' : 'No token',
       authorizationHeader: headers.Authorization,
-      fullToken: token // Let's see the full token
+      body: requestBody
     });
 
     const response = await fetch(url, {

@@ -1,4 +1,4 @@
-import { FaHome, FaUsers, FaClipboardList, FaUserTie, FaFileAlt, FaPodcast, FaBookOpen, FaSchool } from "react-icons/fa";
+import { FaHome, FaUsers, FaClipboardList, FaUserTie, FaFileAlt, FaPodcast, FaBookOpen, FaSchool, FaChartBar } from "react-icons/fa";
 
 const adminMenu = [
     {
@@ -10,19 +10,16 @@ const adminMenu = [
     {
         id: "users",
         name: "کاربران",
+        link: "/admin/users",
         icon: FaUsers,
-        submenu: [
-            { id: "users-list", name: "لیست کاربران", link: "/admin/users/list" },
-            { id: "users-create", name: "ایجاد کاربر جدید", link: "/admin/users/create" },
-        ],
     },
     {
         id: "exams",
         name: "آزمون‌ها",
         icon: FaClipboardList,
         submenu: [
-            { id: "exams-list", name: "لیست آزمون‌ها", link: "/admin/tests" },
-            { id: "exams-management", name: "مدیریت آزمون‌ها", link: "/admin/tests-management" },
+            { id: "exams-list", name: "لیست آزمون‌ها", link: "/admin/tests", icon: FaClipboardList },
+            { id: "exam-results", name: "نتایج آزمون‌ها", link: "/admin/exam-results", icon: FaChartBar },
         ],
     },
     {

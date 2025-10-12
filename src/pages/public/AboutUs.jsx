@@ -70,22 +70,22 @@ export default function AboutUs() {
                 keywords="نوبین, روان‌شناسی, آموزش, استارتاپ, تست روان‌شناسی, مشاوره تخصصی"
             />
             
-            <div className="min-h-screen">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
                 {/* Hero Banner Section */}
-                <div className="max-w-7xl mx-auto px-4 py-8">
-                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
-                    {/* Geometric Background Pattern */}
-                    <div className="absolute inset-0 opacity-15">
+                <div className="max-w-7xl mx-auto px-4 py-12">
+                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600 shadow-2xl">
+                    {/* Animated Background Pattern */}
+                    <div className="absolute inset-0 opacity-10">
                         <div className="absolute inset-0" style={{
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M40 40c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
                         }}></div>
                     </div>
                     
                     {/* Animated Floating Shapes */}
                     <div className="absolute top-4 left-8 w-16 h-16 bg-gradient-to-r from-white/20 to-blue-300/30 rounded-full blur-sm animate-pulse"></div>
-                    <div className="absolute top-8 right-12 w-12 h-12 bg-gradient-to-r from-purple-300/30 to-pink-300/30 rounded-full blur-sm animate-bounce"></div>
-                    <div className="absolute bottom-6 left-1/3 w-20 h-20 bg-gradient-to-r from-indigo-300/20 to-blue-300/20 rounded-full blur-md animate-pulse"></div>
-                    <div className="absolute bottom-4 right-1/4 w-14 h-14 bg-gradient-to-r from-white/15 to-purple-300/25 rounded-full blur-sm animate-bounce"></div>
+                    <div className="absolute top-8 right-12 w-12 h-12 bg-gradient-to-r from-cyan-300/30 to-blue-300/30 rounded-full blur-sm animate-bounce"></div>
+                    <div className="absolute bottom-6 left-1/3 w-20 h-20 bg-gradient-to-r from-blue-300/20 to-cyan-300/20 rounded-full blur-md animate-pulse"></div>
+                    <div className="absolute bottom-4 right-1/4 w-14 h-14 bg-gradient-to-r from-white/15 to-blue-300/25 rounded-full blur-sm animate-bounce"></div>
                     
                     {/* Decorative Lines */}
                     <div className="absolute top-1/2 left-0 w-32 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -rotate-12"></div>
@@ -166,45 +166,68 @@ export default function AboutUs() {
                 </div>
 
                 {/* Main Content */}
-                <div className="max-w-7xl mx-auto px-4 py-16">
+                <div className="max-w-7xl mx-auto px-4 py-20">
                     {/* Introduction */}
-                    <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12 mb-16 border border-gray-100">
-                        <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                            <p className="text-xl mb-6 text-center font-medium text-gray-800">
+                    <div className="relative bg-white rounded-3xl shadow-2xl p-8 sm:p-12 mb-20 border border-gray-100 overflow-hidden">
+                        {/* Decorative Elements */}
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-blue-100 to-transparent rounded-full blur-3xl opacity-50"></div>
+                        <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-cyan-100 to-transparent rounded-full blur-3xl opacity-50"></div>
+                        
+                        <div className="relative prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                            <div className="text-center mb-8">
+                                <div className="inline-block px-4 py-2 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-full mb-4">
+                                    <span className="text-sm font-bold text-blue-700">درباره ما</span>
+                                </div>
+                                <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+                                    <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                                        نوبین چیست؟
+                                    </span>
+                                </h2>
+                            </div>
+                            
+                            <p className="text-xl mb-6 text-center font-medium text-gray-800 leading-relaxed">
                                 نوبین یک استارتاپ نوآور در حوزه روان‌شناسی و آموزش است که با هدف تحول در نحوه یادگیری، شناخت و پرورش دانش‌آموزان شکل گرفته.
                             </p>
-                            <p className="mb-6">
+                            <p className="mb-6 text-lg text-gray-700">
                                 ما با تکیه بر روان‌شناسی علمی، فناوری هوشمند و طراحی تجربه کاربری دقیق، پلتفرمی ساخته‌ایم که والدین و مربیان را به تصویری روشن و قابل اقدام از ویژگی‌های رفتاری و یادگیری کودک می‌رساند.
                             </p>
-                            <p className="mb-6">
+                            <p className="mb-0 text-lg text-gray-700">
                                 در نوبین، فقط به سنجش اکتفا نمی‌کنیم. پس از اجرای تست‌های روان‌شناسی معتبر، نتایج در قالب تحلیل‌های بصری و قابل فهم ارائه می‌شود و بر اساس آن، برنامه‌های تربیتی و آموزشی شخصی‌سازی شده، محتوای تعاملی و مشاوره تخصصی پیشنهاد می‌گردد تا هر کودک مسیر رشد مخصوص به خود را دنبال کند.
                             </p>
                         </div>
                     </div>
 
                     {/* What We Offer */}
-                    <div className="mb-16">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                                نوبین چه ارائه می‌دهد؟
+                    <div className="mb-20">
+                        <div className="text-center mb-16">
+                            <div className="inline-block px-4 py-2 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-full mb-4">
+                                <span className="text-sm font-bold text-blue-700">خدمات ما</span>
+                            </div>
+                            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4">
+                                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                                    نوبین چه ارائه می‌دهد؟
+                                </span>
                             </h2>
-                            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+                            <div className="w-24 h-2 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto rounded-full"></div>
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {features.map((feature, index) => (
                                 <div 
                                     key={index}
-                                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
+                                    className="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 overflow-hidden"
                                 >
-                                    <div className="flex items-start space-x-4 space-x-reverse">
+                                    {/* Hover Gradient Background */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-cyan-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    
+                                    <div className="relative flex items-start space-x-4 space-x-reverse">
                                         <div className="flex-shrink-0">
-                                            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                                                <feature.icon className="w-6 h-6 text-white" />
+                                            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                                                <feature.icon className="w-7 h-7 text-white" />
                                             </div>
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-bold text-gray-900 mb-3">
+                                            <h3 className="text-xl font-black text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
                                                 {feature.title}
                                             </h3>
                                             <p className="text-gray-600 leading-relaxed">
@@ -212,66 +235,100 @@ export default function AboutUs() {
                                             </p>
                                         </div>
                                     </div>
+                                    
+                                    {/* Decorative Corner */}
+                                    <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-blue-100/50 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     {/* Why Nobin */}
-                    <div className="mb-16">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                                چرا نوبین؟
+                    <div className="mb-20">
+                        <div className="text-center mb-16">
+                            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-full mb-4">
+                                <span className="text-sm font-bold text-cyan-700">مزیت‌های ما</span>
+                            </div>
+                            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4">
+                                <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                                    چرا نوبین؟
+                                </span>
                             </h2>
-                            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+                            <div className="w-24 h-2 bg-gradient-to-r from-cyan-600 to-blue-600 mx-auto rounded-full"></div>
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {advantages.map((advantage, index) => (
                                 <div 
                                     key={index}
-                                    className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-100"
+                                    className="group relative bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-cyan-100 overflow-hidden"
                                 >
-                                    <div className="flex items-start space-x-4 space-x-reverse">
+                                    {/* Hover Effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-100 to-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    
+                                    <div className="relative flex items-start space-x-4 space-x-reverse">
                                         <div className="flex-shrink-0">
-                                            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                                                <advantage.icon className="w-6 h-6 text-white" />
+                                            <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500">
+                                                <advantage.icon className="w-7 h-7 text-white" />
                                             </div>
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-bold text-gray-900 mb-3">
+                                            <h3 className="text-xl font-black text-gray-900 mb-3 group-hover:text-cyan-600 transition-colors duration-300">
                                                 {advantage.title}
                                             </h3>
-                                            <p className="text-gray-600 leading-relaxed">
+                                            <p className="text-gray-700 leading-relaxed">
                                                 {advantage.description}
                                             </p>
                                         </div>
                                     </div>
+                                    
+                                    {/* Decorative Corner */}
+                                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyan-100/50 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     {/* Mission */}
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 sm:p-12 text-white mb-16 shadow-xl">
-                        <div className="text-center">
-                            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+                    <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600 rounded-3xl p-12 sm:p-16 text-white mb-20 shadow-2xl overflow-hidden">
+                        {/* Background Decoration */}
+                        <div className="absolute inset-0 opacity-10">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+                        </div>
+                        
+                        <div className="relative text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                                <FaRocket className="w-8 h-8 text-white" />
+                            </div>
+                            <h2 className="text-3xl sm:text-5xl font-black mb-8">
                                 مأموریت ما
                             </h2>
-                            <p className="text-xl leading-relaxed max-w-4xl mx-auto">
+                            <p className="text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto font-medium">
                                 کمک به والدین، مدارس و متخصصان تا با تصویر دقیق، راهکار عملی و پیگیری مداوم، زمینه شکوفایی توانمندی‌های نسل آینده را فراهم کنند.
                             </p>
                         </div>
                     </div>
 
                     {/* Call to Action */}
-                    <div className="text-center bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-gray-100">
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                            همراه شوید
-                        </h2>
-                        <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
-                            اگر والدین یک دانش‌آموز هستید، مدرسه‌ای را مدیریت می‌کنید یا روان‌شناس و مربی هستید، نوبین کنار شماست تا شناخت را به اقدام مؤثر تبدیل کنید.
-                        </p>
+                    <div className="relative text-center bg-white rounded-3xl p-12 sm:p-16 shadow-2xl border border-gray-100 overflow-hidden">
+                        {/* Decorative Elements */}
+                        <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-blue-100 to-transparent rounded-full blur-3xl opacity-50"></div>
+                        <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-cyan-100 to-transparent rounded-full blur-3xl opacity-50"></div>
+                        
+                        <div className="relative">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-full mb-6">
+                                <FaUsers className="w-8 h-8 text-blue-600" />
+                            </div>
+                            <h2 className="text-3xl sm:text-5xl font-black text-gray-900 mb-6">
+                                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                                    همراه شوید
+                                </span>
+                            </h2>
+                            <p className="text-xl text-gray-700 mb-0 max-w-3xl mx-auto leading-relaxed">
+                                اگر والدین یک دانش‌آموز هستید، مدرسه‌ای را مدیریت می‌کنید یا روان‌شناس و مربی هستید، نوبین کنار شماست تا شناخت را به اقدام مؤثر تبدیل کنید.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CollapsibleCard from "../shared/CollapsibleCard";
 import { TbUsersPlus } from "react-icons/tb";
+import { selectRecentUsers } from "../../slices/dashboardSlice";
 
 export default function RecentUsersTable({ limit = 10 }) {
-    const users = useSelector((state) => state.userStats.users);
+    const users = useSelector(selectRecentUsers);
 
     // جدیدترین‌ها از بالا
-    const sortedUsers = [...users]
+    const sortedUsers = [...(users || [])]
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .slice(0, limit);
 
@@ -26,8 +27,13 @@ export default function RecentUsersTable({ limit = 10 }) {
                     <tbody>
                         {sortedUsers.map((user) => (
                             <tr key={user.id} className="text-right">
-                                <td className="p-2 border">{user.name || "—"}</td>
-                                <td className="p-2 border">{user.phoneNumber}</td>
+                                <td className="p-2 border">
+                                    {user.firstName && user.lastName 
+                                        ? `${user.firstName} ${user.lastName}` 
+                                        : user.userName || "—"
+                                    }
+                                </td>
+                                <td className="p-2 border">{user.phone || user.phoneNumber || "—"}</td>
                                 <td className="p-2 border">
                                     {moment(user.createdAt).format("jYYYY/jMM/jDD")}
                                 </td>

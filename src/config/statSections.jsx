@@ -4,7 +4,7 @@ export const statItems = [
     { key: "users", title: "کاربران", link: "/admin/users" },
     { key: "exams", title: "آزمون‌ها", link: "/admin/tests" },
     { key: "consultants", title: "مشاورها", link: "/admin/consultants" },
-    { key: "examsTaken", title: "آزمون‌های انجام شده", link: "/admin/tests" },
+    { key: "examsTaken", title: "آزمون‌های انجام شده", link: "/admin/exam-results" },
     { key: "coursesPurchased", title: "دوره‌های خریداری شده", link: "/admin/courses" },
     { key: "successfulConsultations", title: "مشاوره‌های موفق", link: "/admin/consultants" },
     { key: "articles", title: "مقالات", link: "/admin/articles" },

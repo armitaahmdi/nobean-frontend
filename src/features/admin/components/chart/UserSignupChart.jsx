@@ -17,6 +17,7 @@ import CollapsibleCard from "../shared/CollapsibleCard";
 import TimeRangeSelector from "../shared/TimeRangeSelector";
 import ExcelExportButton from "../shared/ExcelExportButton"
 import { filterByDateRange } from "../../../../helper/dateFilters";
+import { selectRecentUsers } from "../../slices/dashboardSlice";
 
 ChartJS.register(
     CategoryScale,
@@ -29,19 +30,32 @@ ChartJS.register(
 );
 
 export default function UserSignupChart() {
-    const users = useSelector((state) => state.userStats.users);
+    const users = useSelector(selectRecentUsers);
     const { tests } = useSelector((state) => state.tests);
     const [chartType, setChartType] = useState("bar");
     const [range, setRange] = useState("1m");
 
     const filteredUsers = useMemo(() => {
-        return filterByDateRange(users, "created_at", range);
+        return filterByDateRange(users || [], "createdAt", range);
     }, [users, range]);
 
     const chartData = useMemo(() => {
+        if (!Array.isArray(filteredUsers) || filteredUsers.length === 0) {
+            return {
+                labels: ["هیچ داده‌ای موجود نیست"],
+                datasets: [{
+                    label: "تعداد کاربران",
+                    data: [0],
+                    backgroundColor: "#e5e7eb",
+                    borderColor: "#9ca3af",
+                    borderWidth: 1,
+                }]
+            };
+        }
+
         const counts = {};
         filteredUsers.forEach((user) => {
-            const date = user.created_at.split("T")[0];
+            const date = user.createdAt.split("T")[0];
             counts[date] = (counts[date] || 0) + 1;
         });
 

@@ -87,7 +87,9 @@
 
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { PublicRoutes } from "./routes/publicRoutes";
 import {AdminRoutes} from "./routes/AdminRoutes";
@@ -101,7 +103,7 @@ import { fetchPodcasts } from "./features/user/podcasts/podcastsSlice";
 
 export default function App() {
   const dispatch = useDispatch();
-  const user = { role: "superadmin" }; // یا از context/redux بگیر
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchTests());
@@ -113,6 +115,18 @@ export default function App() {
   return (
     <AuthProvider>
       <ScrollToTop />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
 
       <Routes>
         {/* مسیرهای عمومی */}

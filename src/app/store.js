@@ -6,13 +6,17 @@ import articlesReducer from "../features/user/articles/articlesSlice";
 import podcastsReducer from "../features/user/podcasts/podcastsSlice";
 import consultantsReducer from "../features/user/consultants/consultantsSlice";
 import examDetailsReducer from "../features/user/quiz/examDetailsSlice";
+import examResultReducer from "../features/user/quiz/examResultSlice";
+import adminExamResultsReducer from "../features/admin/slices/adminExamResultsSlice";
 import courseDetailsReducer from "../features/user/courses/coursesDetailsSlice";
 import productsReducer from "../features/user/store/productsSlice";
 import cartReducer from "../features/user/store/slices/cartSlice";
 // admin reducers 
 import userStatsReducer from "../features/admin/slices/userStateSlice"
 import examAttemptsReducer from "../features/admin/slices/examAttemptsSlice";
-import { adminTestsReducer } from "../features/admin/slices";
+import userManagementReducer from "../features/admin/slices/userManagementSlice";
+import { adminTestsReducer, adminQuestionsReducer } from "../features/admin/slices";
+import dashboardReducer from "../features/admin/slices/dashboardSlice";
 // authentication reducers
 import authReducer from "../features/authentication/slices/loginSlice";
 import otpReducer from "../features/authentication/slices/otpSlice";
@@ -24,6 +28,8 @@ const store = configureStore({
     tests: testsReducer,
     testDetails: testDetailsReducer,
     examDetails: examDetailsReducer,
+    examResult: examResultReducer,
+    adminExamResults: adminExamResultsReducer,
     courses: coursesReducer,
     articles: articlesReducer,
     podcasts: podcastsReducer,
@@ -35,7 +41,10 @@ const store = configureStore({
     // admin reducers
     userStats: userStatsReducer,
     examAttempts: examAttemptsReducer,
+    userManagement: userManagementReducer,
     adminTests: adminTestsReducer,
+    adminQuestions: adminQuestionsReducer,
+    dashboard: dashboardReducer,
     
     // authentication reducers
     auth: authReducer,

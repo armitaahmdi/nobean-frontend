@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
 import translate from "../../locale/translate";
 import { fetchArticles } from "../../features/user/articles/articlesSlice";
 import { articlesFilterConfig } from "../../components/filter/filterConfig";
@@ -8,25 +9,30 @@ import FilterablePaginatedList from "../../components/filter/FilterablePaginated
 export default function Articles() {
   const dispatch = useDispatch()
   const { articles, loading, error } = useSelector((store) => store.articles)
+  const listRef = useRef(null);
 
   return (
     <>
-      <FilterablePaginatedList
-        fetchAction={fetchArticles}
-        items={articles}
-        loading={loading}
-        error={error}
-        config={articlesFilterConfig}
-        ListComponent={({ data, selectedFilters }) => (
-          <ArticlesList
-            articles={data}
-            selectedSort={selectedFilters.sortOptions}
-            selectedCategory={selectedFilters.categories}
-          />
-        )}
-        seo={translate.articles}
-        filtersProps={{ dispatch }}
-      />
+      <div ref={listRef}>
+        <FilterablePaginatedList
+          fetchAction={fetchArticles}
+          items={articles}
+          loading={loading}
+          error={error}
+          config={articlesFilterConfig}
+          ListComponent={({ data, selectedFilters }) => (
+            <ArticlesList
+              articles={data}
+              selectedSort={selectedFilters.sortOptions}
+              selectedCategory={selectedFilters.categories}
+            />
+          )}
+          seo={translate.articles}
+          filtersProps={{ dispatch }}
+          scrollToTop={false}
+          scrollToElement={listRef.current}
+        />
+      </div>
     </>
   )
 }

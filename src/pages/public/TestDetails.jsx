@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom"
-import { fetchTests } from "../../features/user/tests/testsSlice";
+// import { fetchTests } from "../../features/user/tests/testsSlice";
 import { fetchTestDetails } from "../../features/user/tests/testDetailsSlice";
 import IntroCard from "../../features/user/tests/components/IntroCard";
 import Tabs from "../../components/tab/shared/Tabs";
@@ -9,13 +9,13 @@ import LoadingState from "../../components/ui/LoadingState";
 import ErrorState from "../../components/ui/ErrorState";
 import StickyActionsColumn from "../../features/user/tests/components/StickyActionsColumn";
 import DetailsRowCards from "../../features/user/tests/components/DetailsRowCards";
-import RelatedTestsSection from "../../components/tests/RelatedTestsSection";
+// import RelatedTestsSection from "../../components/tests/RelatedTestsSection";
 import { useBreadcrumb } from "../../contexts/BreadcrumbContext";
 
 export default function TestDetails() {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const { tests, loading: testsLoading, error: testsError } = useSelector((store) => store.tests);
+    // const { tests, loading: testsLoading, error: testsError } = useSelector((store) => store.tests);
     const testDetailsState = useSelector((store) => store.testDetails.byTestId[id] || {
         testDetails: null,
         loading: false,
@@ -29,11 +29,11 @@ export default function TestDetails() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     // Fetch tests list for related tests section
-    useEffect(() => {
-        if (tests.length === 0) {
-            dispatch(fetchTests());
-        }
-    }, [dispatch, tests.length]);
+    // useEffect(() => {
+    //     if (tests.length === 0) {
+    //         dispatch(fetchTests());
+    //     }
+    // }, [dispatch, tests.length]);
 
     // Fetch specific test details
     useEffect(() => {
@@ -54,8 +54,8 @@ export default function TestDetails() {
         };
     }, [testDetails, setPageTitle, clearPageTitle]);
 
-    const loading = testsLoading || detailsLoading;
-    const error = testsError || detailsError;
+    const loading = detailsLoading; // testsLoading || detailsLoading;
+    const error = detailsError; // testsError || detailsError;
     const test = testDetails; // Use the specific test details instead of finding from array
 
     // Debug logging
@@ -136,7 +136,7 @@ export default function TestDetails() {
         </div>
 
         {/* Related Tests Section - Full Width */}
-        <RelatedTestsSection currentTest={test} allTests={tests} />
+        {/* <RelatedTestsSection currentTest={test} allTests={tests} /> */}
         </>
     )
 }

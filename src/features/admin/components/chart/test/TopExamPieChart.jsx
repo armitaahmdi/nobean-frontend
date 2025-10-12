@@ -6,6 +6,7 @@ import CollapsibleCard from "../../shared/CollapsibleCard";
 import { FaChartPie } from "react-icons/fa";
 import { filterByDateRange } from "../../../../../helper/dateFilters"
 import TimeRangeSelector from "../../shared/TimeRangeSelector";
+import { selectRecentActivities } from "../../../slices/dashboardSlice";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -13,14 +14,26 @@ const COLORS = ["#2563eb", "#f59e0b", "#16a34a"];
 
 export default function TopExamPieChart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const attempts = useSelector((state) => state.examAttempts.list) || [];
+    const attempts = useSelector(selectRecentActivities) || [];
     const { tests } = useSelector((store) => store.tests);
     const [range, setRange] = useState("all");
 
-    const filteredAttempts = useMemo(() => filterByDateRange(attempts, "created_at", range), [attempts, range]);
+    const filteredAttempts = useMemo(() => filterByDateRange(attempts, "completedAt", range), [attempts, range]);
 
     const chartData = useMemo(() => {
-        if (!Array.isArray(filteredAttempts) || !Array.isArray(tests)) {
+        if (!Array.isArray(filteredAttempts) || filteredAttempts.length === 0) {
+            return {
+                labels: ["هیچ داده‌ای موجود نیست"],
+                datasets: [{
+                    data: [1],
+                    backgroundColor: ["#e5e7eb"],
+                    borderColor: ["#9ca3af"],
+                    borderWidth: 1,
+                }]
+            };
+        }
+
+        if (!Array.isArray(tests)) {
             return { labels: [], datasets: [] };
         }
 

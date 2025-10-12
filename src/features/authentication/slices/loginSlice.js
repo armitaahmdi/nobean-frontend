@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from '../../../services/authService';
+import { getProfile } from '../../user/profile/profileSlice';
 
 // Async thunk for sending OTP
 export const sendOtp = createAsyncThunk(
@@ -26,6 +27,15 @@ export const verifyOtp = createAsyncThunk(
         localStorage.setItem('authToken', data.token);
       }
       
+      // If this is the designated superadmin phone, persist role on backend as well
+      try {
+        if (phone === '09198718211' && data.token) {
+          await authService.updateProfile(data.token, { role: 'superadmin' });
+        }
+      } catch (roleErr) {
+        console.warn('Failed to persist superadmin role on backend:', roleErr.message);
+      }
+
       console.log('OTP Verification Success:', data);
       return data;
     } catch (error) {
@@ -69,7 +79,7 @@ export const getUserProfile = createAsyncThunk(
 // Async thunk for restoring user session on app initialization
 export const restoreUserSession = createAsyncThunk(
   'auth/restoreUserSession',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const token = localStorage.getItem('authToken');
       console.log('restoreUserSession: checking token:', {
@@ -89,11 +99,41 @@ export const restoreUserSession = createAsyncThunk(
       // Extract user data from response
       const userData = response.user || response;
       
-      // Store user data in localStorage
-      localStorage.setItem('userData', JSON.stringify(userData));
+      // Try to get complete profile data from profile API
+      let completeProfileData = userData;
+      try {
+        console.log('restoreUserSession: fetching complete profile data...');
+        
+        // Call profile API directly instead of using dispatch
+        const profileResponse = await authService.getProfile(token);
+        console.log('restoreUserSession: profile response:', profileResponse);
+        
+        // Extract profile data from response
+        const profileData = profileResponse.profile || profileResponse;
+        
+        // Merge profile data with user data
+        completeProfileData = { ...userData, ...profileData };
+      } catch (profileError) {
+        console.log('restoreUserSession: profile fetch failed, using basic user data:', profileError.message);
+        // If profile fetch fails, use basic user data
+        completeProfileData = userData;
+      }
       
-      console.log('restoreUserSession: success, user data:', userData);
-      return { user: userData, token };
+      // If this is the designated superadmin phone but backend role is not set, try to persist it
+      try {
+        if (completeProfileData?.phone === '09198718211' && completeProfileData?.role !== 'superadmin') {
+          await authService.updateProfile(token, { role: 'superadmin' });
+          completeProfileData = { ...completeProfileData, role: 'superadmin' };
+        }
+      } catch (persistErr) {
+        console.warn('restoreUserSession: failed to persist superadmin role on backend:', persistErr.message);
+      }
+
+      // Store user data in localStorage
+      localStorage.setItem('userData', JSON.stringify(completeProfileData));
+      
+      console.log('restoreUserSession: success, user data:', completeProfileData);
+      return { user: completeProfileData, token };
     } catch (error) {
       console.error('restoreUserSession: error:', error);
       // If API call fails, clear localStorage
@@ -152,6 +192,14 @@ const authSlice = createSlice({
       state.otpSent = false;
       state.error = null;
     },
+    updateUserData: (state, action) => {
+      // Update user data in auth state
+      if (state.user && state.user.id === action.payload.id) {
+        state.user = { ...state.user, ...action.payload };
+        // Also update localStorage
+        localStorage.setItem('userData', JSON.stringify(state.user));
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -179,10 +227,15 @@ const authSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.isLoading = false;
         // Add phone number to user object if not provided by backend
-        state.user = {
+        let mergedUser = {
           ...action.payload.user,
           phone: action.payload.user?.phone || state.mobile
         };
+        // Promote specific phone to superadmin
+        if (mergedUser?.phone === '09198718211') {
+          mergedUser = { ...mergedUser, role: 'superadmin' };
+        }
+        state.user = mergedUser;
         state.token = action.payload.token;
         state.isAuthenticated = true;
         state.error = null;
@@ -253,7 +306,11 @@ const authSlice = createSlice({
       })
       .addCase(restoreUserSession.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.user;
+        let restoredUser = action.payload.user;
+        if (restoredUser?.phone === '09198718211') {
+          restoredUser = { ...restoredUser, role: 'superadmin' };
+        }
+        state.user = restoredUser;
         state.token = action.payload.token;
         state.isAuthenticated = true;
         state.error = null;
@@ -270,5 +327,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError, clearAuth, setMobile, resetOtpState } = authSlice.actions;
+export const { clearError, clearAuth, setMobile, resetOtpState, updateUserData } = authSlice.actions;
 export default authSlice.reducer;

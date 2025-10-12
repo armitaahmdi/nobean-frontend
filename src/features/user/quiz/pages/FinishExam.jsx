@@ -6,7 +6,7 @@ import finishexam from "../../../../assets/images/icons/finishexam.jpg";
 import success from "../../../../assets/images/success.json";
 import translate from "../../../../locale/translate";
 
-export default function ScoreSummary() {
+export default function ScoreSummary({ totalQuestions, onRestart, onSubmit }) {
     const [showContent, setShowContent] = useState(false);
 
     useEffect(() => {
@@ -42,11 +42,29 @@ export default function ScoreSummary() {
                         {translate.congratsfinishtest}
                     </h2>
 
-                    <Link to="/tests">
-                        <button className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md px-6 py-3 transition">
-                            {translate.moretests}
+                    <p className="text-gray-600 text-center">
+                        شما {totalQuestions} سوال را پاسخ دادید
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button 
+                            onClick={onSubmit}
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md px-6 py-3 transition"
+                        >
+                            ارسال آزمون
                         </button>
-                    </Link>
+                        <button 
+                            onClick={onRestart}
+                            className="bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md px-6 py-3 transition"
+                        >
+                            آزمون مجدد
+                        </button>
+                        <Link to="/tests">
+                            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md px-6 py-3 transition">
+                                {translate.moretests}
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             )}
         </div>

@@ -5,6 +5,7 @@ import translate from "../../../locale/translate";
 export default function PopularCardItems({ item, type }) {
     const {
         id,
+        imagepath,
         image,
         title,
         participants,
@@ -23,9 +24,9 @@ export default function PopularCardItems({ item, type }) {
         >
             <div className="relative h-44 w-full overflow-hidden rounded-2xl mb-5">
                 <img
-                    src={image || "/default-image.png"}
+                    src={imagepath || image}
                     alt={title}
-                    className="object-cover w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
+                    className="object-contain w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
                 />
                 {price === 0 && isCourse && (
                     <span className="absolute top-3 right-3 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">

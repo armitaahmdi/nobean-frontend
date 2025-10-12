@@ -13,7 +13,8 @@ const categoryMapping = {
     'reading_disorder': 'اختلال خواندن',
     'writing_disorder': 'اختلال نوشتن',
     'math_disorder': 'اختلال ریاضی',
-    'attention_disorder': 'اختلال توجه'
+    'attention_disorder': 'اختلال توجه',
+    'learning_style': 'سبک یادگیری'
 };
 
 // Normalize target_audience values

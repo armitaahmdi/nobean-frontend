@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import moment from "moment-jalaali";
-import { mockActivityFeed } from "../../../config/mockActivityFeed";
+import { useSelector } from "react-redux";
+import { selectRecentActivities, selectRecentUsers, selectDashboardStats } from "../slices/dashboardSlice";
 import {
     FaUserPlus,
     FaClipboardList,
@@ -31,11 +32,44 @@ const typeLabels = {
 
 export default function ActivityFeed() {
     const [filter, setFilter] = useState("all");
+    const activities = useSelector(selectRecentActivities);
+    const recentUsers = useSelector(selectRecentUsers);
+    const dashboardStats = useSelector(selectDashboardStats);
+
+    console.log('ActivityFeed - Raw activities data:', activities);
+    console.log('ActivityFeed - Recent users data:', recentUsers);
+
+    // تبدیل فعالیت‌های آزمون به فرمت مورد نیاز
+    const examActivities = (activities || []).map((attempt, index) => ({
+        id: `exam-${attempt.id || index}`,
+        type: 'exam',
+        message: `کاربر ${attempt.user?.firstName || 'نامشخص'} ${attempt.user?.lastName || ''} آزمون "${attempt.examTitle || 'نامشخص'}" را با نمره ${attempt.score || 0} تکمیل کرد`,
+        timestamp: attempt.completedAt || new Date().toISOString(),
+        user: attempt.user,
+        examTitle: attempt.examTitle,
+        score: attempt.score
+    }));
+
+    // تبدیل ثبت‌نام‌های کاربران به فرمت مورد نیاز
+    const signupActivities = (recentUsers || []).map((user, index) => ({
+        id: `signup-${user.id || index}`,
+        type: 'signup',
+        message: `کاربر جدید "${user.firstName || 'نامشخص'} ${user.lastName || ''}" در سیستم ثبت‌نام کرد`,
+        timestamp: user.createdAt || new Date().toISOString(),
+        user: user
+    }));
+
+    // ترکیب و مرتب‌سازی فعالیت‌ها بر اساس زمان
+    const allActivities = [...examActivities, ...signupActivities].sort((a, b) => 
+        new Date(b.timestamp) - new Date(a.timestamp)
+    );
+
+    console.log('ActivityFeed - All activities:', allActivities);
 
     const filteredData =
         filter === "all"
-            ? mockActivityFeed
-            : mockActivityFeed.filter((item) => item.type === filter);
+            ? allActivities
+            : allActivities.filter((item) => item.type === filter);
 
     return (
         <div className="max-w-xl mt-6 p-4 bg-white rounded-lg shadow">
@@ -58,7 +92,12 @@ export default function ActivityFeed() {
             {/* لیست فعالیت‌ها */}
             <ul className="relative border-r-2 border-gray-300">
                 {filteredData.length === 0 && (
-                    <li className="text-gray-500 text-sm">موردی یافت نشد.</li>
+                    <li className="text-gray-500 text-sm p-4 text-center">
+                        {allActivities.length === 0 
+                            ? "هنوز هیچ فعالیتی ثبت نشده است." 
+                            : "موردی یافت نشد."
+                        }
+                    </li>
                 )}
                 {filteredData.map((item) => {
                     const { icon, color } = iconMap[item.type] || {

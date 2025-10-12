@@ -22,6 +22,7 @@ import Cart from "../pages/public/Cart";
 import Favorites from "../pages/public/Favorites";
 import AboutUs from "../pages/public/AboutUs";
 import Profile from "../pages/public/Profile";
+import Dashboard from "../pages/public/Dashboard";
 import AuthContainer from "../features/authentication/AuthContainer";
 
 export const PublicRoutes = () => [
@@ -34,22 +35,23 @@ export const PublicRoutes = () => [
             { index: true, element: <Home /> },    
             { path: "tests", element: <Tests /> },
             { path: "tests/:id", element: <TestDetails /> },
-            { path: "courses", element: <Courses /> },
-            { path: "courses/:id", element: <CourseDetails /> },
-            { path: "webinar", element: <Webinar /> },
-            { path: "articles", element: <Article /> },
-            { path: "articles/:id", element: <ArticleDetail /> },
-            { path: "podcasts", element: <Podcasts /> },
-            { path: "podcasts/:id", element: <PodcastDetail /> },
-            { path: "services", element: <Services /> },
+            // { path: "courses", element: <Courses /> },
+            // { path: "courses/:id", element: <CourseDetails /> },
+            // { path: "webinar", element: <Webinar /> },
+            // { path: "articles", element: <Article /> },
+            // { path: "articles/:id", element: <ArticleDetail /> },
+            // { path: "podcasts", element: <Podcasts /> },
+            // { path: "podcasts/:id", element: <PodcastDetail /> },
+            // { path: "services", element: <Services /> },
             { path: "contact", element: <Contact /> },
             { path: "consultants", element: <Consultants /> },
             { path: "consultants/:id", element: <ConsultantDetail /> },
-            { path: "store/:id", element: <ProductDetail /> },
-            { path: "store", element: <Store /> },
+            // { path: "store/:id", element: <ProductDetail /> },
+            // { path: "store", element: <Store /> },
             { path: "cart", element: <Cart /> },
             { path: "favorites", element: <Favorites /> },
             { path: "profile", element: <Profile /> },
+            { path: "dashboard", element: <Dashboard /> },
             { path: "about", element: <AboutUs /> },
             { path: "*", element: <Navigate to="/" replace /> },
         ],

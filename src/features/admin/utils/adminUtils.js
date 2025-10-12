@@ -24,7 +24,9 @@ export const ADMIN_CONSTANTS = {
             time: { required: true, min: 1, max: 300 },
             price: { required: true, min: 0 },
             category: { required: true },
-            target_audience: { required: true }
+            target_audience: { required: true },
+            minAge: { min: 0, max: 120 },
+            maxAge: { min: 0, max: 120 }
         },
     }
 };
@@ -39,8 +41,9 @@ export const validateTestData = (testData) => {
         errors.title = 'عنوان آزمون باید حداقل 3 کاراکتر باشد';
     }
 
-    // Time validation
-    if (!testData.time || testData.time < rules.time.min || testData.time > rules.time.max) {
+    // Time validation (check both time and duration)
+    const timeValue = testData.time || testData.duration;
+    if (!timeValue || timeValue < rules.time.min || timeValue > rules.time.max) {
         errors.time = 'زمان آزمون باید بین 1 تا 300 دقیقه باشد';
     }
 
@@ -59,6 +62,23 @@ export const validateTestData = (testData) => {
         errors.target_audience = 'گروه هدف آزمون الزامی است';
     }
 
+    // Age range validation (optional fields)
+    const minAge = testData.minAge;
+    const maxAge = testData.maxAge;
+    if (minAge !== null && minAge !== undefined) {
+        if (isNaN(minAge) || minAge < rules.minAge.min || minAge > rules.minAge.max) {
+            errors.minAge = 'حداقل سن باید بین 0 تا 120 باشد';
+        }
+    }
+    if (maxAge !== null && maxAge !== undefined) {
+        if (isNaN(maxAge) || maxAge < rules.maxAge.min || maxAge > rules.maxAge.max) {
+            errors.maxAge = 'حداکثر سن باید بین 0 تا 120 باشد';
+        }
+    }
+    if ((minAge !== null && minAge !== undefined) && (maxAge !== null && maxAge !== undefined) && minAge > maxAge) {
+        errors.maxAge = 'حداکثر سن باید بزرگتر یا مساوی حداقل سن باشد';
+    }
+
     return {
         isValid: Object.keys(errors).length === 0,
         errors
@@ -70,16 +90,20 @@ export const validateTestData = (testData) => {
 export const formatTestDataForAPI = (testData) => {
     return {
         title: testData.title.trim(),
-        time: parseInt(testData.time),
-        mainDescription: testData.mainDescription.trim(),
-        ShortDescription: testData.ShortDescription.trim(),
+        time: testData.duration || testData.time || 30, // Map duration to time
+        date: testData.date || new Date().toISOString().split('T')[0],
+        mainDescription: testData.description || testData.mainDescription || '', // Map description to mainDescription
+        ShortDescription: testData.description || testData.ShortDescription || '', // Use description as ShortDescription too
         target_audience: testData.target_audience,
-        price: parseInt(testData.price),
+        price: testData.price || 0,
         category: testData.category,
-        imagepath: testData.imagepath,
-        suitableFor: Array.isArray(testData.suitableFor) ? testData.suitableFor : [testData.suitableFor],
-        tags: Array.isArray(testData.tags) ? testData.tags : [],
-        descriptionVideo: testData.descriptionVideo || ''
+        imagepath: testData.image || testData.imagePath || testData.imagepath || '',
+        suitableFor: Array.isArray(testData.suitableFor) ? testData.suitableFor : [testData.target_audience || 'والدین'],
+        tags: Array.isArray(testData.tags) ? testData.tags : (testData.tags ? testData.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : []),
+        descriptionVideo: testData.descriptionVideo || '',
+        minAge: (testData.minAge === '' || testData.minAge === null || testData.minAge === undefined) ? null : Number(testData.minAge),
+        maxAge: (testData.maxAge === '' || testData.maxAge === null || testData.maxAge === undefined) ? null : Number(testData.maxAge),
+        components: Array.isArray(testData.components) ? testData.components.filter(c => String(c).trim() !== '') : []
     };
 };
 
@@ -103,7 +127,16 @@ export const getApiErrorMessage = (error) => {
 
 // Check if user has admin permissions
 export const hasAdminPermissions = (user) => {
-    return user?.role === 'admin' || user?.phone === '09198718211';
+    return (user?.user?.role === 'admin' || user?.user?.role === 'superadmin') ||
+           (user?.role === 'admin' || user?.role === 'superadmin') ||
+           user?.phone === '09198718211';
+};
+
+// Check if user can add other admins (only superadmin)
+export const canAddAdmins = (user) => {
+    return user?.phone === '09198718211' || 
+           user?.user?.role === 'superadmin' || 
+           user?.role === 'superadmin';
 };
 
 // Generate test statistics
