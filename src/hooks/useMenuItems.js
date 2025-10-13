@@ -23,7 +23,7 @@ export const useMenuItems = () => {
             name: "آزمون‌ها",
             link: "/tests",
             icon: IoClipboardOutline,
-            submenu: buildSubmenu(tests, "/tests"),
+            // submenu: buildSubmenu(tests, "/tests"),
         },
         // {
         //     name: "دوره‌های توسعه فردی",
