@@ -104,7 +104,7 @@ export default function Tests() {
   const navigate = useNavigate();
 
     const handleStartTest = () => {
-        navigate('/exam/17');
+        navigate("/exam/17");
     };
 
     const features = [
