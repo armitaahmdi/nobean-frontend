@@ -15,7 +15,14 @@ export const fetchExamDetails = createAsyncThunk(
             const state = thunkAPI.getState();
             const token = state.auth?.token;
             
-            if (!token) throw new Error('برای دریافت سوالات آزمون باید وارد شوید');
+            if (!token) {
+                // اگر کاربر لاگین نکرده، به صفحه لاگین هدایت کن
+                const navigate = thunkAPI.extra?.navigate;
+                if (navigate) {
+                    navigate('/login');
+                }
+                throw new Error('برای شرکت در آزمون باید وارد شوید');
+            }
             
             const response = await testsApi.getTestQuestions(testId, token);
             

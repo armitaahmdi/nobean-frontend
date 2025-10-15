@@ -97,13 +97,20 @@
 // }
 
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FaCheckCircle, FaClock, FaQuestionCircle, FaChartLine, FaUsers, FaStar, FaBook, FaLightbulb } from "react-icons/fa";
 import { BiTargetLock } from "react-icons/bi";
 
 export default function Tests() {
   const navigate = useNavigate();
+  const { isAuthenticated, token } = useSelector((state) => state.auth);
 
     const handleStartTest = () => {
+        // اگر کاربر لاگین نکرده، به صفحه لاگین هدایت کن
+        if (!isAuthenticated || !token) {
+            navigate("/login");
+            return;
+        }
         navigate("/exam/17");
     };
 
@@ -172,7 +179,7 @@ export default function Tests() {
                                 className="px-8 py-4 bg-white text-lightBlue font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2"
                             >
                                 <FaCheckCircle />
-                                شروع آزمون
+                                {isAuthenticated ? 'شروع آزمون' : 'ورود و شروع آزمون'}
                             </button>
                             <button
                                 onClick={() => document.getElementById('details').scrollIntoView({ behavior: 'smooth' })}
@@ -182,6 +189,14 @@ export default function Tests() {
                                 اطلاعات بیشتر
                             </button>
                         </div>
+                        
+                        {!isAuthenticated && (
+                            <div className="mt-4 text-center">
+                                <p className="text-blue-100 text-sm">
+                                    برای شرکت در آزمون ابتدا وارد شوید
+                                </p>
+                            </div>
+                        )}
 
                         {/* Stats */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
@@ -357,7 +372,7 @@ export default function Tests() {
                         className="px-10 py-4 bg-white text-lightBlue font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto text-lg"
                     >
                         <FaCheckCircle className="text-xl" />
-                        شروع آزمون LASSI
+                        {isAuthenticated ? 'شروع آزمون LASSI' : 'ورود و شروع آزمون LASSI'}
                     </button>
                     <div className="mt-6 text-blue-100 text-sm">
                         <FaClock className="inline ml-2" />

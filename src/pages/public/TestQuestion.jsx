@@ -230,6 +230,9 @@ export default function TestQuestions() {
   };
   const onCancel = () => setShowConfirm(false);
 
+  // بررسی وضعیت authentication
+  const { token, isAuthenticated } = useSelector((state) => state.auth);
+
   const examState = useSelector(
     (store) =>
       store.examDetails.byTestId[id] || {
@@ -254,10 +257,16 @@ export default function TestQuestions() {
   const [answers, setAnswers] = useState({}); // به جای آرایه، از object استفاده می‌کنیم
 
   useEffect(() => {
+    // اگر کاربر لاگین نکرده، به صفحه لاگین هدایت کن
+    if (!isAuthenticated || !token) {
+      navigate('/login');
+      return;
+    }
+    
     dispatch(fetchExamDetails(id));
     // اگر کاربر قبلاً در آزمون شرکت کرده، نتیجه را بخوان
     // dispatch(getExamResult(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, isAuthenticated, token, navigate]);
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -270,6 +279,11 @@ export default function TestQuestions() {
       setAnswers(initialAnswers);
     }
   }, [questions]);
+
+  // اگر کاربر لاگین نکرده، loading نمایش بده تا هدایت شود
+  if (!isAuthenticated || !token) {
+    return <LoadingState />;
+  }
 
   if (loading || resultLoading) return <LoadingState />;
   if (error) return <ErrorState />;
