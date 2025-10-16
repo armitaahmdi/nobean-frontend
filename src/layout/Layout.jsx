@@ -62,7 +62,7 @@ export default function Layout() {
       </div>
 
       {/* Global Cart Icon */}
-      <CartIcon />
+      {/* <CartIcon /> */}
     </BreadcrumbProvider>
   );
 }

@@ -1,6 +1,6 @@
 // API Configuration
 const API_CONFIG = {
-  BASE_URL: import.meta.env.VITE_API_URL || '/api/v1',
+  BASE_URL: import.meta.env.DEV ? '/api/v1' : 'https://api.nobean.ir/api/v1',
   TIMEOUT: 10000,
   RETRY_ATTEMPTS: 3,
 };

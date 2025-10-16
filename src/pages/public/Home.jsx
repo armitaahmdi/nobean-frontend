@@ -26,7 +26,7 @@ export default function Home() {
         />
       </div>
 
-      <CategoryCardsSection />
+      {/* <CategoryCardsSection /> */}
       <ServicesSection />
       {/* <PopularItemsSection /> */}
       <div className="mx-auto max-w-full sm:max-w-7xl px-4 sm:px-6 md:px-8">

@@ -310,12 +310,16 @@ export default function Navbar() {
                         {isAuthenticated ? (
                             <div className="w-3/4 space-y-2">
                                 <div className="flex items-center justify-center gap-2">
-                                    <div className="flex-1 bg-white text-gray-700 font-semibold px-4 py-3 rounded-[40px] text-center flex items-center justify-center gap-2 border border-gray-200">
+                                    <button
+                                        onClick={() => { navigate('/dashboard'); setMobileOpen(false); }}
+                                        className="flex-1 bg-white text-gray-700 font-semibold px-4 py-3 rounded-[40px] text-center flex items-center justify-center gap-2 border border-gray-200 hover:border-lightBlue hover:text-lightBlue transition-colors"
+                                        aria-label="رفتن به داشبورد"
+                                    >
                                         <div className="w-8 h-8 bg-lightBlue/10 rounded-full flex items-center justify-center">
                                             <FaUser className="text-sm text-lightBlue" />
                                         </div>
                                         {user?.phone || user?.name || 'کاربر'}
-                                    </div>
+                                    </button>
                                     {((user?.user?.role === "superadmin" || user?.user?.role === "admin") || (user?.role === "superadmin" || user?.role === "admin")) && (
                                         <button
                                             onClick={() => {

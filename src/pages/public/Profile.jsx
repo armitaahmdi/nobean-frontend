@@ -49,7 +49,7 @@ const Profile = () => {
 
     // Check if profile is incomplete based on initial data
     const checkIfNewProfile = (data) => {
-        return !data.firstName || !data.lastName || !data.email || !data.age;
+        return !data.firstName || !data.lastName || !data.age;
     };
 
     const initialData = getInitialFormData();
@@ -70,7 +70,7 @@ const Profile = () => {
     useEffect(() => {
         if (isAuthenticated) {
             // Check if we have complete profile data from Redux
-            const hasCompleteData = user && user.firstName && user.lastName && user.email && user.age;
+            const hasCompleteData = user && user.firstName && user.lastName && user.age;
             
             if (hasCompleteData) {
                 console.log('Profile: Complete profile data available from Redux');
@@ -82,7 +82,7 @@ const Profile = () => {
                 const localUserData = localStorage.getItem('userData');
                 if (localUserData) {
                     const parsedData = JSON.parse(localUserData);
-                    const hasLocalCompleteData = parsedData.firstName && parsedData.lastName && parsedData.email && parsedData.age;
+                    const hasLocalCompleteData = parsedData.firstName && parsedData.lastName && parsedData.age;
                     
                     if (hasLocalCompleteData) {
                         console.log('Profile: Using cached data from localStorage');
@@ -135,7 +135,7 @@ const Profile = () => {
             setFormData(newFormData);
             
             // Check if profile is incomplete (missing required fields)
-            const isIncomplete = !newFormData.firstName || !newFormData.lastName || !newFormData.email || !newFormData.age;
+            const isIncomplete = !newFormData.firstName || !newFormData.lastName || !newFormData.age;
             
             if (isIncomplete) {
                 setIsNewProfile(true);
@@ -204,7 +204,7 @@ const Profile = () => {
         }
         
         // Validate required fields
-        const requiredFields = ['firstName', 'lastName', 'email', 'age'];
+        const requiredFields = ['firstName', 'lastName', 'age'];
         const missingFields = requiredFields.filter(field => !cleaned[field] || cleaned[field] === '');
         
         if (missingFields.length > 0) {
@@ -260,11 +260,19 @@ const Profile = () => {
             console.log('Sending profile data:', cleanedData);
             
             if (isNewProfile) {
-                // Create new profile
-                await dispatch(createProfile(cleanedData)).unwrap();
-                toast.success("پروفایل با موفقیت ایجاد شد", {
-                    className: "text-lg font-semibold",
-                });
+                // اگر ایمیل خالی است، به جای ایجاد (POST) از ویرایش (PATCH) استفاده کن تا 400 نشود
+                if (!cleanedData.email) {
+                    await dispatch(updateProfile(cleanedData)).unwrap();
+                    toast.success("پروفایل با موفقیت ایجاد شد", {
+                        className: "text-lg font-semibold",
+                    });
+                } else {
+                    // Create new profile
+                    await dispatch(createProfile(cleanedData)).unwrap();
+                    toast.success("پروفایل با موفقیت ایجاد شد", {
+                        className: "text-lg font-semibold",
+                    });
+                }
             } else {
                 // Update existing profile
                 await dispatch(updateProfile(cleanedData)).unwrap();
@@ -336,7 +344,7 @@ const Profile = () => {
         }
         
         // Check if profile is incomplete
-        const isIncomplete = !dataSource?.firstName || !dataSource?.lastName || !dataSource?.email || !dataSource?.age;
+        const isIncomplete = !dataSource?.firstName || !dataSource?.lastName || !dataSource?.age;
         
         if (isIncomplete) {
             setIsNewProfile(true);
@@ -414,7 +422,7 @@ const Profile = () => {
                                     <h3 className="text-xl font-bold text-gray-900 mb-1">
                                         {formData.firstName} {formData.lastName}
                                     </h3>
-                                    <p className="text-gray-600 mb-4">@{formData.userName}</p>
+                                    <p className="text-gray-600 mb-4">{formData.userName}@</p>
                                     <div className="flex items-center justify-center gap-2 mb-4">
                                         <span className="text-[11px] px-2 py-1 rounded-full bg-green-50 text-green-700 border border-green-200">حساب فعال</span>
                                     </div>
