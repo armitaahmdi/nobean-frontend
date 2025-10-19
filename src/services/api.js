@@ -122,7 +122,46 @@ export const apiRequestWithRetry = async (url, options = {}, retryCount = 0, max
   }
 };
 
+// Get admin token from localStorage
+const getAdminToken = () => {
+  return localStorage.getItem('adminToken');
+};
+
+// API Methods
+const apiMethods = {
+  get: async (endpoint, options = {}) => {
+    const url = `${API_CONFIG.BASE_URL}${endpoint}`;
+    const token = getAdminToken();
+    return await apiRequest(url, { ...options, method: 'GET', token });
+  },
+  
+  post: async (endpoint, data, options = {}) => {
+    const url = `${API_CONFIG.BASE_URL}${endpoint}`;
+    const token = getAdminToken();
+    return await apiRequest(url, { ...options, method: 'POST', body: data, token });
+  },
+  
+  put: async (endpoint, data, options = {}) => {
+    const url = `${API_CONFIG.BASE_URL}${endpoint}`;
+    const token = getAdminToken();
+    return await apiRequest(url, { ...options, method: 'PUT', body: data, token });
+  },
+  
+  delete: async (endpoint, options = {}) => {
+    const url = `${API_CONFIG.BASE_URL}${endpoint}`;
+    const token = getAdminToken();
+    return await apiRequest(url, { ...options, method: 'DELETE', token });
+  },
+  
+  patch: async (endpoint, data, options = {}) => {
+    const url = `${API_CONFIG.BASE_URL}${endpoint}`;
+    const token = getAdminToken();
+    return await apiRequest(url, { ...options, method: 'PATCH', body: data, token });
+  }
+};
+
 export const api = {
+  ...apiMethods,
   request: apiRequest,
   requestWithRetry: apiRequestWithRetry,
   getHeaders,

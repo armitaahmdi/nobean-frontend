@@ -208,19 +208,22 @@ export function ImageSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
 
 // List Component
 export function ListSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown, canMoveUp, canMoveDown }) {
+    // Ensure items array exists
+    const items = section.items || [];
+    
     const addItem = () => {
-        const newItems = [...(section.items || []), ""];
+        const newItems = [...items, ""];
         onUpdate({ ...section, items: newItems });
     };
 
     const updateItem = (index, value) => {
-        const newItems = [...(section.items || [])];
+        const newItems = [...items];
         newItems[index] = value;
         onUpdate({ ...section, items: newItems });
     };
 
     const removeItem = (index) => {
-        const newItems = (section.items || []).filter((_, i) => i !== index);
+        const newItems = items.filter((_, i) => i !== index);
         onUpdate({ ...section, items: newItems });
     };
 
@@ -275,7 +278,7 @@ export function ListSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown,
                         آیتم‌های لیست
                     </label>
                     <div className="space-y-2">
-                        {(section.items || []).map((item, index) => (
+                        {items.map((item, index) => (
                             <div key={index} className="flex items-center gap-2">
                                 <input
                                     type="text"

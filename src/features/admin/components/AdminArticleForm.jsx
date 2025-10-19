@@ -280,37 +280,37 @@ export default function AdminArticleForm({ article, onClose, onSave }) {
     };
 
     return (
-        <div className="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen" dir="rtl">
-            <div className="max-w-6xl mx-auto p-6">
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-                    {/* Header */}
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <h2 className="text-3xl font-bold">{article ? 'ویرایش مقاله' : 'ایجاد مقاله جدید'}</h2>
-                                <p className="text-blue-100 mt-2">مدیریت محتوای مقاله</p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <button
-                                    onClick={() => setShowPreview(!showPreview)}
-                                    className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl transition-colors"
-                                >
-                                    <FaEye />
-                                    {showPreview ? 'مخفی کردن پیش‌نمایش' : 'پیش‌نمایش'}
-                                </button>
-                                <button
-                                    onClick={onClose}
-                                    className="p-3 bg-white/20 hover:bg-white/30 rounded-xl transition-colors"
-                                >
-                                    <FaTimes className="text-xl" />
-                                </button>
-                            </div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" dir="rtl">
+            <div className="bg-white rounded-lg shadow-xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+                {/* Header */}
+                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white flex-shrink-0">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-2xl font-bold">{article ? 'ویرایش مقاله' : 'ایجاد مقاله جدید'}</h2>
+                            <p className="text-blue-100 mt-1">مدیریت محتوای مقاله</p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={() => setShowPreview(!showPreview)}
+                                className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl transition-colors"
+                            >
+                                <FaEye />
+                                {showPreview ? 'مخفی کردن پیش‌نمایش' : 'پیش‌نمایش'}
+                            </button>
+                            <button
+                                onClick={onClose}
+                                className="p-2 hover:bg-white/20 rounded-xl transition-colors"
+                            >
+                                <FaTimes size={20} />
+                            </button>
                         </div>
                     </div>
+                </div>
 
-                    <div className="flex min-h-[600px]">
-                        {/* Main Form */}
-                        <div className={`${showPreview ? 'w-1/2' : 'w-full'} overflow-y-auto p-8`}>
+                {/* Content */}
+                <div className="flex-1 overflow-hidden flex">
+                    {/* Form Side */}
+                    <div className={`${showPreview ? 'w-1/2' : 'w-full'} p-6 overflow-y-auto`}>
                             <form onSubmit={handleSubmit} className="space-y-8">
                                 {/* Basic Info */}
                                 <div className="bg-white/50 rounded-xl p-6 border border-white/20">
@@ -529,13 +529,12 @@ export default function AdminArticleForm({ article, onClose, onSave }) {
                             </form>
                         </div>
 
-                        {/* Preview */}
-                        {showPreview && (
-                            <div className="w-1/2 border-r overflow-y-auto p-6">
-                                {renderPreview()}
-                            </div>
-                        )}
-                    </div>
+                    {/* Preview */}
+                    {showPreview && (
+                        <div className="w-1/2 border-r overflow-y-auto p-6">
+                            {renderPreview()}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

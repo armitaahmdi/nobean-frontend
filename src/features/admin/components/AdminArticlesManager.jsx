@@ -51,7 +51,7 @@ export default function AdminArticlesManager() {
 
     // Check admin access
     const user = useSelector((state) => state.auth?.user);
-    const isAdmin = adminAuth.validateAdminAccess(user);
+    const isAdmin = user ? adminAuth.validateAdminAccess(user) : false;
 
     useEffect(() => {
         if (isAdmin) {
