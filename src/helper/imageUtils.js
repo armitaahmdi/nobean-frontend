@@ -9,7 +9,7 @@ const getImageBaseUrl = () => {
     return '';
   }
   // In production, use production server
-  return 'https://api.nobean.ir';
+  return 'https://www.nobean.ir';
 };
 
 /**
