@@ -308,233 +308,234 @@ export default function AdminArticleForm({ article, onClose, onSave }) {
                         </div>
                     </div>
 
-                <div className="flex min-h-[600px]">
-                    {/* Main Form */}
-                    <div className={`${showPreview ? 'w-1/2' : 'w-full'} overflow-y-auto p-8`}>
-                        <form onSubmit={handleSubmit} className="space-y-8">
-                            {/* Basic Info */}
-                            <div className="bg-white/50 rounded-xl p-6 border border-white/20">
-                                <h3 className="text-xl font-bold text-gray-800 mb-6">اطلاعات پایه</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex min-h-[600px]">
+                        {/* Main Form */}
+                        <div className={`${showPreview ? 'w-1/2' : 'w-full'} overflow-y-auto p-8`}>
+                            <form onSubmit={handleSubmit} className="space-y-8">
+                                {/* Basic Info */}
+                                <div className="bg-white/50 rounded-xl p-6 border border-white/20">
+                                    <h3 className="text-xl font-bold text-gray-800 mb-6">اطلاعات پایه</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-sm font-bold text-gray-700 mb-2">
+                                                عنوان مقاله *
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={formData.title}
+                                                onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                                                className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/70 ${errors.title ? 'border-red-500' : 'border-gray-200'}`}
+                                                placeholder="عنوان مقاله را وارد کنید..."
+                                            />
+                                            {errors.title && <p className="text-red-500 text-sm mt-2">{errors.title}</p>}
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-bold text-gray-700 mb-2">
+                                                دسته‌بندی *
+                                            </label>
+                                            <select
+                                                value={formData.category}
+                                                onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                                                className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/70 ${errors.category ? 'border-red-500' : 'border-gray-200'}`}
+                                            >
+                                                <option value="روانشناسی">روانشناسی</option>
+                                                <option value="تربیت">تربیت</option>
+                                                <option value="مهارت">مهارت</option>
+                                                <option value="هوش">هوش</option>
+                                                <option value="تحصیل">تحصیل</option>
+                                            </select>
+                                            {errors.category && <p className="text-red-500 text-sm mt-2">{errors.category}</p>}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        خلاصه مقاله *
+                                    </label>
+                                    <textarea
+                                        value={formData.excerpt}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+                                        rows={3}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.excerpt ? 'border-red-500' : 'border-gray-300'}`}
+                                        placeholder="خلاصه کوتاه از مقاله..."
+                                    />
+                                    {errors.excerpt && <p className="text-red-500 text-sm mt-1">{errors.excerpt}</p>}
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        توضیحات کامل *
+                                    </label>
+                                    <textarea
+                                        value={formData.description}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                                        rows={4}
+                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
+                                        placeholder="توضیحات کامل مقاله..."
+                                    />
+                                    {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">
-                                            عنوان مقاله *
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            نویسنده
                                         </label>
                                         <input
                                             type="text"
-                                            value={formData.title}
-                                            onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                                            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/70 ${errors.title ? 'border-red-500' : 'border-gray-200'}`}
-                                            placeholder="عنوان مقاله را وارد کنید..."
+                                            value={formData.author}
+                                            onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
-                                        {errors.title && <p className="text-red-500 text-sm mt-2">{errors.title}</p>}
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">
-                                            دسته‌بندی *
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            تاریخ انتشار
                                         </label>
-                                        <select
-                                            value={formData.category}
-                                            onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/70 ${errors.category ? 'border-red-500' : 'border-gray-200'}`}
-                                        >
-                                            <option value="روانشناسی">روانشناسی</option>
-                                            <option value="تربیت">تربیت</option>
-                                            <option value="مهارت">مهارت</option>
-                                            <option value="هوش">هوش</option>
-                                            <option value="تحصیل">تحصیل</option>
-                                        </select>
-                                        {errors.category && <p className="text-red-500 text-sm mt-2">{errors.category}</p>}
+                                        <input
+                                            type="date"
+                                            value={formData.date}
+                                            onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            زمان مطالعه (دقیقه)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            value={formData.readingTime}
+                                            onChange={(e) => setFormData(prev => ({ ...prev, readingTime: parseInt(e.target.value) || 1 }))}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        />
                                     </div>
                                 </div>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    خلاصه مقاله *
-                                </label>
-                                <textarea
-                                    value={formData.excerpt}
-                                    onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
-                                    rows={3}
-                                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.excerpt ? 'border-red-500' : 'border-gray-300'}`}
-                                    placeholder="خلاصه کوتاه از مقاله..."
-                                />
-                                {errors.excerpt && <p className="text-red-500 text-sm mt-1">{errors.excerpt}</p>}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    توضیحات کامل *
-                                </label>
-                                <textarea
-                                    value={formData.description}
-                                    onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                                    rows={4}
-                                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
-                                    placeholder="توضیحات کامل مقاله..."
-                                />
-                                {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        نویسنده
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={formData.author}
-                                        onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        تاریخ انتشار
+                                        تصویر شاخص
                                     </label>
                                     <input
-                                        type="date"
-                                        value={formData.date}
-                                        onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
+                                        type="url"
+                                        value={formData.image}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="آدرس تصویر شاخص..."
                                     />
                                 </div>
 
+                                {/* Tags */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        زمان مطالعه (دقیقه)
+                                        برچسب‌ها
                                     </label>
-                                    <input
-                                        type="number"
-                                        min="1"
-                                        value={formData.readingTime}
-                                        onChange={(e) => setFormData(prev => ({ ...prev, readingTime: parseInt(e.target.value) || 1 }))}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    تصویر شاخص
-                                </label>
-                                <input
-                                    type="url"
-                                    value={formData.image}
-                                    onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="آدرس تصویر شاخص..."
-                                />
-                            </div>
-
-                            {/* Tags */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    برچسب‌ها
-                                </label>
-                                <div className="flex gap-2 mb-2">
-                                    <input
-                                        type="text"
-                                        value={newTag}
-                                        onChange={(e) => setNewTag(e.target.value)}
-                                        onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="برچسب جدید..."
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={addTag}
-                                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                                    >
-                                        افزودن
-                                    </button>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {formData.tags.map((tag, index) => (
-                                        <span
-                                            key={index}
-                                            className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center gap-2"
+                                    <div className="flex gap-2 mb-2">
+                                        <input
+                                            type="text"
+                                            value={newTag}
+                                            onChange={(e) => setNewTag(e.target.value)}
+                                            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                                            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="برچسب جدید..."
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={addTag}
+                                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                                         >
-                                            {tag}
-                                            <button
-                                                type="button"
-                                                onClick={() => removeTag(tag)}
-                                                className="text-blue-600 hover:text-blue-800"
+                                            افزودن
+                                        </button>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {formData.tags.map((tag, index) => (
+                                            <span
+                                                key={index}
+                                                className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center gap-2"
                                             >
-                                                ×
-                                            </button>
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Content Sections */}
-                            <div>
-                                <div className="flex items-center justify-between mb-4">
-                                    <label className="block text-sm font-medium text-gray-700">
-                                        بخش‌های محتوا *
-                                    </label>
-                                    <div className="flex gap-2">
-                                        {CONTENT_TYPES.map(({ type, label, icon: Icon, color }) => (
-                                            <button
-                                                key={type}
-                                                type="button"
-                                                onClick={() => addContentSection(type)}
-                                                className={`flex items-center gap-2 px-3 py-2 rounded text-sm bg-${color}-100 text-${color}-700 hover:bg-${color}-200`}
-                                            >
-                                                <Icon size={14} />
-                                                {label}
-                                            </button>
+                                                {tag}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeTag(tag)}
+                                                    className="text-blue-600 hover:text-blue-800"
+                                                >
+                                                    ×
+                                                </button>
+                                            </span>
                                         ))}
                                     </div>
                                 </div>
 
-                                {errors.contentSections && (
-                                    <p className="text-red-500 text-sm mb-4">{errors.contentSections}</p>
-                                )}
+                                {/* Content Sections */}
+                                <div>
+                                    <div className="flex items-center justify-between mb-4">
+                                        <label className="block text-sm font-medium text-gray-700">
+                                            بخش‌های محتوا *
+                                        </label>
+                                        <div className="flex gap-2">
+                                            {CONTENT_TYPES.map(({ type, label, icon: Icon, color }) => (
+                                                <button
+                                                    key={type}
+                                                    type="button"
+                                                    onClick={() => addContentSection(type)}
+                                                    className={`flex items-center gap-2 px-3 py-2 rounded text-sm bg-${color}-100 text-${color}-700 hover:bg-${color}-200`}
+                                                >
+                                                    <Icon size={14} />
+                                                    {label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
 
-                                <div className="space-y-4">
-                                    {formData.contentSections.map((section, index) => renderContentSection(section, index))}
+                                    {errors.contentSections && (
+                                        <p className="text-red-500 text-sm mb-4">{errors.contentSections}</p>
+                                    )}
+
+                                    <div className="space-y-4">
+                                        {formData.contentSections.map((section, index) => renderContentSection(section, index))}
+                                    </div>
+
+                                    {formData.contentSections.length === 0 && (
+                                        <div className="text-center py-8 text-gray-500">
+                                            <p>هنوز بخشی اضافه نشده است</p>
+                                            <p className="text-sm">از دکمه‌های بالا برای اضافه کردن محتوا استفاده کنید</p>
+                                        </div>
+                                    )}
                                 </div>
 
-                                {formData.contentSections.length === 0 && (
-                                    <div className="text-center py-8 text-gray-500">
-                                        <p>هنوز بخشی اضافه نشده است</p>
-                                        <p className="text-sm">از دکمه‌های بالا برای اضافه کردن محتوا استفاده کنید</p>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Actions */}
-                            <div className="flex justify-end gap-4 pt-6 border-t">
-                                <button
-                                    type="button"
-                                    onClick={onClose}
-                                    className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
-                                >
-                                    انصراف
-                                </button>
-                                <button
-                                    type="submit"
-                                    disabled={createLoading || updateLoading}
-                                    className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-                                >
-                                    <FaSave />
-                                    {createLoading || updateLoading ? 'در حال ذخیره...' : 'ذخیره'}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    {/* Preview */}
-                    {showPreview && (
-                        <div className="w-1/2 border-r overflow-y-auto p-6">
-                            {renderPreview()}
+                                {/* Actions */}
+                                <div className="flex justify-end gap-4 pt-6 border-t">
+                                    <button
+                                        type="button"
+                                        onClick={onClose}
+                                        className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                                    >
+                                        انصراف
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={createLoading || updateLoading}
+                                        className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+                                    >
+                                        <FaSave />
+                                        {createLoading || updateLoading ? 'در حال ذخیره...' : 'ذخیره'}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    )}
+
+                        {/* Preview */}
+                        {showPreview && (
+                            <div className="w-1/2 border-r overflow-y-auto p-6">
+                                {renderPreview()}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

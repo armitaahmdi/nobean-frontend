@@ -122,4 +122,11 @@ export const apiRequestWithRetry = async (url, options = {}, retryCount = 0, max
   }
 };
 
+export const api = {
+  request: apiRequest,
+  requestWithRetry: apiRequestWithRetry,
+  getHeaders,
+  handleResponse
+};
+
 export default API_CONFIG;

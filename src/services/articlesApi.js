@@ -75,7 +75,7 @@ export const searchArticles = async (searchTerm, params = {}) => {
   });
 };
 
-export default {
+export const articlesApi = {
   getArticles,
   getArticleById,
   getArticleCategories,
@@ -83,3 +83,5 @@ export default {
   getRecentArticles,
   searchArticles
 };
+
+export default articlesApi;
