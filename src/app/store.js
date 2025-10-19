@@ -16,6 +16,7 @@ import userStatsReducer from "../features/admin/slices/userStateSlice"
 import examAttemptsReducer from "../features/admin/slices/examAttemptsSlice";
 import userManagementReducer from "../features/admin/slices/userManagementSlice";
 import { adminTestsReducer, adminQuestionsReducer } from "../features/admin/slices";
+import adminArticlesReducer from "../features/admin/slices/adminArticlesSlice";
 import dashboardReducer from "../features/admin/slices/dashboardSlice";
 // authentication reducers
 import authReducer from "../features/authentication/slices/loginSlice";
@@ -44,6 +45,7 @@ const store = configureStore({
     userManagement: userManagementReducer,
     adminTests: adminTestsReducer,
     adminQuestions: adminQuestionsReducer,
+    adminArticles: adminArticlesReducer,
     dashboard: dashboardReducer,
     
     // authentication reducers

@@ -20,7 +20,7 @@ export const useMenuItems = () => {
     const menuItems = [
         { name: "صفحه اصلی", link: "/", icon: IoHomeOutline },
         {
-            name: "آزمون‌ها",
+            name: "آزمون‌",
             link: "/tests",
             icon: IoClipboardOutline,
             // submenu: buildSubmenu(tests, "/tests"),
