@@ -113,8 +113,10 @@ const adminArticlesSlice = createSlice({
             })
             .addCase(fetchAdminArticles.fulfilled, (state, action) => {
                 state.loading = false;
-                state.articles = action.payload.articles || action.payload;
-                state.stats = action.payload.stats || state.stats;
+                if (action.payload) {
+                    state.articles = action.payload.articles || action.payload;
+                    state.stats = action.payload.stats || state.stats;
+                }
             })
             .addCase(fetchAdminArticles.rejected, (state, action) => {
                 state.loading = false;
@@ -128,8 +130,10 @@ const adminArticlesSlice = createSlice({
             })
             .addCase(createAdminArticle.fulfilled, (state, action) => {
                 state.createLoading = false;
-                state.articles.unshift(action.payload);
-                state.stats.total += 1;
+                if (action.payload) {
+                    state.articles.unshift(action.payload);
+                    state.stats.total += 1;
+                }
             })
             .addCase(createAdminArticle.rejected, (state, action) => {
                 state.createLoading = false;
@@ -143,9 +147,11 @@ const adminArticlesSlice = createSlice({
             })
             .addCase(updateAdminArticle.fulfilled, (state, action) => {
                 state.updateLoading = false;
-                const index = state.articles.findIndex(article => article.id === action.payload.id);
-                if (index !== -1) {
-                    state.articles[index] = action.payload;
+                if (action.payload) {
+                    const index = state.articles.findIndex(article => article.id === action.payload.id);
+                    if (index !== -1) {
+                        state.articles[index] = action.payload;
+                    }
                 }
             })
             .addCase(updateAdminArticle.rejected, (state, action) => {
@@ -175,11 +181,13 @@ const adminArticlesSlice = createSlice({
             })
             .addCase(fetchAdminArticleById.fulfilled, (state, action) => {
                 state.loading = false;
-                const index = state.articles.findIndex(article => article.id === action.payload.id);
-                if (index !== -1) {
-                    state.articles[index] = action.payload;
-                } else {
-                    state.articles.push(action.payload);
+                if (action.payload) {
+                    const index = state.articles.findIndex(article => article.id === action.payload.id);
+                    if (index !== -1) {
+                        state.articles[index] = action.payload;
+                    } else {
+                        state.articles.push(action.payload);
+                    }
                 }
             })
             .addCase(fetchAdminArticleById.rejected, (state, action) => {
