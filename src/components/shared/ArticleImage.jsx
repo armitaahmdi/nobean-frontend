@@ -1,7 +1,7 @@
 import React from 'react';
 import { getImageUrl } from '../../helper/imageUtils';
 
-const ArticleImage = ({ src, alt, className = '', fallbackText = 'تصویر' }) => {
+const ArticleImage = ({ src, alt, className = '', fallbackText = 'تصویر', fit = 'cover' }) => {
     const [imageError, setImageError] = React.useState(false);
     const [imageLoaded, setImageLoaded] = React.useState(false);
 
@@ -32,7 +32,7 @@ const ArticleImage = ({ src, alt, className = '', fallbackText = 'تصویر' })
             <img 
                 src={resolvedSrc} 
                 alt={alt}
-                className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+                className={`w-full h-full ${fit === 'contain' ? 'object-contain' : 'object-cover'} ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
                 onLoad={() => setImageLoaded(true)}
                 onError={() => {
                     console.error('Image load error:', resolvedSrc);

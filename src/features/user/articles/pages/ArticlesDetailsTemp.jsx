@@ -165,20 +165,23 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return null;
         }
       })}
-      <section className="mt-16">
-        <h2 className="flex items-center text-2xl font-bold mb-6 border-b border-gray-200 pb-2 gap-3">
-          <img src={faqImage} alt="نظرات کاربران" className="w-9 h-9" />
-           پرسش‌های متداول
-        </h2>
-        <FaqTab faq={articleFAQ} />
-        <section className="mt-20">
+      {/* پرسش‌های متداول و نظرات کاربران موقتاً غیرفعال شده */}
+      {false && (
+        <section className="mt-16">
           <h2 className="flex items-center text-2xl font-bold mb-6 border-b border-gray-200 pb-2 gap-3">
-            <img src={socialmedia} alt="نظرات کاربران" className="w-9 h-9" />
-            نظرات کاربران
+            <img src={faqImage} alt="نظرات کاربران" className="w-9 h-9" />
+             پرسش‌های متداول
           </h2>
-          <ReviewsTab reviews={articleReviews} />
+          <FaqTab faq={articleFAQ} />
+          <section className="mt-20">
+            <h2 className="flex items-center text-2xl font-bold mb-6 border-b border-gray-200 pb-2 gap-3">
+              <img src={socialmedia} alt="نظرات کاربران" className="w-9 h-9" />
+              نظرات کاربران
+            </h2>
+            <ReviewsTab reviews={articleReviews} />
+          </section>
         </section>
-      </section>
+      )}
     </section>
   );
 }

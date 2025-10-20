@@ -6,26 +6,32 @@ import {
 } from "react-icons/hi";
 
 export default function ArticleInfo({ author, date, category, readingTime, tags }) {
+    const formatJalali = (isoDate) => {
+        try {
+            if (!isoDate) return '';
+            const d = new Date(isoDate);
+            // Persian (Jalali) calendar using Intl
+            const formatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+                year: 'numeric',
+                month: 'long',
+                day: '2-digit'
+            });
+            return formatter.format(d);
+        } catch {
+            return date;
+        }
+    };
+
+    const items = [
+        { icon: HiUser, label: "نویسنده", value: author },
+        { icon: HiCalendar, label: "تاریخ انتشار", value: formatJalali(date) },
+        { icon: HiTag, label: "دسته‌بندی", value: category },
+        { icon: HiClock, label: "زمان مطالعه", value: readingTime ? `${readingTime} دقیقه` : '' }
+    ];
     return (
         <div className="mb-10 text-gray-800" dir="rtl">
             <div className="flex flex-wrap gap-4 mb-8 justify-center items-center">
-                {[{
-                    icon: HiUser,
-                    label: "نویسنده",
-                    value: author
-                }, {
-                    icon: HiCalendar,
-                    label: "تاریخ انتشار",
-                    value: date
-                }, {
-                    icon: HiTag,
-                    label: "دسته‌بندی",
-                    value: category
-                }, {
-                    icon: HiClock,
-                    label: "زمان مطالعه",
-                    value: readingTime
-                }].map((item, idx) =>
+                {items.map((item, idx) =>
                     item.value ? (
                         <div
                             key={idx}

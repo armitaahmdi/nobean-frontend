@@ -36,12 +36,12 @@ export const useMenuItems = () => {
         //     link: "/webinar",
         //     icon: FaChalkboardTeacher,
         // },
-        // {
-        //     name: "مقالات",
-        //     link: "/articles",
-        //     icon: IoNewspaperOutline,
-        //     submenu: buildSubmenu(articles, "/articles"),
-        // },
+        {
+            name: "مقالات",
+            link: "/articles",
+            icon: IoNewspaperOutline,
+            submenu: buildSubmenu(articles, "/articles"),
+        },
         // {
         //     name: "پادکست",
         //     link: "/podcasts",

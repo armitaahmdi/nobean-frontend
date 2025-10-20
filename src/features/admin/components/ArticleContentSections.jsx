@@ -1,4 +1,5 @@
 import { FaTrash, FaGripVertical } from "react-icons/fa";
+import FileUpload from "../../../components/ui/FileUpload";
 
 // Heading Component
 export function HeadingSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown, canMoveUp, canMoveDown }) {
@@ -11,6 +12,7 @@ export function HeadingSection({ section, onUpdate, onDelete, onMoveUp, onMoveDo
                 </div>
                 <div className="flex items-center gap-2">
                     <button
+                        type="button"
                         onClick={onMoveUp}
                         disabled={!canMoveUp}
                         className="p-1 text-gray-500 hover:text-gray-700 disabled:opacity-50"
@@ -18,6 +20,7 @@ export function HeadingSection({ section, onUpdate, onDelete, onMoveUp, onMoveDo
                         ↑
                     </button>
                     <button
+                        type="button"
                         onClick={onMoveDown}
                         disabled={!canMoveDown}
                         className="p-1 text-gray-500 hover:text-gray-700 disabled:opacity-50"
@@ -25,6 +28,7 @@ export function HeadingSection({ section, onUpdate, onDelete, onMoveUp, onMoveDo
                         ↓
                     </button>
                     <button
+                        type="button"
                         onClick={onDelete}
                         className="p-1 text-red-500 hover:text-red-700"
                     >
@@ -78,6 +82,7 @@ export function TextSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown,
                 </div>
                 <div className="flex items-center gap-2">
                     <button
+                        type="button"
                         onClick={onMoveUp}
                         disabled={!canMoveUp}
                         className="p-1 text-gray-500 hover:text-gray-700 disabled:opacity-50"
@@ -85,6 +90,7 @@ export function TextSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown,
                         ↑
                     </button>
                     <button
+                        type="button"
                         onClick={onMoveDown}
                         disabled={!canMoveDown}
                         className="p-1 text-gray-500 hover:text-gray-700 disabled:opacity-50"
@@ -92,6 +98,7 @@ export function TextSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown,
                         ↓
                     </button>
                     <button
+                        type="button"
                         onClick={onDelete}
                         className="p-1 text-red-500 hover:text-red-700"
                     >
@@ -127,6 +134,7 @@ export function ImageSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
                 </div>
                 <div className="flex items-center gap-2">
                     <button
+                        type="button"
                         onClick={onMoveUp}
                         disabled={!canMoveUp}
                         className="p-1 text-gray-500 hover:text-gray-700 disabled:opacity-50"
@@ -134,6 +142,7 @@ export function ImageSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
                         ↑
                     </button>
                     <button
+                        type="button"
                         onClick={onMoveDown}
                         disabled={!canMoveDown}
                         className="p-1 text-gray-500 hover:text-gray-700 disabled:opacity-50"
@@ -141,6 +150,7 @@ export function ImageSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
                         ↓
                     </button>
                     <button
+                        type="button"
                         onClick={onDelete}
                         className="p-1 text-red-500 hover:text-red-700"
                     >
@@ -152,14 +162,28 @@ export function ImageSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
             <div className="space-y-3">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        آدرس تصویر
+                        آدرس تصویر (اختیاری)
                     </label>
                     <input
-                        type="url"
+                        type="text"
                         value={section.src || ""}
                         onChange={(e) => onUpdate({ ...section, src: e.target.value })}
-                        placeholder="https://example.com/image.jpg"
+                        placeholder="/uploads/images/file-...jpg یا https://example.com/image.jpg"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        آپلود تصویر
+                    </label>
+                    <FileUpload
+                        accept="image/*"
+                        type="image"
+                        maxSize={10 * 1024 * 1024}
+                        currentFile={section.src ? { url: section.src, filename: section.src.split('/').pop(), type: 'image' } : null}
+                        onFileSelect={(fileData) => onUpdate({ ...section, src: fileData.url })}
+                        onFileRemove={() => onUpdate({ ...section, src: "" })}
                     />
                 </div>
                 
@@ -194,7 +218,7 @@ export function ImageSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
                         <img 
                             src={section.src} 
                             alt={section.alt || ""} 
-                            className="max-w-full h-32 object-cover rounded border"
+                            className="w-40 h-40 object-cover rounded border"
                             onError={(e) => {
                                 e.target.style.display = 'none';
                             }}
@@ -296,6 +320,7 @@ export function ListSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown,
                             </div>
                         ))}
                         <button
+                            type="button"
                             onClick={addItem}
                             className="w-full py-2 border-2 border-dashed border-orange-300 rounded-md text-orange-600 hover:border-orange-400 hover:text-orange-700"
                         >
@@ -408,14 +433,28 @@ export function VideoSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
             <div className="space-y-3">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        آدرس ویدیو
+                        آدرس ویدیو (اختیاری)
                     </label>
                     <input
-                        type="url"
+                        type="text"
                         value={section.src || ""}
                         onChange={(e) => onUpdate({ ...section, src: e.target.value })}
-                        placeholder="https://example.com/video.mp4"
+                        placeholder="/uploads/videos/file-...mp4 یا https://example.com/video.mp4"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        آپلود ویدیو
+                    </label>
+                    <FileUpload
+                        accept="video/*"
+                        type="video"
+                        maxSize={100 * 1024 * 1024}
+                        currentFile={section.src ? { url: section.src, filename: section.src.split('/').pop(), type: 'video' } : null}
+                        onFileSelect={(fileData) => onUpdate({ ...section, src: fileData.url })}
+                        onFileRemove={() => onUpdate({ ...section, src: "" })}
                     />
                 </div>
                 
@@ -437,7 +476,7 @@ export function VideoSection({ section, onUpdate, onDelete, onMoveUp, onMoveDown
                         <video 
                             src={section.src} 
                             controls 
-                            className="max-w-full h-32 rounded border"
+                            className="w-64 h-36 rounded border"
                             onError={(e) => {
                                 e.target.style.display = 'none';
                             }}

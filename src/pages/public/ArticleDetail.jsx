@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { IoCopyOutline } from "react-icons/io5";
 import ArticlesDetailsTemp from "../../features/user/articles/pages/ArticlesDetailsTemp";
 import ArticleInfo from "../../features/user/articles/components/ArticleInfo";
+import ArticleImage from "../../components/shared/ArticleImage";
 import { fetchArticleById, fetchArticles } from "../../features/user/articles/articlesSlice";
 import RelatedArticlesColumn from "../../features/user/articles/components/RelatedArticlesColumn";
 import ShareButton from "../../components/shared/Button";
@@ -64,24 +65,34 @@ export default function ArticleDetail() {
                     {/* محتوای اصلی */}
                     <article className="flex-grow lg:max-w-4xl">
                         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-                            {/* Header */}
-                            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
-                                <h1 className="text-4xl font-bold mb-4 leading-tight">{currentArticle.title}</h1>
-                                <ArticleInfo
-                                    author={currentArticle.author}
-                                    date={currentArticle.date}
-                                    category={currentArticle.category}
-                                    readingTime={currentArticle.readingTime}
-                                    tags={currentArticle.tags}
+                            {/* Hero Image + Title */}
+                            <div className="p-0">
+                                <ArticleImage
+                                    src={currentArticle.image}
+                                    alt={currentArticle.title}
+                                    className="w-full h-40 md:h-52 lg:h-64 rounded-xl overflow-hidden bg-gray-100"
+                                    fit="contain"
                                 />
+                                <div className="px-6 py-5">
+                                    <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3 leading-snug">
+                                        {currentArticle.title}
+                                    </h1>
+                                    <ArticleInfo
+                                        author={currentArticle.author}
+                                        date={currentArticle.date}
+                                        category={currentArticle.category}
+                                        readingTime={currentArticle.readingTime}
+                                        tags={currentArticle.tags}
+                                    />
+                                </div>
                             </div>
                             
                             {/* Content */}
                             <div className="p-8">
                                 <ArticlesDetailsTemp 
                                     sections={currentArticle.contentSections} 
-                                    articleFAQ={currentArticle.faqs} 
-                                    articleReviews={currentArticle.reviews} 
+                                    articleFAQ={[]} 
+                                    articleReviews={[]} 
                                 />
                             </div>
                             

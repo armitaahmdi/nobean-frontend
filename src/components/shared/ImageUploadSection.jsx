@@ -30,11 +30,11 @@ const ImageUploadSection = ({
             {uploadedImage ? (
                 <div className="space-y-4">
                     {/* نمایش تصویر آپلود شده */}
-                    <div className="relative">
+                    <div className="relative w-40 h-40 sm:w-44 sm:h-44 md:w-48 md:h-48">
                         <img 
                             src={uploadedImage.url} 
                             alt="تصویر آپلود شده"
-                            className="w-full h-48 object-cover rounded-lg border"
+                            className="w-full h-full object-cover rounded-lg border"
                         />
                         <button
                             type="button"

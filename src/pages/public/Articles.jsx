@@ -98,97 +98,16 @@ export default function Articles() {
   if (error && articles.length === 0) return <ErrorState message={error} />;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-8" dir="rtl">
+    <div className="min-h-screen pb-12" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            مقالات
-          </h1>
-          <p className="text-gray-600 text-lg">مجموعه‌ای از بهترین مقالات آموزشی و روانشناسی</p>
-        </div>
+        {/* Header - simple & clean */}
+        <header className="mt-10 mb-8 text-center">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">مقالات</h1>
+          <p className="mt-2 text-gray-600 text-sm md:text-base">دنیای یادگیری و رشد فردی</p>
+          <div className="mt-5 mx-auto h-px w-24 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+        </header>
 
-        {/* Filters */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 mb-8">
-          <div className="flex flex-col lg:flex-row gap-4">
-            {/* Search */}
-            <div className="flex-1">
-              <div className="relative">
-                <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="جستجو در مقالات..."
-                  className="w-full pr-10 pl-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
-                  value={filters.searchTerm}
-                  onChange={(e) => handleSearch(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Category Filter */}
-            <div className="lg:w-64">
-              <select
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
-                value={filters.category}
-                onChange={(e) => handleCategoryChange(e.target.value)}
-              >
-                <option value="">همه دسته‌ها</option>
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Sort */}
-            <div className="lg:w-64">
-              <div className="flex gap-2">
-                <select
-                  className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
-                  value={`${filters.sortBy}-${filters.sortOrder}`}
-                  onChange={(e) => {
-                    const [sortBy, sortOrder] = e.target.value.split('-');
-                    handleSortChange(sortBy, sortOrder);
-                  }}
-                >
-                  <option value="createdAt-desc">جدیدترین</option>
-                  <option value="createdAt-asc">قدیمی‌ترین</option>
-                  <option value="title-asc">عنوان (الف-ی)</option>
-                  <option value="title-desc">عنوان (ی-الف)</option>
-                  <option value="views-desc">بیشترین بازدید</option>
-                  <option value="views-asc">کمترین بازدید</option>
-                  <option value="readingTime-asc">کمترین زمان مطالعه</option>
-                  <option value="readingTime-desc">بیشترین زمان مطالعه</option>
-                </select>
-              </div>
-            </div>
-
-            {/* View Mode */}
-            <div className="flex gap-2 bg-gray-100 rounded-xl p-1">
-              <button
-                onClick={() => setViewMode('cards')}
-                className={`p-3 rounded-lg transition-all duration-200 ${
-                  viewMode === 'cards' 
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
-                    : 'text-gray-600 hover:bg-white hover:shadow-md'
-                }`}
-              >
-                <FaThLarge className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setViewMode('table')}
-                className={`p-3 rounded-lg transition-all duration-200 ${
-                  viewMode === 'table' 
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
-                    : 'text-gray-600 hover:bg-white hover:shadow-md'
-                }`}
-              >
-                <FaList className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+        {/* Filters removed temporarily */}
 
         {/* Articles List */}
         <ArticlesList 
@@ -201,9 +120,9 @@ export default function Articles() {
         {renderPagination()}
 
         {/* Results Info */}
-        <div className="text-center mt-6 text-gray-600">
+        {/* <div className="text-center mt-8 text-gray-600 text-sm">
           نمایش {articles.length} مقاله از {pagination.totalItems} مقاله
-        </div>
+        </div> */}
       </div>
     </div>
   );

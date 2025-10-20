@@ -35,7 +35,9 @@ export const fetchExamDetails = createAsyncThunk(
                 description: q.description || "",  // توضیح کوتاه سوال
                 items: q.Items?.flatMap(i => i.items) || [],
                 correctIndex: q.Items?.[0]?.correctIndex || 0
-            }));
+            }))
+            // Client-side ordering by id to ensure consistent order without backend changes
+            .sort((a, b) => (a.id || 0) - (b.id || 0));
             
             return { testId, questions: transformedQuestions };
         } catch (error) {

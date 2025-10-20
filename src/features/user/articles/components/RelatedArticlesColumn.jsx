@@ -43,11 +43,14 @@ export default function RelatedArticlesColumn({ articles, currentArticleId }) {
                     >
                         {/* تصویر */}
                         <div className="p-3 pb-0">
-                            <img
-                                src={article.thumbnail || article.image || "https://via.placeholder.com/400x200?text=No+Image"}
-                                alt={article.title}
-                                className="w-full rounded-[20px] h-48 object-cover rounded-t-lg"
-                            />
+                            <div className="w-full h-32 md:h-36 lg:h-40 bg-gray-100 rounded-[20px] overflow-hidden flex items-center justify-center">
+                                <img
+                                    src={article.thumbnail || article.image || "https://via.placeholder.com/400x200?text=No+Image"}
+                                    alt={article.title}
+                                    className="w-full h-full object-contain"
+                                    onError={(e)=>{ e.currentTarget.src = "https://via.placeholder.com/400x200?text=No+Image"; }}
+                                />
+                            </div>
                         </div>
                         <div className="p-4 flex flex-col gap-2">
                             <h4 className="text-lg font-semibold text-gray-900 line-clamp-2">{article.title}</h4>

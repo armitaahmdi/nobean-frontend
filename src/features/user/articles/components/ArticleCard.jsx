@@ -8,13 +8,15 @@ export default function ArticleCard({ article }) {
     return (
         <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden">
             {article.image && (
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden bg-gray-100">
                     <Link to={`/articles/${article.id}`}>
-                        <img 
-                            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
-                            src={getImageUrl(article.image)} 
-                            alt={article.title} 
-                        />
+                        <div className="w-full h-36 md:h-40 lg:h-44 flex items-center justify-center">
+                            <img 
+                                className="max-w-full max-h-full object-contain" 
+                                src={getImageUrl(article.image)} 
+                                alt={article.title} 
+                            />
+                        </div>
                     </Link>
                 </div>
             )}

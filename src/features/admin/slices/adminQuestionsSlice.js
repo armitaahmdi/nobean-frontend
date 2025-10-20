@@ -116,6 +116,8 @@ const adminQuestionsSlice = createSlice({
                 };
                 
                 state.questions[testId].push(transformedQuestion);
+                // مرتب‌سازی لیست پس از افزودن بر اساس id
+                state.questions[testId].sort((a, b) => (a.id || 0) - (b.id || 0));
             })
             .addCase(createQuestion.rejected, (state, action) => {
                 state.createLoading = false;
@@ -149,7 +151,9 @@ const adminQuestionsSlice = createSlice({
                         questionNumber: q.questionNumber ?? null,
                         description: q.description ?? null
                     };
-                });
+                })
+                // مرتب‌سازی سمت فرانت بر اساس id برای نمایش پایدار
+                .sort((a, b) => (a.id || 0) - (b.id || 0));
                 
                 console.log('Transformed questions:', transformedQuestions);
                 state.questions[testId] = transformedQuestions;
@@ -183,6 +187,8 @@ const adminQuestionsSlice = createSlice({
                             description: question.description ?? null
                         };
                         state.questions[testId][index] = transformedQuestion;
+                        // مرتب‌سازی پس از ویرایش برای حفظ ثبات نمایش
+                        state.questions[testId].sort((a, b) => (a.id || 0) - (b.id || 0));
                     }
                 }
             })

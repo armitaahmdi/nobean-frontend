@@ -379,11 +379,12 @@ export default function AdminArticlesManager() {
                             viewMode === 'cards' ? (
                                 // Card View
                                 <div key={article.id} className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden">
-                                    <div className="relative overflow-hidden">
+                                    <div className="relative overflow-hidden rounded-t-2xl">
                                         <ArticleImage
                                             src={article.image}
                                             alt={article.title}
-                                            className="w-full h-48 group-hover:scale-105 transition-transform duration-300"
+                                            className="w-full h-32 md:h-36 lg:h-40 group-hover:scale-105 transition-transform duration-300"
+                                            fit="contain"
                                             fallbackText="بدون تصویر"
                                         />
                                         <div className="absolute top-3 right-3">
