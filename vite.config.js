@@ -15,6 +15,12 @@ export default defineConfig({
         secure: true,
         rewrite: (path) => path.replace(/^\/api/, '/api')
       },
+      '/uploads': {
+        target: 'https://www.nobean.ir',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/uploads/, '/uploads')
+      }
     }
   }
 })

@@ -326,7 +326,10 @@ const FileUpload = ({
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 10 * 60 * 1000); // 10 دقیقه
 
-            const response = await fetch('/api/v1/upload', {
+            // Always use production server since backend is running on server
+            const uploadUrl = 'https://www.nobean.ir/api/v1/upload';
+            
+            const response = await fetch(uploadUrl, {
                 method: 'POST',
                 body: formData,
                 headers: {

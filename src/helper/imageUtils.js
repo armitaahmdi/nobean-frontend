@@ -4,11 +4,7 @@
 
 // Get the base URL for images based on environment
 const getImageBaseUrl = () => {
-  // In development, use production server for images
-  if (import.meta.env.DEV) {
-    return 'https://www.nobean.ir';
-  }
-  // In production, use production server
+  // Always use production server since backend is running on server
   return 'https://www.nobean.ir';
 };
 
