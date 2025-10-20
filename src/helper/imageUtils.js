@@ -4,9 +4,9 @@
 
 // Get the base URL for images based on environment
 const getImageBaseUrl = () => {
-  // In development, use proxy to production server
+  // In development, use production server for images
   if (import.meta.env.DEV) {
-    return '';
+    return 'https://www.nobean.ir';
   }
   // In production, use production server
   return 'https://www.nobean.ir';

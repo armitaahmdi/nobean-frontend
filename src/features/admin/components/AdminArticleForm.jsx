@@ -14,6 +14,7 @@ import {
     FaVideo,
     FaHeading
 } from 'react-icons/fa';
+import ImageUploadSection from '../../../components/shared/ImageUploadSection';
 import {
     HeadingSection,
     TextSection,
@@ -48,7 +49,8 @@ export default function AdminArticleForm({ article, onClose, onSave }) {
         tags: [],
         contentSections: [],
         faqs: [],
-        reviews: []
+            reviews: [],
+            status: 'draft'
     });
 
     const [errors, setErrors] = useState({});
@@ -112,6 +114,28 @@ export default function AdminArticleForm({ article, onClose, onSave }) {
         }
 
         try {
+            // Wait briefly for auth token to be available to avoid 401
+            const getToken = () => {
+                try {
+                    return localStorage.getItem('authToken') || localStorage.getItem('adminToken') || localStorage.getItem('userToken');
+                } catch {
+                    return null;
+                }
+            };
+            let tries = 0;
+            let token = getToken();
+            while (!token && tries < 15) { // ~3s max
+                // eslint-disable-next-line no-await-in-loop
+                await new Promise(r => setTimeout(r, 200));
+                token = getToken();
+                tries += 1;
+            }
+
+            if (!token) {
+                toast.error('توکن احراز هویت یافت نشد. لطفاً دوباره وارد شوید.');
+                return;
+            }
+
             if (article) {
                 await dispatch(updateAdminArticle({ id: article.id, articleData: formData })).unwrap();
                 toast.success('مقاله با موفقیت ویرایش شد');
@@ -415,18 +439,30 @@ export default function AdminArticleForm({ article, onClose, onSave }) {
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            وضعیت انتشار
+                                        </label>
+                                        <select
+                                            value={formData.status}
+                                            onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                            <option value="draft">پیش‌نویس</option>
+                                            <option value="published">منتشر شده</option>
+                                            <option value="archived">آرشیو</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        تصویر شاخص
-                                    </label>
-                                    <input
-                                        type="url"
-                                        value={formData.image}
-                                        onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="آدرس تصویر شاخص..."
+                                    <ImageUploadSection
+                                        onImageSelect={(url) => setFormData(prev => ({ ...prev, image: url }))}
+                                        onImageRemove={() => setFormData(prev => ({ ...prev, image: '' }))}
+                                        currentImage={formData.image ? { url: formData.image, filename: 'تصویر شاخص' } : null}
+                                        label="تصویر شاخص"
+                                        required={false}
                                     />
                                 </div>
 

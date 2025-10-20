@@ -125,11 +125,13 @@ export const apiRequestWithRetry = async (url, options = {}, retryCount = 0, max
 // Get admin token from localStorage
 const getAdminToken = () => {
   // Try different token keys
+  const authToken = localStorage.getItem('authToken');
   const adminToken = localStorage.getItem('adminToken');
   const userToken = localStorage.getItem('userToken');
-  const token = adminToken || userToken;
+  const token = authToken || adminToken || userToken;
   
   console.log('Token check:', {
+    authToken: authToken ? 'exists' : 'missing',
     adminToken: adminToken ? 'exists' : 'missing',
     userToken: userToken ? 'exists' : 'missing',
     finalToken: token ? 'exists' : 'missing'

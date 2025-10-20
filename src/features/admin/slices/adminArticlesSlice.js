@@ -24,8 +24,8 @@ export const fetchAdminArticles = createAsyncThunk(
     "adminArticles/fetchAdminArticles",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await api.get("/admin/articles");
-            return response.data;
+            const response = await api.get("/admin/articles/admin/articles");
+            return response; // already parsed JSON: { articles, total, ... }
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "خطا در بارگذاری مقالات");
         }
@@ -37,8 +37,9 @@ export const createAdminArticle = createAsyncThunk(
     "adminArticles/createAdminArticle",
     async (articleData, { rejectWithValue }) => {
         try {
-            const response = await api.post("/admin/articles", articleData);
-            return response.data;
+            const response = await api.post("/admin/articles/admin/articles", articleData);
+            // backend shape: { message, article }
+            return response?.article || response;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "خطا در ایجاد مقاله");
         }
@@ -50,8 +51,9 @@ export const updateAdminArticle = createAsyncThunk(
     "adminArticles/updateAdminArticle",
     async ({ id, articleData }, { rejectWithValue }) => {
         try {
-            const response = await api.put(`/admin/articles/${id}`, articleData);
-            return response.data;
+            const response = await api.put(`/admin/articles/admin/articles/${id}`, articleData);
+            // backend shape: { message, article }
+            return response?.article || response;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "خطا در ویرایش مقاله");
         }
@@ -63,7 +65,7 @@ export const deleteAdminArticle = createAsyncThunk(
     "adminArticles/deleteAdminArticle",
     async (id, { rejectWithValue }) => {
         try {
-            await api.delete(`/admin/articles/${id}`);
+            await api.delete(`/admin/articles/admin/articles/${id}`);
             return id;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "خطا در حذف مقاله");
@@ -76,8 +78,8 @@ export const fetchAdminArticleById = createAsyncThunk(
     "adminArticles/fetchAdminArticleById",
     async (id, { rejectWithValue }) => {
         try {
-            const response = await api.get(`/admin/articles/${id}`);
-            return response.data;
+            const response = await api.get(`/admin/articles/admin/articles/${id}`);
+            return response; // article object
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "خطا در بارگذاری مقاله");
         }

@@ -1,4 +1,5 @@
 import { getExcerpt } from "../../../../helper/helperFunction";
+import { getImageUrl } from "../../../../helper/imageUtils";
 import translate from "../../../../locale/translate";
 import { FaClock, FaEye, FaTag, FaCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -11,19 +12,10 @@ export default function ArticleCard({ article }) {
                     <Link to={`/articles/${article.id}`}>
                         <img 
                             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
-                            src={article.image} 
+                            src={getImageUrl(article.image)} 
                             alt={article.title} 
                         />
                     </Link>
-                    <div className="absolute top-3 right-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            article.status === 'published' 
-                                ? 'bg-green-100 text-green-800' 
-                                : 'bg-amber-100 text-amber-800'
-                        }`}>
-                            {article.status === 'published' ? 'منتشر شده' : 'پیش‌نویس'}
-                        </span>
-                    </div>
                 </div>
             )}
             

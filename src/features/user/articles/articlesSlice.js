@@ -130,7 +130,8 @@ const articlesSlice = createSlice({
             })
             .addCase(fetchArticles.fulfilled, (state, action) => {
                 state.loading = false;
-                state.articles = action.payload.articles || [];
+                const raw = action.payload.articles || [];
+                state.articles = raw.filter(a => a?.status === 'published');
                 state.pagination = action.payload.pagination || state.pagination;
             })
             .addCase(fetchArticles.rejected, (state, action) => {
@@ -196,7 +197,8 @@ const articlesSlice = createSlice({
             })
             .addCase(searchArticles.fulfilled, (state, action) => {
                 state.loading = false;
-                state.articles = action.payload.articles || [];
+                const raw = action.payload.articles || [];
+                state.articles = raw.filter(a => a?.status === 'published');
                 state.pagination = action.payload.pagination || state.pagination;
             })
             .addCase(searchArticles.rejected, (state, action) => {

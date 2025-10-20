@@ -4,7 +4,8 @@ import { toast } from 'react-toastify';
 import { 
     fetchAdminArticles, 
     deleteAdminArticle, 
-    clearError 
+    clearError,
+    updateAdminArticle
 } from '../slices/adminArticlesSlice';
 import { adminAuth } from '../../../services/adminAuth';
 import { 
@@ -27,6 +28,7 @@ import {
     FaArrowDown,
     FaFileAlt
 } from 'react-icons/fa';
+import ArticleImage from '../../../components/shared/ArticleImage';
 import LoadingState from '../../../components/ui/LoadingState';
 import ErrorState from '../../../components/ui/ErrorState';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
@@ -53,10 +55,55 @@ export default function AdminArticlesManager() {
     const user = useSelector((state) => state.auth?.user);
     const isAdmin = user ? adminAuth.validateAdminAccess(user) : false;
 
-    useEffect(() => {
-        if (isAdmin) {
+    const togglePublish = async (article) => {
+        try {
+            const newStatus = article.status === 'published' ? 'draft' : 'published';
+            await dispatch(updateAdminArticle({ id: article.id, articleData: { status: newStatus } })).unwrap();
+            toast.success(newStatus === 'published' ? 'منتشر شد' : 'به پیش‌نویس برگشت');
             dispatch(fetchAdminArticles());
+        } catch (err) {
+            toast.error('خطا در تغییر وضعیت');
         }
+    };
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        const getToken = () => {
+            try {
+                return localStorage.getItem('authToken') || localStorage.getItem('adminToken') || localStorage.getItem('userToken');
+            } catch {
+                return null;
+            }
+        };
+
+        const tryDispatch = () => {
+            if (isCancelled) return;
+            const token = getToken();
+            if (isAdmin && token) {
+                dispatch(fetchAdminArticles());
+                return true;
+            }
+            return false;
+        };
+
+        // Immediate attempt
+        if (tryDispatch()) return () => { isCancelled = true; };
+
+        // Short polling window to wait for token becoming available to avoid initial 401
+        let attempts = 0;
+        const maxAttempts = 15; // ~3s total
+        const intervalId = setInterval(() => {
+            attempts += 1;
+            if (tryDispatch() || attempts >= maxAttempts) {
+                clearInterval(intervalId);
+            }
+        }, 200);
+
+        return () => {
+            isCancelled = true;
+            clearInterval(intervalId);
+        };
     }, [dispatch, isAdmin]);
 
     useEffect(() => {
@@ -332,41 +379,51 @@ export default function AdminArticlesManager() {
                             viewMode === 'cards' ? (
                                 // Card View
                                 <div key={article.id} className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden">
-                                    {article.image && (
-                                        <div className="relative overflow-hidden">
-                                            <img 
-                                                src={article.image} 
-                                                alt={article.title}
-                                                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                                            />
-                                            <div className="absolute top-3 right-3">
-                                                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                                    article.status === 'published' 
-                                                        ? 'bg-green-100 text-green-800' 
-                                                        : 'bg-amber-100 text-amber-800'
-                                                }`}>
-                                                    {article.status === 'published' ? 'منتشر شده' : 'پیش‌نویس'}
-                                                </span>
-                                            </div>
+                                    <div className="relative overflow-hidden">
+                                        <ArticleImage
+                                            src={article.image}
+                                            alt={article.title}
+                                            className="w-full h-48 group-hover:scale-105 transition-transform duration-300"
+                                            fallbackText="بدون تصویر"
+                                        />
+                                        <div className="absolute top-3 right-3">
+                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                                article.status === 'published' 
+                                                    ? 'bg-green-100 text-green-800' 
+                                                    : 'bg-amber-100 text-amber-800'
+                                            }`}>
+                                                {article.status === 'published' ? 'منتشر شده' : 'پیش‌نویس'}
+                                            </span>
                                         </div>
-                                    )}
+                                    </div>
                                     <div className="p-6">
                                         <div className="flex items-start justify-between mb-4">
                                             <h3 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
                                                 {article.title}
                                             </h3>
-                                            <div className="flex gap-2 ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                            <div className="flex gap-2 ml-3">
                                                 <button
                                                     onClick={() => handleEditArticle(article)}
                                                     className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                                 >
-                                                    <FaEdit size={14} />
+                                                    <FaEdit size={14} /> 
                                                 </button>
                                                 <button
                                                     onClick={() => handleDeleteArticle(article)}
                                                     className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                 >
                                                     <FaTrash size={14} />
+                                                </button>
+                                                <button
+                                                    onClick={() => togglePublish(article)}
+                                                    className={`px-2 py-1 rounded-lg text-xs transition-colors ${
+                                                        article.status === 'published'
+                                                            ? 'bg-amber-50 text-amber-700 hover:bg-amber-100'
+                                                            : 'bg-green-50 text-green-700 hover:bg-green-100'
+                                                    }`}
+                                                    title={article.status === 'published' ? 'لغو انتشار' : 'انتشار'}
+                                                >
+                                                    {article.status === 'published' ? 'لغو انتشار' : 'انتشار'}
                                                 </button>
                                             </div>
                                         </div>
@@ -411,24 +468,23 @@ export default function AdminArticlesManager() {
                                         <div className="flex items-center justify-between">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-4">
-                                                    {article.image && (
-                                                        <div className="relative overflow-hidden rounded-xl">
-                                                            <img 
-                                                                src={article.image} 
-                                                                alt={article.title}
-                                                                className="w-16 h-16 object-cover"
-                                                            />
-                                                            <div className="absolute top-1 right-1">
-                                                                <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                                                                    article.status === 'published' 
-                                                                        ? 'bg-green-100 text-green-800' 
-                                                                        : 'bg-amber-100 text-amber-800'
-                                                                }`}>
-                                                                    {article.status === 'published' ? 'منتشر' : 'پیش‌نویس'}
-                                                                </span>
-                                                            </div>
+                                                    <div className="relative overflow-hidden rounded-xl">
+                                                        <ArticleImage
+                                                            src={article.image}
+                                                            alt={article.title}
+                                                            className="w-16 h-16"
+                                                            fallbackText="بدون تصویر"
+                                                        />
+                                                        <div className="absolute top-1 right-1">
+                                                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                                                                article.status === 'published' 
+                                                                    ? 'bg-green-100 text-green-800' 
+                                                                    : 'bg-amber-100 text-amber-800'
+                                                            }`}>
+                                                                {article.status === 'published' ? 'منتشر' : 'پیش‌نویس'}
+                                                            </span>
                                                         </div>
-                                                    )}
+                                                    </div>
                                                     <div className="flex-1">
                                                         <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                                                             {article.title}
@@ -457,7 +513,7 @@ export default function AdminArticlesManager() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                            <div className="flex items-center gap-2">
                                                 <button
                                                     onClick={() => handleEditArticle(article)}
                                                     className="p-3 text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
@@ -469,6 +525,17 @@ export default function AdminArticlesManager() {
                                                     className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
                                                 >
                                                     <FaTrash />
+                                                </button>
+                                                <button
+                                                    onClick={() => togglePublish(article)}
+                                                    className={`px-3 py-2 rounded-xl text-sm transition-colors ${
+                                                        article.status === 'published'
+                                                            ? 'bg-amber-50 text-amber-700 hover:bg-amber-100'
+                                                            : 'bg-green-50 text-green-700 hover:bg-green-100'
+                                                    }`}
+                                                    title={article.status === 'published' ? 'لغو انتشار' : 'انتشار'}
+                                                >
+                                                    {article.status === 'published' ? 'لغو انتشار' : 'انتشار'}
                                                 </button>
                                             </div>
                                         </div>
