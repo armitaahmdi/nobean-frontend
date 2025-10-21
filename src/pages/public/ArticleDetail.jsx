@@ -59,7 +59,7 @@ export default function ArticleDetail() {
     if (!currentArticle) return <ErrorState message="مقاله پیدا نشد." />;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-8" dir="rtl">
+        <div className="min-h-screen py-8" dir="rtl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col lg:flex-row gap-8">
                     {/* محتوای اصلی */}

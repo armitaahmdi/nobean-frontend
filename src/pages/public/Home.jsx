@@ -29,9 +29,9 @@ export default function Home() {
       {/* <CategoryCardsSection /> */}
       <ServicesSection />
       {/* <PopularItemsSection /> */}
-      <div className="mx-auto max-w-full sm:max-w-7xl px-4 sm:px-6 md:px-8">
-        <div className="bg-blue-200/25 backdrop-blur-md rounded-lg shadow-lg p-6">
-          <TestimonialsSection />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        <TestimonialsSection />
+        <div className="mt-16">
           <RelatedDisordersSection />
         </div>
       </div>

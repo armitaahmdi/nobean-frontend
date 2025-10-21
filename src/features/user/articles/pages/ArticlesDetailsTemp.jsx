@@ -7,7 +7,7 @@ import faqImage from "../../../../assets/images/icons/faq.png"
 function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
   return (
     <section
-      className="max-w-4xl mx-auto p-8  rounded-3xl shadow-xl select-text"
+      className="max-w-4xl mx-auto p-6 md:p-8 bg-white rounded-2xl border border-gray-100 select-text"
       dir="rtl"
     >
       {sections.map((section, i) => {
@@ -17,9 +17,9 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
               return (
                 <h1
                   key={i}
-                  className="mt-12 mb-8 text-5xl font-extrabold text-blue-900 tracking-tight flex items-center gap-3 cursor-default"
+                  className="mt-12 mb-8 text-3xl md:text-4xl font-bold text-blue-900 tracking-tight relative"
                 >
-                  <HiChevronRight className="text-blue-500 w-8 h-8 animate-pulse" />
+                  <span className="absolute -left-3 top-0 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></span>
                   {section.text}
                 </h1>
               );
@@ -27,9 +27,8 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
               return (
                 <h2
                   key={i}
-                  className="mt-10 mb-6 text-3xl font-bold text-blue-800 border-b-4 border-blue-300 pb-2 flex items-center gap-2 cursor-default"
+                  className="mt-10 mb-6 text-2xl md:text-3xl font-semibold text-blue-800 border-b-2 border-blue-200 pb-2 hover:border-blue-300 transition-colors duration-300"
                 >
-                  <HiChevronRight className="text-blue-400 w-6 h-6" />
                   {section.text}
                 </h2>
               );
@@ -37,7 +36,7 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
               return (
                 <h3
                   key={i}
-                  className="mt-8 mb-5 text-2xl font-semibold text-blue-700 cursor-default"
+                  className="mt-8 mb-5 text-xl md:text-2xl font-medium text-blue-700 hover:text-blue-600 transition-colors duration-300"
                 >
                   {section.text}
                 </h3>
@@ -45,7 +44,7 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return (
               <h4
                 key={i}
-                className="mt-6 mb-4 text-xl italic text-blue-600 cursor-default"
+                className="mt-6 mb-4 text-lg md:text-xl font-medium text-blue-600 hover:text-blue-500 transition-colors duration-300"
               >
                 {section.text}
               </h4>
@@ -55,8 +54,12 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return (
               <p
                 key={i}
-                className="mb-8 text-lg text-blue-900 leading-relaxed tracking-wide drop-shadow-sm"
-                style={{ textShadow: "0 0 1px rgba(0,0,0,0.05)" }}
+                className="mb-8 text-lg text-gray-700 leading-8 tracking-wide whitespace-pre-wrap break-words hyphens-auto"
+                style={{ 
+                  textShadow: "0 0 1px rgba(0,0,0,0.05)",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word"
+                }}
               >
                 {section.text}
               </p>
@@ -66,16 +69,18 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return (
               <div
                 key={i}
-                className="my-12 text-center rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500 cursor-zoom-in"
+                className="my-8 text-center"
               >
-                <img
-                  src={section.src}
-                  alt={section.alt || ""}
-                  className="mx-auto max-w-full rounded-2xl transform hover:scale-105 transition-transform duration-500"
-                />
-                {section.caption && (
-                  <div className="mt-3 text-blue-600 text-sm italic">{section.caption}</div>
-                )}
+                <div className="inline-block max-w-md mx-auto">
+                  <img
+                    src={section.src}
+                    alt={section.alt || ""}
+                    className="w-full h-auto rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  />
+                  {section.caption && (
+                    <div className="mt-3 text-gray-600 text-sm italic">{section.caption}</div>
+                  )}
+                </div>
               </div>
             );
 
@@ -83,16 +88,11 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return (
               <blockquote
                 key={i}
-                className="relative bg-gradient-to-r from-blue-100 to-blue-50 border-l-8 border-blue-400 italic my-10 p-6 rounded-3xl text-blue-800 shadow-md text-xl"
-                style={{
-                  fontStyle: "italic",
-                  boxShadow:
-                    "0 8px 24px rgba(14, 165, 233, 0.25), inset 0 0 12px rgba(59, 130, 246, 0.15)",
-                }}
+                className="relative bg-gradient-to-r from-blue-50 to-purple-50 border-r-4 border-blue-400 italic my-8 p-6 rounded-xl text-gray-700 text-lg leading-7 shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                “{section.text}”
+                "{section.text}"
                 {section.author && (
-                  <div className="mt-4 text-sm text-blue-600 text-left pr-4">
+                  <div className="mt-4 text-sm text-gray-500 text-left pr-4">
                     — {section.author}
                   </div>
                 )}
@@ -104,12 +104,12 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
               return (
                 <ol
                   key={i}
-                  className="mb-8 pl-10 list-decimal space-y-4 text-blue-900 text-lg font-medium"
+                  className="mb-8 pl-10 list-decimal space-y-4 text-gray-800 text-lg font-medium leading-7"
                 >
                   {section.items.map((item, idx) => (
                     <li
                       key={idx}
-                      className="hover:text-blue-600 transition-colors cursor-default select-text"
+                      className="hover:text-blue-600 transition-colors duration-300 cursor-default select-text break-words"
                     >
                       {item}
                     </li>
@@ -120,12 +120,12 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return (
               <ul
                 key={i}
-                className="mb-8 pl-10 list-disc space-y-4 text-blue-900 text-lg font-medium"
+                className="mb-8 pl-10 list-disc space-y-4 text-gray-800 text-lg font-medium leading-7"
               >
                 {section.items.map((item, idx) => (
                   <li
                     key={idx}
-                    className="hover:text-blue-600 transition-colors cursor-default select-text"
+                    className="hover:text-blue-600 transition-colors duration-300 cursor-default select-text break-words"
                   >
                     {item}
                   </li>
@@ -137,7 +137,7 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return (
               <pre
                 key={i}
-                className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white p-8 rounded-3xl overflow-x-auto font-mono text-lg mb-10 shadow-lg"
+                className="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto font-mono text-sm mb-8 shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300"
                 style={{ userSelect: "all" }}
               >
                 {section.code}
@@ -148,16 +148,18 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
             return (
               <div
                 key={i}
-                className="my-12 text-center rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
+                className="my-8 text-center"
               >
-                <video
-                  controls
-                  src={section.src}
-                  className="mx-auto max-w-full rounded-2xl"
-                />
-                {section.caption && (
-                  <div className="mt-3 text-blue-600 text-sm italic">{section.caption}</div>
-                )}
+                <div className="inline-block max-w-lg mx-auto">
+                  <video
+                    controls
+                    src={section.src}
+                    className="w-full h-auto rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  />
+                  {section.caption && (
+                    <div className="mt-3 text-gray-600 text-sm italic">{section.caption}</div>
+                  )}
+                </div>
               </div>
             );
 

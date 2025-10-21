@@ -298,9 +298,9 @@ export default function QuickTestFinder() {
 
                                 <button
                                     onClick={nextStep}
-                                    disabled={!answers[questions[currentStep].id]}
+                                    disabled={answers[questions[currentStep].id] === undefined || answers[questions[currentStep].id] === null}
                                     className={`flex items-center px-6 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${
-                                        !answers[questions[currentStep].id]
+                                        answers[questions[currentStep].id] === undefined || answers[questions[currentStep].id] === null
                                             ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                             : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-md hover:scale-105'
                                     }`}

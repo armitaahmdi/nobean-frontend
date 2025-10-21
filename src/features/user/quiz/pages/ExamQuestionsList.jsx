@@ -52,7 +52,7 @@ export default function ExamQuestionsList({ questions, currentIndex, setCurrentI
                         {translate.previousQuestion}
                     </Button>
 
-                    <Button size="medium" color="blue" onClick={nextQuestion} disabled={currentIndex === questions.length - 1 || selectedAnswer === undefined}>
+                    <Button size="medium" color="blue" onClick={nextQuestion} disabled={currentIndex === questions.length - 1 || selectedAnswer === undefined || selectedAnswer === null}>
                         {translate.nextQuestion}
                     </Button>
                 </div>

@@ -1,66 +1,66 @@
 import { Link } from "react-router-dom";
 import learningSupportImage from "../../../assets/images/learning.jpg";
-import satisfiction from "../../../assets/images/categoryIcons/homePageIcons/satisfaction.png";
-import training from "../../../assets/images/categoryIcons/homePageIcons/training.png";
-import consultation from "../../../assets/images/categoryIcons/homePageIcons/consultation.png";
-import healthreport from "../../../assets/images/categoryIcons/homePageIcons/health-report.png";
 import translate from "../../../locale/translate";
+import examTest from "../../../assets/images/3d/3d-exam-test.png";
+import report from "../../../assets/images/3d/3d-report.png";
+import specialTechniques from "../../../assets/images/3d/3d-teaching-strategies.png";
+import personalization from "../../../assets/images/3d/3d-personalized .png";
 
 const services = [
     {
         id: 1,
-        icon: satisfiction,
-        title: "آزمون‌های تشخیص اختلال یادگیری",
-        description: "آزمون‌های تخصصی برای شناسایی دقیق اختلالات یادگیری کودکان و نوجوانان.",
-        bgColor: "bg-[#106089]",
-        textColor: "text-white",
+        icon: examTest,
+        title: "اجرای آزمون راهبردهای مطالعه و یادگیری (LASSI)",
+        description: "برگزاری آزمون به صورت فردی و گروهی به صورت آنلاین و حضوری",
+        bgColor: "bg-gradient-to-br from-blue-50 to-blue-100",
+        textColor: "text-blue-800",
         link: "/tests",
     },
     {
         id: 2,
-        icon: consultation,
-        title: "مشاوره و حمایت تخصصی",
-        description: "مشاوره‌های اختصاصی و برنامه‌ریزی درمانی برای خانواده‌ها و مدارس.",
-        bgColor: "bg-green-50",
-        textColor: "text-green-600",
-        link: "/consultants",
+        icon: report,
+        title: "ارائه کارنامه تخصصی و فردی",
+        description: "ارائه نمره، نمودار و جدول برای هر دانش آموز",
+        bgColor: "bg-gradient-to-br from-emerald-50 to-emerald-100",
+        textColor: "text-emerald-800",
+        // link: "/consultants",
     },
     {
         id: 3,
-        icon: training,
-        title: "دوره‌های آموزشی ویژه",
-        description: "دوره‌های تخصصی برای آموزش مهارت‌های جبران اختلالات یادگیری.",
-        bgColor: "bg-yellow-50",
-        textColor: "text-yellow-600",
+        icon: personalization,
+        title: "ارائه تحلیل شخصی سازی شده",
+        description: "تفسیر وضعیت هر فرد و سطح او",
+        bgColor: "bg-gradient-to-br from-amber-50 to-amber-100",
+        textColor: "text-amber-800",
         link: "/courses",
     },
     {
         id: 4,
-        icon: healthreport,
-        title: "گزارش‌ها و تحلیل پیشرفت",
+        icon: specialTechniques,
+        title: "ارائه تکنیک و راهبردهای تخصصی ویژه دانش آموزان،والدین،معلمان و مدیران مدارس",
         description: "گزارش‌های دقیق عملکرد و پیشرفت برای ارزیابی بهتر روند درمانی.",
-        bgColor: "bg-[#106089]",
-        textColor: "text-white",
+        bgColor: "bg-gradient-to-br from-purple-50 to-purple-100",
+        textColor: "text-purple-800",
         link: "/",
     },
 ];
 
-function ServiceCard({ icon, title, description, bgColor, textColor, link }) {
+function ServiceCard({ icon, title, description, bgColor, textColor, link = "/" }) {
     return (
         <Link
             to={link}
-            className={`${bgColor} flex items-center gap-5 rounded-3xl p-6 shadow-md hover:shadow-lg transition cursor-pointer`}
+            className={`${bgColor} flex items-center gap-6 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer h-full hover:scale-105 border border-gray-100`}
         >
-            <div className="w-16 h-16 flex-shrink-0">
+            <div className="w-28 h-28 flex-shrink-0 flex items-center justify-center">
                 <img
                     src={icon}
                     alt={title}
-                    className="w-full h-full object-contain"
+                    className="w-28 h-28 object-contain"
                 />
             </div>
-            <div className="flex flex-col text-right">
-                <h3 className={` ${textColor} text-lg font-bold`}>{title}</h3>
-                <p className={` ${textColor} text-sm mt-1 leading-relaxed`}>
+            <div className="flex flex-col text-right flex-1">
+                <h3 className={`${textColor} text-lg font-bold mb-2 leading-tight`}>{title}</h3>
+                <p className={`${textColor} text-sm leading-relaxed opacity-90`}>
                     {description}
                 </p>
             </div>
@@ -85,14 +85,8 @@ export default function ServicesSection() {
                     />
                 </div>
 
-                <div className="flex flex-col gap-8">
-                    {services.slice(0, 2).map((service) => (
-                        <ServiceCard key={service.id} {...service} />
-                    ))}
-                </div>
-
-                <div className="flex flex-col gap-8">
-                    {services.slice(2, 4).map((service) => (
+                <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                    {services.map((service) => (
                         <ServiceCard key={service.id} {...service} />
                     ))}
                 </div>
