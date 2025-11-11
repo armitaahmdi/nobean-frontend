@@ -82,17 +82,19 @@ export default function StatCard({ title, count, icon: Icon, color = "blue", lin
                     </div>
                     
                     {/* دکمه مدرن */}
-                    <Link
-                        to={link}
-                        className={`${config.buttonBg} ${config.iconColor} px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 backdrop-blur-sm`}
-                    >
-                        <span className="flex items-center gap-1">
-                            بیشتر
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </span>
-                    </Link>
+                    {link ? (
+                        <Link
+                            to={link}
+                            className={`${config.buttonBg} ${config.iconColor} px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 backdrop-blur-sm`}
+                        >
+                            <span className="flex items-center gap-1">
+                                بیشتر
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </span>
+                        </Link>
+                    ) : null}
                 </div>
 
                 {/* آمار مدرن */}

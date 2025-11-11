@@ -5,6 +5,7 @@ import { HiMenu, HiHome, HiLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout, clearAuth } from "../../features/authentication/slices/loginSlice";
+import NotificationBell from "../../components/admin/NotificationBell";
 
 export default function AdminHeader({ role, onMobileMenuToggle }) {
     const [showModal, setShowModal] = useState(false);
@@ -54,6 +55,9 @@ export default function AdminHeader({ role, onMobileMenuToggle }) {
             </div>
 
             <div className="flex items-center gap-3">
+                {/* Notification Bell */}
+                <NotificationBell />
+                
                 {/* دکمه رفتن به صفحه اصلی */}
                 <button
                     onClick={handleGoHome}

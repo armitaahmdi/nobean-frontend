@@ -74,6 +74,18 @@ export const fetchRecentActivities = createAsyncThunk(
   }
 );
 
+export const fetchRecentComments = createAsyncThunk(
+  'dashboard/fetchRecentComments',
+  async ({ token, limit = 20, days = 7 }, { rejectWithValue }) => {
+    try {
+      const response = await dashboardApi.getRecentComments(token, { limit, days });
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message || 'خطا در دریافت کامنت‌های جدید');
+    }
+  }
+);
+
 // Initial state
 const initialState = {
   // آمار کلی داشبورد
@@ -113,6 +125,12 @@ const initialState = {
   // داده‌های اخیر
   recentUsers: [],
   recentActivities: [],
+  recentComments: [],
+  commentsStats: {
+    total: 0,
+    recent: 0,
+    days: 7
+  },
   
   // وضعیت‌های بارگذاری
   loading: {
@@ -121,7 +139,8 @@ const initialState = {
     testStats: false,
     examAttemptsStats: false,
     recentUsers: false,
-    recentActivities: false
+    recentActivities: false,
+    recentComments: false
   },
   
   // خطاها
@@ -131,7 +150,8 @@ const initialState = {
     testStats: null,
     examAttemptsStats: null,
     recentUsers: null,
-    recentActivities: null
+    recentActivities: null,
+    recentComments: null
   },
   
   // وضعیت کلی
@@ -152,7 +172,8 @@ const dashboardSlice = createSlice({
         testStats: null,
         examAttemptsStats: null,
         recentUsers: null,
-        recentActivities: null
+        recentActivities: null,
+        recentComments: null
       };
     },
     
@@ -290,6 +311,23 @@ const dashboardSlice = createSlice({
       .addCase(fetchRecentActivities.rejected, (state, action) => {
         state.loading.recentActivities = false;
         state.errors.recentActivities = action.payload;
+      })
+      
+      // Recent Comments
+      .addCase(fetchRecentComments.pending, (state) => {
+        state.loading.recentComments = true;
+        state.errors.recentComments = null;
+      })
+      .addCase(fetchRecentComments.fulfilled, (state, action) => {
+        state.loading.recentComments = false;
+        state.recentComments = action.payload.comments || [];
+        state.commentsStats = action.payload.stats || state.commentsStats;
+        // به‌روزرسانی آمار کلی داشبورد
+        state.dashboardStats.comments = action.payload.stats?.total || 0;
+      })
+      .addCase(fetchRecentComments.rejected, (state, action) => {
+        state.loading.recentComments = false;
+        state.errors.recentComments = action.payload;
       });
   }
 });
@@ -304,6 +342,8 @@ export const selectTestStats = (state) => state.dashboard.testStats;
 export const selectExamAttemptsStats = (state) => state.dashboard.examAttemptsStats;
 export const selectRecentUsers = (state) => state.dashboard.recentUsers;
 export const selectRecentActivities = (state) => state.dashboard.recentActivities;
+export const selectRecentComments = (state) => state.dashboard.recentComments;
+export const selectCommentsStats = (state) => state.dashboard.commentsStats;
 export const selectDashboardLoading = (state) => state.dashboard.loading;
 export const selectDashboardErrors = (state) => state.dashboard.errors;
 export const selectIsDashboardInitialized = (state) => state.dashboard.isInitialized;

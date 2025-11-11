@@ -163,6 +163,20 @@ export const dashboardApi = {
     });
     console.log('Recent activities response:', response);
     return response;
+  },
+
+  // دریافت کامنت‌های جدید
+  getRecentComments: async (token, params = {}) => {
+    if (!token) throw new Error('برای دریافت کامنت‌های جدید باید وارد شوید');
+    
+    const { limit = 20, days = 7 } = params;
+    const queryString = new URLSearchParams({ limit, days }).toString();
+    const url = `${API_BASE_URL}/comments/admin/recent${queryString ? `?${queryString}` : ''}`;
+    
+    return await apiRequestWithRetry(url, {
+      method: 'GET',
+      token,
+    });
   }
 };
 

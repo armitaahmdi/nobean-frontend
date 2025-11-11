@@ -15,13 +15,15 @@ import {
     fetchDashboardStats, 
     fetchRecentUsers, 
     fetchRecentActivities,
+    fetchRecentComments,
     clearErrors,
     selectDashboardStats,
     selectDashboardLoading,
     selectDashboardErrors,
     selectIsDashboardInitialized,
     selectRecentUsers,
-    selectRecentActivities
+    selectRecentActivities,
+    selectCommentsStats
 } from "../../features/admin/slices/dashboardSlice";
 
 export default function Dashboard() {
@@ -32,6 +34,7 @@ export default function Dashboard() {
     const isInitialized = useSelector(selectIsDashboardInitialized);
     const recentUsers = useSelector(selectRecentUsers);
     const recentActivities = useSelector(selectRecentActivities);
+    const commentsStats = useSelector(selectCommentsStats);
     
     // Get token from auth state
     const token = useSelector((state) => state.auth?.token);
@@ -47,6 +50,9 @@ export default function Dashboard() {
             
             // بارگذاری فعالیت‌های اخیر
             dispatch(fetchRecentActivities({ token, limit: 10 }));
+            
+            // بارگذاری کامنت‌های جدید
+            dispatch(fetchRecentComments({ token, limit: 20, days: 7 }));
         }
     }, [dispatch, token, isInitialized]);
 
@@ -61,6 +67,9 @@ export default function Dashboard() {
     const statsMap = useMemo(() => {
         if (!dashboardStats) return {};
         
+        // استفاده از commentsStats.total اگر موجود باشه، وگرنه از dashboardStats.comments
+        const commentsCount = commentsStats?.total || dashboardStats.comments || 0;
+        
         return {
             users: dashboardStats.users?.total || 0,
             exams: dashboardStats.tests?.total || 0,
@@ -70,9 +79,9 @@ export default function Dashboard() {
             successfulConsultations: dashboardStats.successfulConsultations || 0,
             articles: dashboardStats.articles || 0,
             podcasts: dashboardStats.podcasts || 0,
-            comments: dashboardStats.comments || 0,
+            comments: commentsCount,
         };
-    }, [dashboardStats]);
+    }, [dashboardStats, commentsStats]);
 
     // بررسی وجود خطا
     const hasError = Object.values(errors).some(error => error !== null);

@@ -1,6 +1,20 @@
 // API Configuration
+// Use VITE_API_URL if set, otherwise use default based on environment
+const getApiBaseUrl = () => {
+  // If VITE_API_URL is explicitly set, use it
+  if (import.meta.env.VITE_API_URL) {
+    return `${import.meta.env.VITE_API_URL}/api/v1`;
+  }
+  // In development mode, use proxy (relative path)
+  if (import.meta.env.DEV) {
+    return '/api/v1';
+  }
+  // In production, use production server
+  return 'https://www.nobean.ir/api/v1';
+};
+
 const API_CONFIG = {
-  BASE_URL: import.meta.env.DEV ? '/api/v1' : 'https://www.nobean.ir/api/v1',
+  BASE_URL: getApiBaseUrl(),
   TIMEOUT: 10000,
   RETRY_ATTEMPTS: 3,
 };

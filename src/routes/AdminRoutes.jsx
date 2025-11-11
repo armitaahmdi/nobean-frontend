@@ -8,6 +8,7 @@ import Courses from "../pages/admin/Courses";
 import Podcasts from "../pages/admin/Podcasts";
 import Tests from "../pages/admin/Tests";
 import ExamResults from "../pages/admin/ExamResults";
+import Comments from "../pages/admin/Comments";
 
 export const AdminRoutes = ({ user }) => {
     // Check admin access with multiple conditions
@@ -41,6 +42,7 @@ export const AdminRoutes = ({ user }) => {
                 { path: "podcasts", element: <Podcasts /> },
                 { path: "tests", element: <Tests /> },
                 { path: "exam-results", element: <ExamResults /> },
+                { path: "comments", element: <Comments /> },
             ],
         },
     ];

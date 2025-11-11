@@ -1,4 +1,4 @@
-import { FaHome, FaUsers, FaClipboardList, FaUserTie, FaFileAlt, FaPodcast, FaBookOpen, FaSchool, FaChartBar } from "react-icons/fa";
+import { FaHome, FaUsers, FaClipboardList, FaUserTie, FaFileAlt, FaPodcast, FaBookOpen, FaSchool, FaChartBar, FaComments } from "react-icons/fa";
 
 const adminMenu = [
     {
@@ -51,6 +51,12 @@ const adminMenu = [
         name: "پادکست ها",
         link: "/admin/podcasts",
         icon: FaPodcast,
+    },
+    {
+        id: "comments",
+        name: "نظرات",
+        link: "/admin/comments",
+        icon: FaComments,
     },
 ];
 

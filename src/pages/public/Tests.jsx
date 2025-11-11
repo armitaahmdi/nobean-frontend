@@ -100,6 +100,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaCheckCircle, FaClock, FaQuestionCircle, FaChartLine, FaUsers, FaStar, FaBook, FaLightbulb } from "react-icons/fa";
 import { BiTargetLock } from "react-icons/bi";
+import CommentSection from "../../components/shared/CommentSection";
+
+const LASSI_TEST_ID = 17; // شناسه آزمون LASSI
 
 export default function Tests() {
   const navigate = useNavigate();
@@ -111,7 +114,7 @@ export default function Tests() {
             navigate("/login");
             return;
         }
-        navigate("/exam/17");
+        navigate(`/exam/${LASSI_TEST_ID}`);
     };
 
     const features = [
@@ -403,6 +406,11 @@ export default function Tests() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* Comments Section */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-16">
+                <CommentSection entityType="test" entityId={LASSI_TEST_ID} />
             </div>
         </div>
     );

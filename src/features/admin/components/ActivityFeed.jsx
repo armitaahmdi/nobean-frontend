@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import moment from "moment-jalaali";
 import { useSelector } from "react-redux";
-import { selectRecentActivities, selectRecentUsers, selectDashboardStats } from "../slices/dashboardSlice";
+import { selectRecentActivities, selectRecentUsers, selectDashboardStats, selectRecentComments } from "../slices/dashboardSlice";
 import {
     FaUserPlus,
     FaClipboardList,
@@ -34,10 +34,12 @@ export default function ActivityFeed() {
     const [filter, setFilter] = useState("all");
     const activities = useSelector(selectRecentActivities);
     const recentUsers = useSelector(selectRecentUsers);
+    const recentComments = useSelector(selectRecentComments);
     const dashboardStats = useSelector(selectDashboardStats);
 
     console.log('ActivityFeed - Raw activities data:', activities);
     console.log('ActivityFeed - Recent users data:', recentUsers);
+    console.log('ActivityFeed - Recent comments data:', recentComments);
 
     // تبدیل فعالیت‌های آزمون به فرمت مورد نیاز
     const examActivities = (activities || []).map((attempt, index) => ({
@@ -59,8 +61,36 @@ export default function ActivityFeed() {
         user: user
     }));
 
+    // تبدیل کامنت‌های جدید به فرمت مورد نیاز
+    const commentActivities = (recentComments || []).map((comment, index) => {
+        const userName = comment.user 
+            ? `${comment.user.firstName || ''} ${comment.user.lastName || ''}`.trim() || comment.user.userName || 'کاربر ناشناس'
+            : 'کاربر ناشناس';
+        const entityTypeMap = {
+            'article': 'مقاله',
+            'test': 'آزمون',
+            'course': 'دوره',
+            'product': 'محصول',
+            'podcast': 'پادکست',
+            'webinar': 'وبینار',
+            'consultant': 'مشاور'
+        };
+        const entityTypeLabel = entityTypeMap[comment.section_type] || comment.section_type;
+        
+        return {
+            id: `comment-${comment.id || index}`,
+            type: 'comment',
+            message: `کاربر "${userName}" یک نظر جدید برای ${entityTypeLabel} ثبت کرد`,
+            timestamp: comment.createdAt || new Date().toISOString(),
+            user: comment.user,
+            comment: comment,
+            entityType: comment.section_type,
+            entityId: comment.section_id
+        };
+    });
+
     // ترکیب و مرتب‌سازی فعالیت‌ها بر اساس زمان
-    const allActivities = [...examActivities, ...signupActivities].sort((a, b) => 
+    const allActivities = [...examActivities, ...signupActivities, ...commentActivities].sort((a, b) => 
         new Date(b.timestamp) - new Date(a.timestamp)
     );
 

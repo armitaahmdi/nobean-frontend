@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom"
 import { fetchTestDetails } from "../../features/user/tests/testDetailsSlice";
 import IntroCard from "../../features/user/tests/components/IntroCard";
 import Tabs from "../../components/tab/shared/Tabs";
+import CommentSection from "../../components/shared/CommentSection";
 import LoadingState from "../../components/ui/LoadingState";
 import ErrorState from "../../components/ui/ErrorState";
 import StickyActionsColumn from "../../features/user/tests/components/StickyActionsColumn";
@@ -127,6 +128,9 @@ export default function TestDetails() {
                 </div>
                 <DetailsRowCards ref={detailsRowRef} test={{ ...test, hideStart: true }} />
                 <Tabs tabs={tabs} data={test} />
+                <div className="mt-6" id="comments">
+                    <CommentSection entityType="test" entityId={id} />
+                </div>
             </div>
 
             {/* ستون سمت چپ (استیکی اکشن‌ها) */}

@@ -41,7 +41,7 @@ export default function AdminArticleForm({ article, onClose, onSave }) {
         title: '',
         excerpt: '',
         description: '',
-        author: 'نوین کد',
+        author: 'نوبین',
         date: new Date().toISOString().split('T')[0],
         image: '',
         readingTime: 5,

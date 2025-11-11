@@ -1,10 +1,11 @@
 import { HiChevronRight } from "react-icons/hi";
 import FaqTab from "../../../../components/tab/shared/FaqTab";
 import ReviewsTab from "../../../../components/tab/shared/ReviewsTab";
+import CommentSection from "../../../../components/shared/CommentSection";
 import socialmedia from "../../../../assets/images/icons/social-media.png";
 import faqImage from "../../../../assets/images/icons/faq.png"
 
-function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
+function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews, articleId }) {
   return (
     <section
       className="max-w-4xl mx-auto p-6 md:p-8 bg-white rounded-2xl border border-gray-100 select-text"
@@ -184,6 +185,10 @@ function ArticlesDetailsTemp({ sections, articleFAQ, articleReviews }) {
           </section>
         </section>
       )}
+      {/* بخش نظرات */}
+      <div className="mt-12">
+        <CommentSection entityType="article" entityId={articleId} />
+      </div>
     </section>
   );
 }

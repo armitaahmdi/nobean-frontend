@@ -93,6 +93,7 @@ export default function ArticleDetail() {
                                     sections={currentArticle.contentSections} 
                                     articleFAQ={[]} 
                                     articleReviews={[]} 
+                                    articleId={currentArticle.id}
                                 />
                             </div>
                             

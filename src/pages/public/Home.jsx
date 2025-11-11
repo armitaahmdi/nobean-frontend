@@ -7,20 +7,22 @@ import ServicesSection from "../../features/home/components/ServicesSection";
 import SuggestedArticlesSection from "../../features/home/components/SuggestedArticlesSection";
 import TestimonialsSection from "../../features/home/components/TestimonialsSection";
 import TopConsultantsSection from "../../features/home/components/TopConsultantsSection";
-import HeroBanner from "../../components/banner/HeroBanner";
-import mainbanner from "../../assets/images/banner/mainbanner.jpeg";
+import useIsMobile from "../../hooks/useIsMobile";
+import mainbannerphone from "../../assets/images/banner/mainbannerphone.jpg";
+import mainbanner from "../../assets/images/banner/mainbanner.jpg";
 
 export default function Home() {
+  const isMobile = useIsMobile(768); // 768px = md breakpoint در Tailwind
+
   return (
     <>
-      <div className="mb-4">
+      <div className="mt-2 mb-8">
         <SearchBar />
       </div>
       {/* Hero Banner - First Section */}
-      {/* <HeroBanner /> */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 mb-8">
+      <div className="mx-auto max-w-7xl px-4 my-4 sm:px-6 md:px-8">
         <img 
-          src={mainbanner} 
+          src={isMobile ? mainbannerphone : mainbanner} 
           alt="Hero Banner" 
           className="w-full h-auto rounded-lg shadow-md"
         />

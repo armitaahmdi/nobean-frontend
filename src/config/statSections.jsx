@@ -9,7 +9,7 @@ export const statItems = [
     { key: "successfulConsultations", title: "مشاوره‌های موفق", link: "/admin/consultants" },
     { key: "articles", title: "مقالات", link: "/admin/articles" },
     { key: "podcasts", title: "پادکست‌ها", link: "/admin/podcasts" },
-    { key: "comments", title: "نظرات" },
+    { key: "comments", title: "نظرات", link: "/admin/comments" },
 ];
 
 
