@@ -23,6 +23,12 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 5173,
       host: true,
+      // Disable caching in development
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      },
       // Only proxy in development mode
       ...(isDev && {
         proxy: {
@@ -45,8 +51,13 @@ export default defineConfig(({ mode }) => {
       target: 'es2019',
       cssCodeSplit: true,
       sourcemap: false,
+      // Force file names to include hash for cache busting
       rollupOptions: {
         output: {
+          // Add hash to filenames for cache busting
+          entryFileNames: 'assets/[name].[hash].js',
+          chunkFileNames: 'assets/[name].[hash].js',
+          assetFileNames: 'assets/[name].[hash].[ext]',
           manualChunks: {
             react: ['react', 'react-dom', 'react-router-dom'],
             redux: ['@reduxjs/toolkit', 'react-redux'],
