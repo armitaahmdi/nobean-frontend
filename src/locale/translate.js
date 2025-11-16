@@ -132,7 +132,7 @@ const translate = {
     seeAllArticles: "مشاهده همه مقالات",
     continue: " ادامه مطلب",
     recommendedArticles: "مقالات پیشنهادی",
-    reviews: "نظرات مراجعین",
+    reviews: "نظرات کاربران",
     bestConsultants: "برترین مشاور ماه و مشاوران پیشنهادی",
     bestConsultantsOfMonth: "برترین مشاور ماه"
 }

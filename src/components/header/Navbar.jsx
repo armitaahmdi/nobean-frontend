@@ -22,7 +22,7 @@ export default function Navbar() {
     
     // Get authentication state from Redux
     const { isAuthenticated, user } = useSelector((state) => state.auth);
-    const { profile } = useSelector((state) => state.profile);
+    const { profile, isLoading: isProfileLoading, lastUpdated: profileLastUpdated } = useSelector((state) => state.profile);
 
     console.log('Navbar - User data:', user);
     console.log('Navbar - User role:', user?.user?.role || user?.role);
@@ -30,8 +30,9 @@ export default function Navbar() {
 
     // Check if profile is complete
     const isProfileComplete = () => {
-        // Use profile data if available, otherwise use user data from auth
-        const dataSource = profile || user;
+        // Prefer fetched profile if it has been populated; otherwise fall back to auth user
+        const hasFetchedProfile = !!profileLastUpdated || (profile && (profile.firstName || profile.lastName || profile.email || profile.age));
+        const dataSource = hasFetchedProfile ? profile : user;
         if (!dataSource) return false;
         return dataSource.firstName && dataSource.lastName && dataSource.email && dataSource.age;
     };
@@ -200,7 +201,7 @@ export default function Navbar() {
                                     )}
                                     
                                     {/* Profile Completion Alert */}
-                                    {!isProfileComplete() && (
+                                    {isAuthenticated && !isProfileLoading && !isProfileComplete() && (
                                         <div className="absolute top-full right-0 mt-1 w-48 bg-orange-50 border border-orange-200 rounded-lg p-2 text-xs text-orange-700 z-40">
                                             <div className="flex items-center gap-1">
                                                 <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
@@ -338,7 +339,7 @@ export default function Navbar() {
                                 </div>
                                 
                                 {/* Profile Completion Alert - Mobile */}
-                                {!isProfileComplete() && (
+                                {isAuthenticated && !isProfileLoading && !isProfileComplete() && (
                                     <div className="bg-orange-50 border border-orange-200 rounded-lg p-2 text-xs text-orange-700 text-center">
                                         <div className="flex items-center justify-center gap-1">
                                             <div className="w-2 h-2 bg-orange-500 rounded-full"></div>

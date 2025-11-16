@@ -5,6 +5,7 @@ import examTest from "../../../assets/images/3d/3d-exam-test.png";
 import report from "../../../assets/images/3d/3d-report.png";
 import specialTechniques from "../../../assets/images/3d/3d-teaching-strategies.png";
 import personalization from "../../../assets/images/3d/3d-personalized .png";
+import service3d from "../../../assets/images/3d/services.png";
 
 const services = [
     {
@@ -49,17 +50,17 @@ function ServiceCard({ icon, title, description, bgColor, textColor, link = "/" 
     return (
         <Link
             to={link}
-            className={`${bgColor} flex items-center gap-6 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer h-full hover:scale-105 border border-gray-100`}
+            className={`${bgColor} flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-6 rounded-xl lg:rounded-3xl p-5 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer h-full hover:scale-[1.02] lg:hover:scale-105 border border-gray-100`}
         >
-            <div className="w-28 h-28 flex-shrink-0 flex items-center justify-center">
+            <div className="w-20 h-20 lg:w-32 lg:h-32 flex-shrink-0 flex items-center justify-center">
                 <img
                     src={icon}
                     alt={title}
-                    className="w-28 h-28 object-contain"
+                    className="w-full h-full object-contain"
                 />
             </div>
-            <div className="flex flex-col text-right flex-1">
-                <h3 className={`${textColor} text-lg font-bold mb-2 leading-tight`}>{title}</h3>
+            <div className="flex flex-col text-center lg:text-right flex-1 w-full min-w-0">
+                <h3 className={`${textColor} text-base lg:text-lg font-bold mb-2 lg:mb-2.5 leading-snug lg:leading-tight`}>{title}</h3>
                 <p className={`${textColor} text-sm leading-relaxed opacity-90`}>
                     {description}
                 </p>
@@ -70,22 +71,22 @@ function ServiceCard({ icon, title, description, bgColor, textColor, link = "/" 
 
 export default function ServicesSection() {
     return (
-        <section className="max-w-7xl mx-auto px-4 py-14">
-            <h2 className="flex items-center justify-center gap-3 relative text-xl font-bold text-gray-800 mb-10">
-                <span className="inline-block w-[3.2rem] h-[0.2rem] rounded-[30%] bg-[#106089] shadow-md"></span>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12 lg:py-14">
+            <h2 className="flex items-center justify-center gap-2 md:gap-3 relative text-lg md:text-xl font-bold text-gray-800 mb-6 md:mb-8 lg:mb-10">
+                <span className="inline-block w-8 md:w-12 lg:w-[3.2rem] h-[0.2rem] rounded-[30%] bg-[#106089] shadow-md"></span>
                 <span>{translate.ourService}</span>
-                <span className="inline-block w-[3.2rem] h-[0.2rem] rounded-[30%] bg-[#106089] shadow-md"></span>
+                <span className="inline-block w-8 md:w-12 lg:w-[3.2rem] h-[0.2rem] rounded-[30%] bg-[#106089] shadow-md"></span>
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:gap-8 items-center">
+                <div className="hidden md:flex justify-center">
                     <img
-                        src={learningSupportImage}
+                        src={service3d}
                         alt="حمایت از اختلال یادگیری"
-                        className="rounded-3xl shadow-lg object-cover max-h-[500px] w-full"
+                        className="rounded-2xl md:rounded-3xl shadow-lg object-cover max-h-[400px] md:max-h-[450px] lg:max-h-[500px] w-full"
                     />
                 </div>
 
-                <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 lg:gap-8 items-stretch">
                     {services.map((service) => (
                         <ServiceCard key={service.id} {...service} />
                     ))}

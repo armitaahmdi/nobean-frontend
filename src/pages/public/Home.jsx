@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CategoryCardsSection from "../../features/home/components/CategoryCardsSection";
 import FAQSection from "../../features/home/components/FAQSection";
 import PopularItemsSection from "../../features/home/components/PopularItemsSection";
@@ -21,11 +22,13 @@ export default function Home() {
       </div>
       {/* Hero Banner - First Section */}
       <div className="mx-auto max-w-7xl px-4 my-4 sm:px-6 md:px-8">
+        <Link to="/tests" aria-label="رفتن به صفحه آزمون‌ها">
         <img 
           src={isMobile ? mainbannerphone : mainbanner} 
           alt="Hero Banner" 
-          className="w-full h-auto rounded-lg shadow-md"
+            className="w-full h-auto rounded-lg shadow-md cursor-pointer"
         />
+        </Link>
       </div>
 
       {/* <CategoryCardsSection /> */}

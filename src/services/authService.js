@@ -17,11 +17,17 @@ class AuthService {
   // Send OTP to phone number
   async sendOtp(phone) {
     try {
-      return await apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.SEND_OTP}`, {
+      // Use apiRequest instead of apiRequestWithRetry to prevent multiple OTP sends
+      return await apiRequest(`${this.baseURL}${AUTH_ENDPOINTS.SEND_OTP}`, {
         method: 'POST',
         body: { phone },
+        timeout: 10000, // 10 seconds timeout
       });
     } catch (error) {
+      // Better error handling
+      if (error.message.includes('timeout') || error.message.includes('Failed to fetch')) {
+        throw new Error('خطا در ارتباط با سرور. لطفاً اتصال اینترنت خود را بررسی کنید');
+      }
       if (error.message.includes('500')) {
         throw new Error('خطای سرور: لطفاً با پشتیبانی تماس بگیرید یا دوباره تلاش کنید');
       }

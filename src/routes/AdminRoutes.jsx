@@ -1,14 +1,15 @@
 import { Route, Navigate } from "react-router-dom";
-import AdminLayout from "../layout/adminLayout/AdminLayout";
-import Dashboard from "../pages/admin/Dashboard";
-import Users from "../pages/admin/Users";
-import Articles from "../pages/admin/Articles";
-import Consultants from "../pages/admin/Consultants";
-import Courses from "../pages/admin/Courses";
-import Podcasts from "../pages/admin/Podcasts";
-import Tests from "../pages/admin/Tests";
-import ExamResults from "../pages/admin/ExamResults";
-import Comments from "../pages/admin/Comments";
+import { lazy } from "react";
+const AdminLayout = lazy(() => import("../layout/adminLayout/AdminLayout"));
+const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
+const Users = lazy(() => import("../pages/admin/Users"));
+const Articles = lazy(() => import("../pages/admin/Articles"));
+const Consultants = lazy(() => import("../pages/admin/Consultants"));
+const Courses = lazy(() => import("../pages/admin/Courses"));
+const Podcasts = lazy(() => import("../pages/admin/Podcasts"));
+const Tests = lazy(() => import("../pages/admin/Tests"));
+const ExamResults = lazy(() => import("../pages/admin/ExamResults"));
+const Comments = lazy(() => import("../pages/admin/Comments"));
 
 export const AdminRoutes = ({ user }) => {
     // Check admin access with multiple conditions

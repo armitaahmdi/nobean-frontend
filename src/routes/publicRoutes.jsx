@@ -1,29 +1,30 @@
 import { Route, Navigate } from "react-router-dom";
-import Layout from "../layout/Layout";
+import { lazy } from "react";
 
-import Home from "../pages/public/Home";
-import Tests from "../pages/public/Tests";
-import TestDetails from "../pages/public/TestDetails";
-import Courses from "../pages/public/Courses";
-import CourseDetails from "../pages/public/CourseDetails";
-import Article from "../pages/public/Articles";
-import ArticleDetail from "../pages/public/ArticleDetail";
-import Podcasts from "../pages/public/Podcasts";
-import PodcastDetail from "../pages/public/PodcastDetail";
-import Services from "../pages/public/Services";
-import Contact from "../pages/public/Contact";
-import Consultants from "../pages/public/Consultants";
-import ConsultantDetail from "../pages/public/ConsultantDetail";
-import TestQuestions from "../pages/public/TestQuestion";
-import Webinar from "../pages/public/Webinar";
-import Store from "../pages/public/Store";
-import ProductDetail from "../pages/public/ProductDetail";
-import Cart from "../pages/public/Cart";
-import Favorites from "../pages/public/Favorites";
-import AboutUs from "../pages/public/AboutUs";
-import Profile from "../pages/public/Profile";
-import Dashboard from "../pages/public/Dashboard";
-import AuthContainer from "../features/authentication/AuthContainer";
+const Layout = lazy(() => import("../layout/Layout"));
+const Home = lazy(() => import("../pages/public/Home"));
+const Tests = lazy(() => import("../pages/public/Tests"));
+const TestDetails = lazy(() => import("../pages/public/TestDetails"));
+const Courses = lazy(() => import("../pages/public/Courses"));
+const CourseDetails = lazy(() => import("../pages/public/CourseDetails"));
+const Article = lazy(() => import("../pages/public/Articles"));
+const ArticleDetail = lazy(() => import("../pages/public/ArticleDetail"));
+const Podcasts = lazy(() => import("../pages/public/Podcasts"));
+const PodcastDetail = lazy(() => import("../pages/public/PodcastDetail"));
+const Services = lazy(() => import("../pages/public/Services"));
+const Contact = lazy(() => import("../pages/public/Contact"));
+const Consultants = lazy(() => import("../pages/public/Consultants"));
+const ConsultantDetail = lazy(() => import("../pages/public/ConsultantDetail"));
+const TestQuestions = lazy(() => import("../pages/public/TestQuestion"));
+const Webinar = lazy(() => import("../pages/public/Webinar"));
+const Store = lazy(() => import("../pages/public/Store"));
+const ProductDetail = lazy(() => import("../pages/public/ProductDetail"));
+const Cart = lazy(() => import("../pages/public/Cart"));
+const Favorites = lazy(() => import("../pages/public/Favorites"));
+const AboutUs = lazy(() => import("../pages/public/AboutUs"));
+const Profile = lazy(() => import("../pages/public/Profile"));
+const Dashboard = lazy(() => import("../pages/public/Dashboard"));
+const AuthContainer = lazy(() => import("../features/authentication/AuthContainer"));
 
 export const PublicRoutes = () => [
     { path: "/login", element: <AuthContainer /> },

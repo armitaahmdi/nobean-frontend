@@ -22,6 +22,7 @@ const schema = yup.object({
 
 export default function LoginForm({ onSubmit }) {
     const [isFocused, setIsFocused] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
     
     // Get auth state from Redux
@@ -43,6 +44,12 @@ export default function LoginForm({ onSubmit }) {
 
     // Handle form submission
     const handleFormSubmit = async (data) => {
+        // Prevent multiple submissions
+        if (isSubmitting || isLoading) {
+            return;
+        }
+
+        setIsSubmitting(true);
         try {
             // Dispatch the sendOtp action
             const result = await dispatch(sendOtp(data.mobile));
@@ -70,6 +77,8 @@ export default function LoginForm({ onSubmit }) {
             toast.error("خطا در ارسال کد تأیید", {
                 className: "text-lg font-semibold",
             });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -136,9 +145,9 @@ export default function LoginForm({ onSubmit }) {
                         color="blue" 
                         size="large" 
                         buttonClassName="w-full rounded-[20px]"
-                        disabled={isLoading}
+                        disabled={isLoading || isSubmitting}
                     >
-                        {isLoading ? "در حال ارسال..." : translate.login}
+                        {(isLoading || isSubmitting) ? "در حال ارسال..." : translate.login}
                     </Button>
                 </div>
             </form>

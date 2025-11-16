@@ -86,7 +86,7 @@
 // }
 
 import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -95,22 +95,16 @@ import { PublicRoutes } from "./routes/publicRoutes";
 import {AdminRoutes} from "./routes/AdminRoutes";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import AuthProvider from "./features/authentication/AuthProvider";
+import LoadingState from "./components/ui/LoadingState";
 
-import { fetchTests } from "./features/user/tests/testsSlice";
-import { fetchCourses } from "./features/user/courses/coursesSlice";
-import { fetchArticles } from "./features/user/articles/articlesSlice";
-import { fetchPodcasts } from "./features/user/podcasts/podcastsSlice";
+// Route-level pages are responsible for fetching their own data to avoid blocking initial load
 
 export default function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    dispatch(fetchTests());
-    dispatch(fetchCourses());
-    dispatch(fetchArticles());
-    dispatch(fetchPodcasts());
-  }, [dispatch]);
+  // Removed global data prefetching to improve initial page load performance.
+  // Each route should fetch its own data when needed.
 
   return (
     <AuthProvider>
@@ -128,6 +122,7 @@ export default function App() {
         theme="light"
       />
 
+      <Suspense fallback={<LoadingState />}>
       <Routes>
         {/* مسیرهای عمومی */}
         {PublicRoutes().map((route, index) => (
@@ -157,6 +152,7 @@ export default function App() {
           </Route>
         ))}
       </Routes>
+      </Suspense>
     </AuthProvider>
   );
 }
