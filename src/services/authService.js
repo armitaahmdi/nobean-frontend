@@ -21,12 +21,12 @@ class AuthService {
       return await apiRequest(`${this.baseURL}${AUTH_ENDPOINTS.SEND_OTP}`, {
         method: 'POST',
         body: { phone },
-        timeout: 10000, // 10 seconds timeout
+        timeout: 45000, // Allow more time for SMS gateway to respond
       });
     } catch (error) {
       // Better error handling
       if (error.message.includes('timeout') || error.message.includes('Failed to fetch')) {
-        throw new Error('خطا در ارتباط با سرور. لطفاً اتصال اینترنت خود را بررسی کنید');
+        throw new Error('ارتباط با سرور کند است. لطفاً چند ثانیه بعد دوباره تلاش کنید');
       }
       if (error.message.includes('500')) {
         throw new Error('خطای سرور: لطفاً با پشتیبانی تماس بگیرید یا دوباره تلاش کنید');
