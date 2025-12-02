@@ -21,7 +21,7 @@ class AuthService {
       return await apiRequest(`${this.baseURL}${AUTH_ENDPOINTS.SEND_OTP}`, {
         method: 'POST',
         body: { phone },
-        timeout: 45000, // Allow more time for SMS gateway to respond
+        timeout: 120000, // Allow more time for SMS gateway to respond (up to 60s)
       });
     } catch (error) {
       // Better error handling

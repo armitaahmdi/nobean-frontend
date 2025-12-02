@@ -68,10 +68,23 @@ export default function LoginForm({ onSubmit }) {
                     onSubmit(data);
                 }
             } else if (sendOtp.rejected.match(result)) {
-                // Error is already handled by the slice, just show toast
-                toast.error(result.payload || "خطا در ارسال کد تأیید", {
-                    className: "text-lg font-semibold",
-                });
+                const message = result.payload || "خطا در ارسال کد تأیید";
+                
+                // اگر خطا از نوع timeout/شبکه بود، کاربر را به صفحه وارد کردن کد ببریم
+                if (message.includes("ارتباط با سرور کند است") || message.toLowerCase().includes("timeout")) {
+                    dispatch(setMobile(data.mobile));
+                    toast.warning(message, {
+                        className: "text-lg font-semibold",
+                    });
+                    if (onSubmit) {
+                        onSubmit(data);
+                    }
+                } else {
+                    // Error is already handled by the slice, just show toast
+                    toast.error(message, {
+                        className: "text-lg font-semibold",
+                    });
+                }
             }
         } catch (error) {
             toast.error("خطا در ارسال کد تأیید", {

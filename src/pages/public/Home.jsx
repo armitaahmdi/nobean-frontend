@@ -9,8 +9,7 @@ import SuggestedArticlesSection from "../../features/home/components/SuggestedAr
 import TestimonialsSection from "../../features/home/components/TestimonialsSection";
 import TopConsultantsSection from "../../features/home/components/TopConsultantsSection";
 import useIsMobile from "../../hooks/useIsMobile";
-import mainbannerphone from "../../assets/images/banner/mainbannerphone.jpg";
-import mainbanner from "../../assets/images/banner/mainbanner.jpg";
+import nobeanbanner from "../../assets/images/banner/nobeanbanner.png";
 
 export default function Home() {
   const isMobile = useIsMobile(768); // 768px = md breakpoint در Tailwind
@@ -24,7 +23,7 @@ export default function Home() {
       <div className="mx-auto max-w-7xl px-4 my-4 sm:px-6 md:px-8">
         <Link to="/tests" aria-label="رفتن به صفحه آزمون‌ها">
         <img 
-          src={isMobile ? mainbannerphone : mainbanner} 
+          src={isMobile ? nobeanbanner : nobeanbanner} 
           alt="Hero Banner" 
             className="w-full h-auto rounded-lg shadow-md cursor-pointer"
         />
