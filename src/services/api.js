@@ -45,9 +45,30 @@ export const handleResponse = async (response) => {
       case 400:
         errorMessage = errorData.message || 'درخواست نامعتبر است';
         break;
-      case 401:
+      case 401: {
         errorMessage = errorData.message || 'احراز هویت ناموفق';
+
+        // اگر توکن منقضی شده باشد، کاربر را خودکار لاگ‌اوت و به صفحه ورود هدایت کن
+        const msg = (errorData.message || '').toLowerCase();
+        if (msg.includes('jwt') || msg.includes('token') || msg.includes('expired')) {
+          try {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            // نشان می‌دهیم که نشست منقضی شده تا در صفحه لاگین پیام بدهیم
+            localStorage.setItem('sessionExpired', '1');
+          } catch (_) {}
+
+          if (typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            if (!url.pathname.startsWith('/login')) {
+              url.pathname = '/login';
+              url.searchParams.set('reason', 'sessionExpired');
+              window.location.href = url.toString();
+            }
+          }
+        }
         break;
+      }
       case 403:
         errorMessage = errorData.message || 'دسترسی غیرمجاز';
         break;

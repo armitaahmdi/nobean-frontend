@@ -19,6 +19,26 @@ export default function AuthContainer() {
     // Get authentication state from Redux
     const { isAuthenticated, user, isLoading } = useSelector((state) => state.auth);
 
+    // Show message if session expired (set by api.js)
+    useEffect(() => {
+        try {
+            const urlParams = new URLSearchParams(location.search);
+            const reason = urlParams.get('reason');
+            const sessionExpired = localStorage.getItem('sessionExpired');
+
+            if (reason === 'sessionExpired' || sessionExpired === '1') {
+                toast.warning("نشست شما منقضی شده، لطفاً دوباره وارد شوید.", {
+                    className: "text-lg font-semibold",
+                    position: "top-center",
+                    autoClose: 4000,
+                });
+                localStorage.removeItem('sessionExpired');
+            }
+        } catch (e) {
+            // ignore
+        }
+    }, [location.search]);
+
     // Handle authentication state changes
     useEffect(() => {
         if (isAuthenticated) {
