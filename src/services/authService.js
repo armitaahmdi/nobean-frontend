@@ -37,10 +37,18 @@ class AuthService {
 
   // Verify OTP and login
   async verifyOtp(phone, code) {
-    return apiRequestWithRetry(`${this.baseURL}${AUTH_ENDPOINTS.VERIFY_OTP}`, {
-      method: 'POST',
-      body: { phone, code },
-    });
+    try {
+      return await apiRequest(`${this.baseURL}${AUTH_ENDPOINTS.VERIFY_OTP}`, {
+        method: 'POST',
+        body: { phone, code },
+        timeout: 120000, // Match OTP send timeout
+      });
+    } catch (error) {
+      if (error.message.includes('timeout') || error.message.includes('Failed to fetch')) {
+        throw new Error('ارتباط با سرور هنگام تأیید کد دچار مشکل شد. لطفاً دوباره تلاش کنید');
+      }
+      throw error;
+    }
   }
 
   // Refresh authentication token
